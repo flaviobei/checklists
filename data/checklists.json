@@ -1,0 +1,30 @@
+[
+  {
+    "id": "92a99b1a-0f0e-4f84-bf72-fdb34d0e810c",
+    "title": "teste limpeza",
+    "description": "limpeza",
+    "clientId": "2",
+    "locationId": "3",
+    "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "06c1a4ba-0db6-4c3e-8303-9a04d6a81a21",
+        "description": "limpeza chao",
+        "requirePhoto": true
+      },
+      {
+        "id": "af35f3a8-cbcd-4f95-924b-729f6af5d466",
+        "description": "limpeza balcão",
+        "requirePhoto": false
+      }
+    ],
+    "active": true,
+    "qrCodePath": "/qrcodes/checklist-92a99b1a-0f0e-4f84-bf72-fdb34d0e810c.png",
+    "createdAt": "2025-05-21T12:37:48.820Z",
+    "updatedAt": "2025-05-21T12:37:48.968Z"
+  }
+]

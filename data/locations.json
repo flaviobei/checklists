@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "name": "Hall de Entrada",
+    "address": "Térreo",
+    "clientId": "1",
+    "description": "Hall de entrada principal do condomínio",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Área da Piscina",
+    "address": "Área externa - Piso 1",
+    "clientId": "1",
+    "description": "Área de lazer com piscina e deck",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Recepção",
+    "address": "Térreo",
+    "clientId": "2",
+    "description": "Recepção principal do edifício comercial",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  }
+]

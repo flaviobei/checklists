@@ -1,0 +1,23 @@
+[
+  {
+    "id": "3c8661b0-556b-4ccf-84d7-f76d294d22d1",
+    "name": "Manutenção Preventiva",
+    "description": "Checklist para manutenção preventiva de equipamentos e instalações",
+    "createdAt": "2025-05-21T12:06:32.989Z",
+    "updatedAt": "2025-05-21T12:06:32.989Z"
+  },
+  {
+    "id": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "name": "Limpeza",
+    "description": "Checklist para verificação de limpeza de áreas comuns",
+    "createdAt": "2025-05-21T12:06:32.989Z",
+    "updatedAt": "2025-05-21T12:06:32.989Z"
+  },
+  {
+    "id": "ea9790bc-b225-4f8f-9627-54110ada39f1",
+    "name": "Segurança",
+    "description": "Checklist para verificação de itens de segurança",
+    "createdAt": "2025-05-21T12:06:32.989Z",
+    "updatedAt": "2025-05-21T12:06:32.989Z"
+  }
+]

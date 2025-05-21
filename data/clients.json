@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Condomínio Residencial Parque das Flores",
+    "contactPerson": "Maria Silva",
+    "phone": "(11) 98765-4321",
+    "email": "admin@parquedasflores.com.br",
+    "address": "Av. das Flores, 1000 - São Paulo/SP",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Edifício Comercial Central Tower",
+    "contactPerson": "João Oliveira",
+    "phone": "(11) 91234-5678",
+    "email": "administracao@centraltower.com.br",
+    "address": "Rua Augusta, 500 - São Paulo/SP",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  }
+]

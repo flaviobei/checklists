@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "name": "Manutenção Geral",
+    "description": "Profissionais de manutenção geral do prédio",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Eletricista",
+    "description": "Profissionais especializados em sistemas elétricos",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Encanador",
+    "description": "Profissionais especializados em sistemas hidráulicos",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "name": "Faxina",
+    "description": "Profissionais de limpeza e conservação",
+    "createdAt": "2025-05-20T00:00:00.000Z",
+    "updatedAt": "2025-05-20T00:00:00.000Z"
+  }
+]

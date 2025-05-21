@@ -1,0 +1,20 @@
+[
+  {
+    "id": "386fbcce-1152-4a1c-8251-06aa055ef43e",
+    "username": "admin",
+    "password": "$2b$10$iDKH3TuyWy3jTqnQyvTFvu.1hdQ1RBYFoUGgo031PdfQm.BRb1MT6",
+    "name": "Administrador",
+    "isAdmin": true,
+    "createdAt": "2025-05-20T19:19:57.688Z",
+    "updatedAt": "2025-05-20T19:19:57.688Z"
+  },
+  {
+    "id": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "username": "tecnico",
+    "password": "$2b$10$I/vrGlpeqrYzzZPvEqGj7OjaslITYG6Ea8SmzP7Y/mV3E5Adle6jK",
+    "name": "Técnico 1",
+    "isAdmin": false,
+    "createdAt": "2025-05-21T11:57:18.474Z",
+    "updatedAt": "2025-05-21T11:57:18.474Z"
+  }
+]
