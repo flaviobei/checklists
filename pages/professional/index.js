@@ -1,17 +1,17 @@
+// /pages/professional/index.js
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Professional.module.css';
 import checklistsData from '../../data/checklists.json';
-import executionsData from '../../data/executions.json';
 
 export default function ProfessionalDashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const [totalChecklists, setTotalChecklists] = useState(0);
-  const [realizados, setRealizados] = useState(0);
-  const [pendentes, setPendentes] = useState(0);
+  const totalChecklists = checklistsData.length;
+  const completedChecklists = checklistsData.filter(cl => cl.completed).length;
+  const percentage = totalChecklists === 0 ? 0 : Math.round((completedChecklists / totalChecklists) * 100);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -25,22 +25,6 @@ export default function ProfessionalDashboard() {
     try {
       const userData = JSON.parse(storedUser);
       setUser(userData);
-
-      const atribuídos = checklistsData.filter(
-        (item) => item.assignedTo === userData.id
-      );
-
-      const total = atribuídos.length;
-
-      const feitos = executionsData.filter(
-        (exec) => exec.userId === userData.id
-      ).length;
-
-      const pend = total - feitos;
-
-      setTotalChecklists(total);
-      setRealizados(feitos);
-      setPendentes(pend >= 0 ? pend : 0);
     } catch (error) {
       console.error('Erro ao processar dados do usuário:', error);
       router.push('/login');
@@ -48,9 +32,6 @@ export default function ProfessionalDashboard() {
       setLoading(false);
     }
   }, []);
-
-  const porcentagem =
-    totalChecklists > 0 ? Math.min((realizados / totalChecklists) * 100, 100) : 0;
 
   if (loading) {
     return <div className={styles.loading}>Carregando...</div>;
@@ -62,7 +43,7 @@ export default function ProfessionalDashboard() {
         <h1>Área do Profissional</h1>
         <div className={styles.userInfo}>
           <span>Olá, {user?.name}</span>
-          <button
+          <button 
             className={styles.logoutButton}
             onClick={() => {
               localStorage.removeItem('token');
@@ -79,22 +60,29 @@ export default function ProfessionalDashboard() {
         <div className={styles.scanSection}>
           <h2>Escanear QR Code</h2>
           <p>Escaneie o QR Code para acessar um checklist</p>
-          <button className={styles.scanButton}>Escanear QR Code</button>
+          <button className={styles.scanButton}>
+            Escanear QR Code
+          </button>
         </div>
 
+        {/* 🔥 Card Meus Checklists com Progresso */}
         <div className={styles.card}>
           <h2>Meus Checklists</h2>
+          <p>Visualizar e executar checklists</p>
 
-          {/* 🔥 Barra de Progresso */}
-          <div className={styles.progressBarContainer}>
-            <div
-              className={styles.progressBar}
-              style={{ width: `${porcentagem}%` }}
-            ></div>
+          {/* Barra de progresso dentro do card */}
+          <div className={styles.progressContainer}>
+            <h3>Progresso</h3>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{ width: `${percentage}%` }}
+              >
+                {percentage}%
+              </div>
+            </div>
+            <p>{completedChecklists} de {totalChecklists} concluídos</p>
           </div>
-          <p>
-            Programados: {totalChecklists} | Realizados: {realizados} | Pendentes: {pendentes}
-          </p>
 
           <button onClick={() => router.push('/professional/checklists')}>
             Acessar
@@ -103,11 +91,7 @@ export default function ProfessionalDashboard() {
 
         <div className={styles.checklistsSection}>
           <h2>Meus Checklists</h2>
-          {totalChecklists === 0 ? (
-            <p>Você não possui checklists atribuídos no momento.</p>
-          ) : (
-            <p>Consulte seus checklists no botão acima.</p>
-          )}
+          <p>Você não possui checklists atribuídos no momento.</p>
         </div>
       </main>
     </div>
