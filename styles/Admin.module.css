@@ -1,79 +1,55 @@
 /* /styles/Admin.module.css */
-/* Assumes base_styles.css is imported globally */
+.container {
+  min-height: 100vh;
+  padding: 0;
+  background-color: #f5f5f5;
+}
 
-/* --- Header Specific --- */
 .header {
-  /* Base styles from base_styles.css are assumed */
-  /* Add Admin-specific header styles if any */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem; /* Mobile padding */
-  background-color: var(--highlight-color);
-  color: var(--highlight-text-color);
+  padding: 1rem 2rem;
+  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
   margin: 0;
-  font-size: 1.25rem; /* Mobile header size */
-  color: var(--highlight-text-color);
-  font-weight: 600;
+  font-size: 1.5rem;
+  color: #333;
 }
 
-.userInfo, .headerButtons {
+.userInfo {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-/* --- Button Specifics (using base classes) --- */
 .logoutButton {
-  composes: button button-destructive from global; /* Use composes if using CSS Modules */
-  /* Or apply classes directly: className={`${styles.button} ${styles.buttonDestructive}`} */
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
-.backButton {
-  composes: button button-secondary from global;
+.main {
+  padding: 2rem;
 }
 
-.createButton {
-  composes: button button-primary from global;
-}
-
-.editButton {
-  composes: button button-primary from global;
-  padding: 0.4rem 0.8rem; /* Specific smaller padding */
-  font-size: 0.9rem;
-}
-
-.deleteButton {
-  composes: button button-destructive from global;
-  padding: 0.4rem 0.8rem; /* Match edit button size */
-  font-size: 0.9rem;
-}
-
-.saveButton {
-  composes: button button-primary from global;
-}
-
-.cancelButton {
-  composes: button button-secondary from global;
-}
-
-.cardButton {
-  composes: button button-secondary from global;
-}
-
-/* --- Layout & Content Specific --- */
 .grid {
   display: grid;
-  grid-template-columns: 1fr; /* Mobile default */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
 .card {
-  composes: card-base from global;
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -89,12 +65,77 @@
 
 .card p {
   margin-bottom: 1rem;
-  color: var(--muted-text-color);
+  color: #666;
+}
+
+.card button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.backButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.createButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 .tableContainer {
-  composes: card-base from global;
-  overflow-x: auto; /* Allow horizontal scroll on mobile */
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  margin: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tableContainer h2 {
@@ -106,46 +147,69 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
 }
 
 .table th,
 .table td {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   text-align: left;
-  border-bottom: 1px solid var(--border-color-light);
-  font-size: 0.95rem;
-  vertical-align: middle;
-  white-space: nowrap; /* Default nowrap for mobile scroll */
+  border-bottom: 1px solid #dee2e6;
 }
 
 .table th {
-  background-color: var(--table-header-bg);
+  background-color: #f8f9fa;
   font-weight: 600;
-  color: var(--text-color);
-  white-space: normal; /* Allow header wrap */
-}
-
-.table td:last-child,
-.table th:last-child {
-  white-space: normal; /* Allow last column wrap */
 }
 
 .actions {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
 }
 
 .noData {
-  composes: card-base from global;
   text-align: center;
-  color: var(--muted-text-color);
-  background-color: #f9f9f9; /* Slightly different background */
+  color: #6c757d;
+  padding: 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 1rem;
+  color: #6c757d;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  margin: 1rem 2rem;
+  border-radius: 4px;
 }
 
 .formContainer {
-  composes: card-base from global;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  margin: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .formContainer h2 {
@@ -160,75 +224,67 @@
   gap: 1rem;
 }
 
-/* Use .input-base for inputs */
-.formInput {
-  composes: input-base from global;
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.formTextarea {
-  composes: input-base from global;
-  min-height: 80px;
-  resize: vertical;
+.formGroup label {
+  font-weight: 500;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="password"] {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .formButtons {
   display: flex;
-  flex-direction: column; /* Stack on mobile */
-  gap: 0.75rem;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
 .filterContainer {
-  margin-bottom: 1.5rem;
+  margin: 1rem 2rem;
   display: flex;
-  flex-direction: column; /* Stack on mobile */
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterSelect {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  min-width: 250px;
 }
 
 .filterContainer label {
   font-weight: 500;
 }
-
-.filterSelect {
-  composes: input-base from global;
-}
-
-/* --- Media Queries for Admin --- */
-@media (min-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-
-  .formButtons {
-     flex-direction: row;
-     justify-content: flex-end;
-     gap: 1rem;
-  }
-
-  .filterContainer {
-     flex-direction: row;
-     align-items: center;
-     gap: 1rem;
-   }
-
-   .filterSelect {
-     min-width: 250px;
-     width: auto;
-   }
-
-   .table th,
-   .table td {
-     white-space: normal; /* Allow wrapping */
-   }
-}
-
-@media (min-width: 992px) {
-  .header {
-    padding: 1rem 2rem;
-  }
-
-  .header h1 {
-    font-size: 1.5rem;
-  }
-}
-
