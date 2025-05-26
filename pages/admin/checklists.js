@@ -56,63 +56,51 @@ export default function ChecklistManagement() {
   // Dias do mês para periodicidade mensal ou personalizada
   const monthDays = Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: `Dia ${i + 1}` }));
   
-  // Função para imprimir QR Code
-  const handlePrintQRCode = (checklist) => {
-    if (checklist.qrCodePath) {
-      // Abrir uma nova janela para impressão
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>QR Code - ${checklist.title}</title>
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding: 20px;
-              }
-              h1 {
-                font-size: 18px;
-                margin-bottom: 10px;
-              }
-              p {
-                font-size: 14px;
-                margin-bottom: 20px;
-              }
-              img {
-                max-width: 300px;
-                border: 1px solid #ddd;
-              }
-              .container {
-                max-width: 400px;
-                margin: 0 auto;
-                padding: 20px;
-                border: 1px solid #ddd;
-              }
-              @media print {
-                .no-print {
-                  display: none;
-                }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>${checklist.title}</h1>
-              <p>Escaneie o QR Code para acessar o checklist</p>
-              <img src="${checklist.qrCodePath}" alt="QR Code" />
+  //edição da função de imprimir qrcode
+  
+// Função para imprimir QR Code (Modificada para usar SVG)
+const handlePrintQRCode = (checklist) => {
+  // Verifica se a string SVG do QR Code está disponível
+  if (checklist.qrCodeSVG) { 
+    // ... (resto do código que gera a janela de impressão com o SVG)
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>QR Code - ${checklist.title}</title>
+          <style>
+            /* ... estilos ... */
+            .qr-code-svg-container svg {
+              max-width: 300px; 
+              width: 100%; 
+              height: auto; 
+              border: 1px solid #ddd; 
+              display: block; 
+              margin: 0 auto 20px auto; 
+            }
+            /* ... mais estilos ... */
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>${checklist.title}</h1>
+            <p>Escaneie o QR Code para acessar o checklist</p>
+            <div class="qr-code-svg-container">
+              ${checklist.qrCodeSVG} 
             </div>
-            <div class="no-print" style="margin-top: 20px;">
-              <button onclick="window.print()">Imprimir</button>
-            </div>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-    } else {
-      alert('QR Code não disponível para este checklist');
-    }
-  };
+          </div>
+          <div class="no-print" style="margin-top: 20px;">
+            <button onclick="window.print()">Imprimir</button>
+          </div>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  } else {
+    alert('QR Code SVG não disponível para este checklist');
+  }
+};
+  //fim função qr code
   
   // Buscar dados ao carregar a página
   useEffect(() => {

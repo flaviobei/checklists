@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "id": "f80603ee-a008-44c9-aaeb-f2406885cae1",
+    "title": "Teste de limpeza",
+    "description": "",
+    "clientId": "1",
+    "locationId": "1",
+    "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": true,
+    "items": [
+      {
+        "id": "4cce189d-62ba-4afa-b04e-4dad7bb41d16",
+        "description": "limpeza",
+        "requirePhoto": false
+      }
+    ],
+    "active": true,
+    "qrCodePath": null,
+    "createdAt": "2025-05-26T19:17:47.319Z",
+    "updatedAt": "2025-05-26T19:17:47.319Z"
+  }
+]

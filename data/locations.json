@@ -1,29 +1,38 @@
 [
   {
     "id": "1",
-    "name": "Hall de Entrada",
+    "name": "Hall de Entrada 2",
     "address": "Térreo",
     "clientId": "1",
     "description": "Hall de entrada principal do condomínio",
     "createdAt": "2025-05-20T00:00:00.000Z",
-    "updatedAt": "2025-05-20T00:00:00.000Z"
+    "updatedAt": "2025-05-26T19:11:16.561Z"
   },
   {
     "id": "2",
-    "name": "Área da Piscina",
+    "name": "Área da Piscina 2",
     "address": "Área externa - Piso 1",
     "clientId": "1",
     "description": "Área de lazer com piscina e deck",
     "createdAt": "2025-05-20T00:00:00.000Z",
-    "updatedAt": "2025-05-20T00:00:00.000Z"
+    "updatedAt": "2025-05-26T19:11:24.002Z"
   },
   {
     "id": "3",
-    "name": "Recepção",
+    "name": "Recepção 2",
     "address": "Térreo",
     "clientId": "2",
     "description": "Recepção principal do edifício comercial",
     "createdAt": "2025-05-20T00:00:00.000Z",
-    "updatedAt": "2025-05-20T00:00:00.000Z"
+    "updatedAt": "2025-05-26T19:11:30.171Z"
+  },
+  {
+    "id": "3939b162-bb93-4611-a8f0-e191e44ad2c4",
+    "name": "heliponto",
+    "address": "18º andar",
+    "clientId": "2",
+    "description": "heliponto",
+    "createdAt": "2025-05-26T19:11:46.898Z",
+    "updatedAt": "2025-05-26T19:11:46.898Z"
   }
 ]

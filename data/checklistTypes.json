@@ -19,5 +19,12 @@
     "description": "Checklist para verificação de itens de segurança",
     "createdAt": "2025-05-21T12:06:32.989Z",
     "updatedAt": "2025-05-21T12:06:32.989Z"
+  },
+  {
+    "id": "af46489b-574b-4337-ba1f-1157d7e2101a",
+    "name": "Manutenção Corretiva",
+    "description": "Manutenções corretivas",
+    "createdAt": "2025-05-26T19:12:04.598Z",
+    "updatedAt": "2025-05-26T19:12:04.598Z"
   }
 ]
