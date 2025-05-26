@@ -1,10 +1,42 @@
 [
   {
-    "id": "92a99b1a-0f0e-4f84-bf72-fdb34d0e810c",
-    "title": "teste limpeza",
-    "description": "limpeza",
+    "id": "4dacbe24-b373-4112-b6e2-d692f8cc5639",
+    "title": "limpeza recepção",
+    "description": "limpezza",
     "clientId": "2",
     "locationId": "3",
+    "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": true,
+    "items": [
+      {
+        "id": "93252782-cace-4d9a-ba21-9af8a672792d",
+        "description": "limpeza do balcão",
+        "requirePhoto": true
+      },
+      {
+        "id": "738a0be8-76f6-4aae-ac39-80a2d86ca9c1",
+        "description": "limpeza chão",
+        "requirePhoto": true
+      },
+      {
+        "id": "16401cb4-fefa-4f4e-ac34-ed53a80a552b",
+        "description": "limpeza móveis",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "createdAt": "2025-05-21T12:20:34.199Z",
+    "updatedAt": "2025-05-21T12:21:10.198Z"
+  },
+  {
+    "id": "5deab049-c743-4083-adec-2311b7e0deb5",
+    "title": "teste 2",
+    "description": "teste 2",
+    "clientId": "1",
+    "locationId": "1",
     "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
     "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
     "periodicity": "daily",
@@ -12,19 +44,89 @@
     "requirePhotos": false,
     "items": [
       {
-        "id": "06c1a4ba-0db6-4c3e-8303-9a04d6a81a21",
-        "description": "limpeza chao",
+        "id": "d8c3df95-6e74-40a3-bea9-bfaa6f12f993",
+        "description": "limpeza chão",
         "requirePhoto": true
-      },
-      {
-        "id": "af35f3a8-cbcd-4f95-924b-729f6af5d466",
-        "description": "limpeza balcão",
-        "requirePhoto": false
       }
     ],
     "active": true,
-    "qrCodePath": "/qrcodes/checklist-92a99b1a-0f0e-4f84-bf72-fdb34d0e810c.png",
-    "createdAt": "2025-05-21T12:37:48.820Z",
-    "updatedAt": "2025-05-21T12:37:48.968Z"
+    "createdAt": "2025-05-26T16:11:11.684Z",
+    "updatedAt": "2025-05-26T16:11:11.684Z"
+  },
+  {
+    "id": "9a836172-471b-4672-9a62-f4bd489bb5cf",
+    "title": "teste 3",
+    "description": "teste 3",
+    "clientId": "1",
+    "locationId": "2",
+    "typeId": "3c8661b0-556b-4ccf-84d7-f76d294d22d1",
+    "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "periodicity": "weekly",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "f953ddb2-66c9-4a29-84e4-3151d553256f",
+        "description": "limpeza lateral piscina",
+        "requirePhoto": true
+      },
+      {
+        "id": "52b8ef69-12cd-42d7-ba42-9e33f60b68ae",
+        "description": "aspiração piscina",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "createdAt": "2025-05-26T16:11:44.616Z",
+    "updatedAt": "2025-05-26T16:11:44.616Z"
+  },
+  {
+    "id": "d37ef07a-bebf-47ec-9751-e96e7d071dfa",
+    "title": "teste avulso",
+    "description": "teste de check avulso",
+    "clientId": "2",
+    "locationId": "3",
+    "typeId": "ea9790bc-b225-4f8f-9627-54110ada39f1",
+    "assignedTo": null,
+    "periodicity": "monthly",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "105c34b5-c5d8-40fc-a547-112600a7eae0",
+        "description": "check avulso",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "createdAt": "2025-05-26T16:12:17.455Z",
+    "updatedAt": "2025-05-26T16:12:17.455Z"
+  },
+  {
+    "id": "bb70fe36-ce6c-42e0-a39c-1c693d8182af",
+    "title": "teste tecnico 2",
+    "description": "teste tecnico 2",
+    "clientId": "1",
+    "locationId": "2",
+    "typeId": "3c8661b0-556b-4ccf-84d7-f76d294d22d1",
+    "assignedTo": "9a870de9-685b-44ea-bbfb-758db84eb816",
+    "periodicity": "monthly",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "7fd19f39-85b7-4a6d-bce9-f02936e74b60",
+        "description": "item 1",
+        "requirePhoto": true
+      },
+      {
+        "id": "77d8cf1e-9efd-49d7-9159-4ca9dd01c906",
+        "description": "item 2",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "createdAt": "2025-05-26T16:13:22.595Z",
+    "updatedAt": "2025-05-26T16:13:22.595Z"
   }
 ]
