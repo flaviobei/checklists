@@ -2,19 +2,22 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Professional.module.css';
+import checklistsData from '../../data/checklists.json';
 
 export default function ProfessionalDashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
+  const totalChecklists = checklistsData.length;
+  const completedChecklists = checklistsData.filter(cl => cl.completed).length;
+  const percentage = totalChecklists === 0 ? 0 : Math.round((completedChecklists / totalChecklists) * 100);
+
   useEffect(() => {
-    // Verificar se o usuário está autenticado
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');
 
     if (!storedUser || !token) {
-      // Redirecionar para login se não estiver autenticado
       router.push('/login');
       return;
     }
@@ -62,11 +65,29 @@ export default function ProfessionalDashboard() {
           </button>
         </div>
 
+        {/* 🔥 Card Meus Checklists com Progresso */}
         <div className={styles.card}>
-  <h2>Meus Checklists</h2>
-  <p>Visualizar e executar checklists</p>
-  <button onClick={() => router.push('/professional/checklists')}>Acessar</button>
-</div>
+          <h2>Meus Checklists</h2>
+          <p>Visualizar e executar checklists</p>
+
+          {/* Barra de progresso dentro do card */}
+          <div className={styles.progressContainer}>
+            <h3>Progresso</h3>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{ width: `${percentage}%` }}
+              >
+                {percentage}%
+              </div>
+            </div>
+            <p>{completedChecklists} de {totalChecklists} concluídos</p>
+          </div>
+
+          <button onClick={() => router.push('/professional/checklists')}>
+            Acessar
+          </button>
+        </div>
 
         <div className={styles.checklistsSection}>
           <h2>Meus Checklists</h2>

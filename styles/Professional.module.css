@@ -182,3 +182,30 @@
 .startButton:hover {
   background-color: #0069d9;
 }
+
+/* Barra de progresso */
+.progressContainer {
+  margin: 16px 0;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.progressBar {
+  width: 100%;
+  background-color: #e0e0de;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 24px;
+  margin: 8px 0;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+  line-height: 24px;
+  font-weight: bold;
+  transition: width 0.5s ease;
+}
