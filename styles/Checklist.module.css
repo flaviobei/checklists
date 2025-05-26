@@ -1,0 +1,142 @@
+/* /styles/Checklist.module.css */
+/* Assumes base_styles.css is imported globally */
+
+/* --- Header Specific --- */
+.header {
+  /* Base styles from base_styles.css are assumed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem; /* Mobile padding */
+  background-color: var(--highlight-color);
+  color: var(--highlight-text-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.25rem; /* Mobile header size */
+  color: var(--highlight-text-color);
+  font-weight: 600;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* --- Button Specifics (using base classes) --- */
+.backButton {
+  composes: button button-secondary from global;
+}
+
+.startButton {
+  composes: button button-primary from global;
+  width: 100%; /* Full width on mobile */
+  margin-top: auto; /* Push to bottom of card */
+}
+
+/* --- Layout & Content Specific --- */
+.content {
+  padding: 1rem; /* Match main padding */
+}
+
+.noData {
+  composes: card-base from global;
+  text-align: center;
+  color: var(--muted-text-color);
+  background-color: #f9f9f9; /* Slightly different background */
+}
+
+.checklistGrid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile default */
+  gap: 1.5rem;
+}
+
+.checklistCard {
+  composes: card-base from global;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Push button to bottom */
+  min-height: 200px; /* Ensure minimum card height */
+}
+
+.checklistCard h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.checklistDescription {
+  color: var(--muted-text-color);
+  margin-bottom: 1rem;
+  flex-grow: 1; /* Allow description to take available space */
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.checklistDetails {
+  margin-bottom: 1rem;
+}
+
+.checklistDetails p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--muted-text-color);
+}
+
+/* --- Progress Bar Specific --- */
+.progressContainer {
+  width: 100%; /* Full width */
+  margin: 1.5rem 0;
+}
+
+.progressContainer h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.progressBar {
+  width: 100%;
+  height: 25px;
+  background-color: var(--border-color-light); /* Use variable */
+  border-radius: 25px; /* Fully rounded */
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--highlight-color); /* Use variable */
+  color: var(--highlight-text-color); /* Use variable */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border-radius: 25px;
+  transition: width 0.5s ease;
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* --- Media Queries for Checklist --- */
+@media (min-width: 600px) {
+  .checklistGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .startButton {
+    width: auto; /* Auto width on larger screens */
+  }
+}
+
+@media (min-width: 992px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+  .header h1 {
+    font-size: 1.5rem;
+  }
+}
+
