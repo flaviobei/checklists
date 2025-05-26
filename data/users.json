@@ -16,5 +16,14 @@
     "isAdmin": false,
     "createdAt": "2025-05-21T11:57:18.474Z",
     "updatedAt": "2025-05-21T11:57:18.474Z"
+  },
+  {
+    "id": "9a870de9-685b-44ea-bbfb-758db84eb816",
+    "username": "tecnico2",
+    "password": "$2b$10$sb1gZzED4CoSwcGmsi5uE.3Cd30Wcu1BasRPYyHUvMKQNtloWBg8W",
+    "name": "Técnico 2",
+    "isAdmin": false,
+    "createdAt": "2025-05-26T16:12:43.808Z",
+    "updatedAt": "2025-05-26T16:12:43.808Z"
   }
 ]
