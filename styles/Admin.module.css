@@ -17,7 +17,7 @@
 .header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: #042433;
 }
 
 .userInfo {
@@ -55,6 +55,8 @@
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 2px 4px rgba(41, 140, 166, 1.00)
+
 }
 
 .card h2 {
@@ -69,12 +71,16 @@
 }
 
 .card button {
-  background-color: #007bff;
+  background-color: #042433;
   color: white;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+.card button:hover {
+  background-color: #298ca6;
 }
 
 .loading {
