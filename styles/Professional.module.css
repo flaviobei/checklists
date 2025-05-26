@@ -1,23 +1,23 @@
 /* /styles/Professional.module.css */
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
-}
+/* Assumes base_styles.css is imported globally */
 
+/* --- Header Specific --- */
 .header {
+  /* Base styles from base_styles.css are assumed */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
+  padding: 1rem 1.5rem; /* Mobile padding */
+  background-color: var(--highlight-color);
+  color: var(--highlight-text-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
   margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+  font-size: 1.25rem; /* Mobile header size */
+  color: var(--highlight-text-color);
+  font-weight: 600;
 }
 
 .userInfo {
@@ -26,137 +26,59 @@
   gap: 1rem;
 }
 
+/* --- Button Specifics (using base classes) --- */
 .logoutButton {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.main {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.scanSection, .checklistsSection {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  composes: button button-destructive from global;
 }
 
 .scanButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
+  composes: button button-primary from global;
+  margin-top: 1rem; /* Space above button */
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* --- Layout & Content Specific --- */
+/* Sections within the professional dashboard */
+.scanSection,
+.checklistsSection {
+  composes: card-base from global;
+  /* Add any specific padding or margin overrides if needed */
+}
+
+.scanSection h2, /* Assuming titles for sections */
+.checklistsSection h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
   font-size: 1.2rem;
-  color: #666;
 }
 
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.headerButtons {
-  display: flex;
-  gap: 1rem;
-}
-
-.backButton {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
-
-.content {
-  padding: 2rem;
-}
-
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-}
-
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  margin: 1rem 2rem;
-  border-radius: 4px;
-}
-
-.noData {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Styles for the checklist grid if it appears here too */
 .checklistGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: 1fr; /* Mobile default */
   gap: 1.5rem;
+  margin-top: 1rem; /* Add space if grid is inside a section */
 }
 
 .checklistCard {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  composes: card-base from global;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px; /* Adjusted min-height */
 }
 
 .checklistCard h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 1.15rem;
 }
 
 .checklistDescription {
-  color: #6c757d;
+  color: var(--muted-text-color);
   margin-bottom: 1rem;
   flex-grow: 1;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 .checklistDetails {
@@ -166,46 +88,31 @@
 .checklistDetails p {
   margin: 0.25rem 0;
   font-size: 0.9rem;
+  color: var(--muted-text-color);
 }
 
 .startButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  margin-top: auto;
+  composes: button button-primary from global;
+  width: 100%; /* Full width on mobile */
+  margin-top: auto; /* Push to bottom of card */
 }
 
-.startButton:hover {
-  background-color: #0069d9;
+/* --- Media Queries for Professional --- */
+@media (min-width: 600px) {
+  .checklistGrid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .startButton {
+    width: auto; /* Auto width on larger screens */
+  }
 }
 
-/* Barra de progresso */
-.progressContainer {
-  margin: 16px 0;
-  padding: 8px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+@media (min-width: 992px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+  .header h1 {
+    font-size: 1.5rem;
+  }
 }
 
-.progressBar {
-  width: 100%;
-  background-color: #e0e0de;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 24px;
-  margin: 8px 0;
-}
-
-.progressFill {
-  height: 100%;
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  line-height: 24px;
-  font-weight: bold;
-  transition: width 0.5s ease;
-}
