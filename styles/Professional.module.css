@@ -181,6 +181,26 @@
 
 .startButton:hover {
   background-color: #0069d9;
+
+}
+
+/* Barra de progresso */
+.progressBarContainer {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 10px;
+  height: 20px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+=======
 }
 
 /* 🔥 Container da barra */
@@ -218,3 +238,4 @@
   
   font-weight: bold;
 }
+
