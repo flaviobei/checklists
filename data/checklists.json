@@ -20,6 +20,57 @@
     "active": true,
     "qrCodePath": null,
     "createdAt": "2025-05-26T19:17:47.319Z",
-    "updatedAt": "2025-05-26T19:17:47.319Z"
+    "updatedAt": "2025-05-27T13:29:08.448Z"
+  },
+  {
+    "id": "05d8c2c7-eae3-45a3-8330-ce6eb03b2513",
+    "title": "teste de manutenção",
+    "description": "",
+    "clientId": "1",
+    "locationId": "1",
+    "typeId": "af46489b-574b-4337-ba1f-1157d7e2101a",
+    "assignedTo": null,
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "63106416-8336-4ac1-99dd-c940ae487611",
+        "description": "trocar lampada",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "qrCodePath": null,
+    "createdAt": "2025-05-27T13:29:47.382Z",
+    "updatedAt": "2025-05-27T13:29:47.382Z"
+  },
+  {
+    "id": "8510911a-a4f8-4064-b3aa-4a5a3a63c6da",
+    "title": "teste 4",
+    "description": "teste",
+    "clientId": "2",
+    "locationId": "3939b162-bb93-4611-a8f0-e191e44ad2c4",
+    "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "assignedTo": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "67c68d48-6097-4cf8-b927-0111242ee100",
+        "description": "limpeza 1",
+        "requirePhoto": false
+      },
+      {
+        "id": "28fd219f-86b0-425b-80aa-4ce3e000424f",
+        "description": "limpeza 2",
+        "requirePhoto": false
+      }
+    ],
+    "active": true,
+    "qrCodePath": null,
+    "createdAt": "2025-05-27T13:30:55.986Z",
+    "updatedAt": "2025-05-27T13:30:55.986Z"
   }
 ]

@@ -1,10 +1,11 @@
-/* /styles/Professional.module.css */
+/* Layout geral */
 .container {
   min-height: 100vh;
-  padding: 0;
   background-color: #f5f5f5;
+  padding: 0;
 }
 
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -35,6 +36,11 @@
   cursor: pointer;
 }
 
+.logoutButton:hover {
+  background-color: #d32f2f;
+}
+
+/* Conteúdo principal */
 .main {
   padding: 2rem;
   display: flex;
@@ -42,13 +48,25 @@
   gap: 2rem;
 }
 
-.scanSection, .checklistsSection {
+/* Seções principais */
+.scanSection,
+.checklistsSection,
+.cardbarra,
+.card {
   background-color: white;
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
+.card:hover,
+.checklistCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
+}
+
+/* Botão escanear */
 .scanButton {
   background-color: #4caf50;
   color: white;
@@ -60,6 +78,11 @@
   margin-top: 1rem;
 }
 
+.scanButton:hover {
+  background-color: #388e3c;
+}
+
+/* Barra de carregamento */
 .loading {
   display: flex;
   justify-content: center;
@@ -69,59 +92,62 @@
   color: #666;
 }
 
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
+/* Cards checklists - Grid */
+.checklistGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
+/* Card individual */
+.checklistCard {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
+.checklistCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
   color: #333;
 }
 
-.headerButtons {
-  display: flex;
-  gap: 1rem;
+.checklistDescription {
+  color: #666;
+  margin-bottom: 1rem;
+  flex-grow: 1;
 }
 
-.backButton {
-  background-color: #6c757d;
+.checklistStatus {
+  font-size: 0.9rem;
+  color: #298ca6;
+  margin-bottom: 1rem;
+}
+
+/* Botões dos cards */
+.checklistButton,
+.startButton {
+  background-color: #042433;
   color: white;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  align-self: flex-start;
 }
 
-.content {
-  padding: 2rem;
+.checklistButton:hover,
+.startButton:hover {
+  background-color: #298ca6;
 }
 
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-}
-
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  margin: 1rem 2rem;
-  border-radius: 4px;
-}
-
+/* Mensagem sem dados */
 .noData {
   text-align: center;
   padding: 2rem;
@@ -131,30 +157,70 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 🔥 Barra de progresso */
+.progressContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+}
+
+.progressContainer h3 {
+  margin-bottom: 8px;
+  margin-top: 5px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 20px;
+  background-color: #a6a5a5;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #04254a;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 20px;
+  transition: width 0.5s ease;
+  font-weight: bold;
+}
+
+
+/* Grid da listagem de checklists */
 .checklistGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  margin-top: 1rem;
 }
 
+/* Card individual */
 .checklistCard {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
 }
 
-.checklistCard h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+.checklistCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 8px rgba(41, 140, 166, 0.9);
+}
+
+.checklistCard h3 {
+  margin: 0 0 0.5rem;
   font-size: 1.2rem;
   color: #333;
 }
 
 .checklistDescription {
-  color: #6c757d;
+  color: #666;
   margin-bottom: 1rem;
   flex-grow: 1;
 }
@@ -166,74 +232,31 @@
 .checklistDetails p {
   margin: 0.25rem 0;
   font-size: 0.9rem;
+  color: #555;
 }
 
+/* Botão dentro do card */
 .startButton {
-  background-color: #007bff;
+  background-color: #042433;
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   font-weight: 500;
-  margin-top: auto;
+  transition: background-color 0.3s ease;
 }
 
 .startButton:hover {
-  background-color: #0069d9;
-
+  background-color: #298ca6;
 }
 
-/* Barra de progresso */
-.progressBarContainer {
-  width: 100%;
-  background-color: #eee;
-  border-radius: 10px;
-  height: 20px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.progressBar {
-  height: 100%;
-  background-color: #4caf50;
-  width: 0%;
-  transition: width 0.5s ease;
-}
-
-/* 🔥 Container da barra */
-.progressContainer {
-  width: 40%;
-  min-width: 250px;
-  margin: 20px 0;
-}
-
-/* Título do progresso */
-.progressContainer h3 {
-  margin-bottom: 8px;
-  margin-top: 5px;
-  margin-left: 5px;
-}
-
-/* 🔵 Barra de fundo */
-.progressBar {
-  width: 100%;
-  height: 25px;
-  background-color: #a6a5a5;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-/* 🔵 Barra preenchida */
-.progressFill {
-  height: 100%;
-  background-color: #04254a;
-  color: white;
+/* Mensagem quando não há dados */
+.noData {
   text-align: center;
-  line-height: 20px;
-  border-radius: 20px;
-  transition: width 0.5s ease;
-  
-  font-weight: bold;
+  padding: 2rem;
+  color: #6c757d;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
