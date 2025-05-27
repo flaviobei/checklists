@@ -86,9 +86,38 @@ export default function ProfessionalDashboard() {
         </div>
 
         <div className={styles.checklistsSection}>
-          <h2>Meus Checklists</h2>
-          <p>Você não possui checklists atribuídos no momento.</p>
+  <h2>Meus Checklists</h2>
+
+  {checklistsData.length === 0 ? (
+    <div className={styles.noData}>
+      <p>Você não possui checklists atribuídos no momento.</p>
+    </div>
+  ) : (
+    <div className={styles.checklistGrid}>
+      {checklistsData.map((checklist) => (
+        <div key={checklist.id} className={styles.checklistCard}>
+          <h3>{checklist.title}</h3>
+          <p className={styles.checklistDescription}>
+            {checklist.description || "Sem descrição disponível."}
+          </p>
+          <div className={styles.checklistDetails}>
+            <p>Status: {checklist.completed ? "✅ Concluído" : "⏳ Pendente"}</p>
+            <p>Itens: {checklist.totalItems}</p>
+          </div>
+          <button
+            className={styles.startButton}
+            onClick={() =>
+              router.push(`/professional/checklists/${checklist.id}`)
+            }
+          >
+            Acessar Checklist
+          </button>
         </div>
+      ))}
+    </div>
+  )}
+</div>
+
       </main>
     </div>
   );
