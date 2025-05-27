@@ -83,10 +83,6 @@ export default function ProfessionalDashboard() {
             </div>
             <p>{completedChecklists} de {totalChecklists} concluídos</p>
           </div>
-
-          <button onClick={() => router.push('/professional/checklists')}>
-            Acessar
-          </button>
         </div>
 
         <div className={styles.checklistsSection}>
