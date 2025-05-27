@@ -1,123 +1,98 @@
-// /pages/professional/index.js
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import styles from '../../styles/Professional.module.css';
 import checklistsData from '../../data/checklists.json';
 
-export default function ProfessionalDashboard() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function ChecklistPage() {
   const router = useRouter();
+  const { id } = router.query;
 
-  const totalChecklists = checklistsData.length;
-  const completedChecklists = checklistsData.filter(cl => cl.completed).length;
-  const percentage = totalChecklists === 0 ? 0 : Math.round((completedChecklists / totalChecklists) * 100);
+  const [checklist, setChecklist] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [completedItems, setCompletedItems] = useState([]);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    if (!id) return; // Espera o id carregar da URL
 
-    if (!storedUser || !token) {
-      router.push('/login');
-      return;
-    }
+    const foundChecklist = checklistsData.find(cl => cl.id === id);
 
-    try {
-      const userData = JSON.parse(storedUser);
-      setUser(userData);
-    } catch (error) {
-      console.error('Erro ao processar dados do usuário:', error);
-      router.push('/login');
-    } finally {
+    if (!foundChecklist) {
+      alert('Checklist não encontrado!');
+      router.push('/professional');
+    } else {
+      setChecklist(foundChecklist);
+      setCompletedItems(foundChecklist.items?.map(() => false) || []);
       setLoading(false);
     }
-  }, []);
+  }, [id, router]);
 
-  if (loading) {
-    return <div className={styles.loading}>Carregando...</div>;
-  }
+  const handleToggleItem = (index) => {
+    const updated = [...completedItems];
+    updated[index] = !updated[index];
+    setCompletedItems(updated);
+  };
+
+  const handleSubmit = () => {
+    const total = checklist.items.length;
+    const done = completedItems.filter(item => item).length;
+
+    alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
+
+    // 🔥 Aqui você pode adicionar lógica para salvar os dados, enviar para API ou backend futuramente
+
+    router.push('/professional');
+  };
+
+  if (loading) return <div className={styles.loading}>Carregando...</div>;
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1>Área do Profissional</h1>
-        <div className={styles.userInfo}>
-          <span>Olá, {user?.name}</span>
-          <button 
-            className={styles.logoutButton}
-            onClick={() => {
-              localStorage.removeItem('token');
-              localStorage.removeItem('user');
-              router.push('/login');
-            }}
-          >
-            Sair
-          </button>
-        </div>
+        <h1>{checklist.title}</h1>
+        <button
+          className={styles.logoutButton}
+          onClick={() => router.push('/professional')}
+        >
+          Voltar
+        </button>
       </header>
 
       <main className={styles.main}>
-        <div className={styles.scanSection}>
-          <h2>Escanear QR Code</h2>
-          <p>Escaneie o QR Code para acessar um checklist</p>
-          <button className={styles.scanButton}>
-            Escanear QR Code
-          </button>
-        </div>
+        <p className={styles.checklistDescription}>{checklist.description}</p>
 
-        {/* 🔥 Card Meus Checklists com Progresso */}
-        <div className={styles.card}>
-          <h2>Meus Checklists</h2>
-          <p>Visualizar e executar checklists</p>
+        {checklist.items?.length > 0 ? (
+          <div className={styles.checklistForm}>
+            <h2>Itens do Checklist</h2>
+            <ul className={styles.itemList}>
+              {checklist.items.map((item, index) => (
+                <li key={item.id || index} className={styles.item}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={completedItems[index]}
+                      onChange={() => handleToggleItem(index)}
+                    />
+                    {item.description}
+                    {item.requirePhoto && (
+                      <span className={styles.photoRequired}>
+                        {' '}📷 (Foto obrigatória)
+                      </span>
+                    )}
+                  </label>
+                </li>
+              ))}
+            </ul>
 
-          {/* Barra de progresso dentro do card */}
-          <div className={styles.progressContainer}>
-            <h3>Progresso</h3>
-            <div className={styles.progressBar}>
-              <div 
-                className={styles.progressFill} 
-                style={{ width: `${percentage}%` }}
-              >
-                {percentage}%
-              </div>
-            </div>
-            <p>{completedChecklists} de {totalChecklists} concluídos</p>
+            <button
+              className={styles.submitButton}
+              onClick={handleSubmit}
+            >
+              Enviar Checklist
+            </button>
           </div>
-        </div>
-
-        <div className={styles.checklistsSection}>
-  <h2>Meus Checklists</h2>
-
-  {checklistsData.length === 0 ? (
-    <div className={styles.noData}>
-      <p>Você não possui checklists atribuídos no momento.</p>
-    </div>
-  ) : (
-    <div className={styles.checklistGrid}>
-      {checklistsData.map((checklist) => (
-        <div key={checklist.id} className={styles.checklistCard}>
-          <h3>{checklist.title}</h3>
-          <p className={styles.checklistDescription}>
-            {checklist.description || "Sem descrição disponível."}
-          </p>
-          <div className={styles.checklistDetails}>
-            <p>Status: {checklist.completed ? "✅ Concluído" : "⏳ Pendente"}</p>
-            <p>Itens:  {checklist.items ? checklist.items.length : 0}</p> 
-          </div>
-          <button
-            className={styles.startButton}
-            onClick={() =>
-              router.push(`/professional/checklists/${checklist.id}`)
-            }
-          >
-            Acessar Checklist
-          </button>
-        </div>
-      ))}
-    </div>
-  )}
-</div>
-
+        ) : (
+          <p>Esse checklist não possui itens cadastrados.</p>
+        )}
       </main>
     </div>
   );
