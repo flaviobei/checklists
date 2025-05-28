@@ -99,7 +99,7 @@ export default function ProfessionalDashboard() {
           <div className={styles.checklistDetails}>
             <p>Status: {checklist.completed ? "Concluído: ✅" : "Pendente: ⏳"}</p>
             <p>Itens no Checklist: {checklist.items ? checklist.items.length : 0}</p>
-            <p>{checklist.completed} </p>
+            <p>{checklist.completed} </p> 
           </div>
           <button
             className={styles.startButton}

@@ -34,5 +34,23 @@
     "description": "heliponto",
     "createdAt": "2025-05-26T19:11:46.898Z",
     "updatedAt": "2025-05-26T19:11:46.898Z"
+  },
+  {
+    "id": "5b09c07d-1e83-4fbc-a6a7-1687cb914a88",
+    "name": "sala de atendimento",
+    "address": "primeiro andar",
+    "clientId": "3e48957d-47d2-4865-8af2-d892ed09b2ee",
+    "description": "sala de atendimento 1",
+    "createdAt": "2025-05-27T19:31:15.410Z",
+    "updatedAt": "2025-05-27T19:31:15.410Z"
+  },
+  {
+    "id": "0f51ae8d-df63-4050-82d4-cd7194b74559",
+    "name": "sala de emergência",
+    "address": "sala emergencia 1",
+    "clientId": "3e48957d-47d2-4865-8af2-d892ed09b2ee",
+    "description": "emergencia 1",
+    "createdAt": "2025-05-27T19:31:31.274Z",
+    "updatedAt": "2025-05-27T19:31:31.274Z"
   }
 ]

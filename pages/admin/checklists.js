@@ -63,7 +63,7 @@ const handlePrintQRCode = (checklist) => {
   // Verifica se a string SVG do QR Code está disponível
   if (checklist.qrCodePath) { 
     // ... (resto do código que gera a janela de impressão com o SVG)
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open('', '_blank', 'width=300, height=500, toolbar=no,scrollbars=no,resizable=no');
     printWindow.document.write(`
       <html>
         <head>
@@ -77,8 +77,6 @@ const handlePrintQRCode = (checklist) => {
               border: 1px solid #ddd; 
               display: block; 
               margin: 0 auto 20px auto; 
-            }
-            /* ... mais estilos ... */
           </style>
         </head>
         <body>
@@ -556,10 +554,18 @@ const handlePrintQRCode = (checklist) => {
   
   // Função para obter o nome do local pelo ID
   const getLocationName = (locationId) => {
-    const location = locations.find(location => location.id === locationId) || 
-                    filteredLocations.find(location => location.id === locationId);
+    
+    console.log('Buscando ID:', locationId);
+    console.log('Locations:', locations);
+    console.log('Filtered Locations:', filteredLocations);
+
+    const id = String(locationId); // forçando string para garantir a comparação
+    const location = locations.find(location => String(location.id) === id) || 
+    filteredLocations.find(location => String(location.id) === id);
     return location ? location.name : 'Local não encontrado';
   };
+
+
   
   // Função para obter o nome do tipo de checklist pelo ID
   const getChecklistTypeName = (typeId) => {
@@ -864,7 +870,9 @@ const handlePrintQRCode = (checklist) => {
                   <tr key={checklist.id} className={!checklist.active ? styles.inactiveRow : ''}>
                     <td>{checklist.title}</td>
                     <td>{getClientName(checklist.clientId)}</td>
+
                     <td>{getLocationName(checklist.locationId)}</td>
+                    
                     <td>{getChecklistTypeName(checklist.typeId)}</td>
                     <td>{getUserName(checklist.assignedTo)}</td>
                     <td>{getPeriodicityText(checklist.periodicity)}</td>
