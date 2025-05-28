@@ -160,8 +160,8 @@
 /* 🔥 Barra de progresso */
 .progressContainer {
   width: 100%;
-  max-width: 400px;
-  margin: 20px 0;
+  max-width: 40%;
+  margin: 10px 0;
 }
 
 .progressContainer h3 {
@@ -209,7 +209,7 @@
 }
 
 .checklistCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   box-shadow: 0 2px 8px rgba(41, 140, 166, 0.9);
 }
 

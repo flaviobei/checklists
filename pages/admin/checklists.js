@@ -61,7 +61,7 @@ export default function ChecklistManagement() {
 // Função para imprimir QR Code (Modificada para usar SVG)
 const handlePrintQRCode = (checklist) => {
   // Verifica se a string SVG do QR Code está disponível
-  if (checklist.qrCodeSVG) { 
+  if (checklist.qrCodePath) { 
     // ... (resto do código que gera a janela de impressão com o SVG)
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
@@ -86,7 +86,7 @@ const handlePrintQRCode = (checklist) => {
             <h1>${checklist.title}</h1>
             <p>Escaneie o QR Code para acessar o checklist</p>
             <div class="qr-code-svg-container">
-              ${checklist.qrCodeSVG} 
+              ${checklist.qrCodePath}  
             </div>
           </div>
           <div class="no-print" style="margin-top: 20px;">
