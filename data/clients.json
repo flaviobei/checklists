@@ -18,5 +18,15 @@
     "address": "Rua Augusta, 500 - São Paulo/SP",
     "createdAt": "2025-05-20T00:00:00.000Z",
     "updatedAt": "2025-05-20T00:00:00.000Z"
+  },
+  {
+    "id": "3e48957d-47d2-4865-8af2-d892ed09b2ee",
+    "name": "hospital x",
+    "contactPerson": "Dr José",
+    "phone": "11 99898 9898",
+    "email": "drjose@hospitalx.com.br",
+    "address": "rua 15 de novembro, 123",
+    "createdAt": "2025-05-27T19:30:29.378Z",
+    "updatedAt": "2025-05-27T19:30:29.378Z"
   }
 ]

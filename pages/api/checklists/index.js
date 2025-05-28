@@ -1,4 +1,4 @@
-import { getAllChecklists, createChecklist, findChecklistsByClientId, findChecklistsByLocationId, findChecklistsByUserId, generateQRCode, updateChecklist } from '../../../lib/checklists';
+import { getAllChecklists, createChecklist, findChecklistsByClientId, findChecklistsByLocationId, findChecklistsByUserId, generateQRCodeSVG, updateChecklist } from '../../../lib/checklists';
 import { verifyToken } from '../../../lib/auth';
 
 export default async function handler(req, res) {
@@ -92,7 +92,7 @@ export default async function handler(req, res) {
       
       // Gerar QR Code
       try {
-        const qrCodePath = await generateQRCode(newChecklist.id);
+        const qrCodePath = await generateQRCodeSVG(newChecklist.id);
         
         // Atualizar checklist com o caminho do QR Code
         if (qrCodePath) {
