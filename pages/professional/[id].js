@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';  // <-- Import necessário para usar <Image />
 import styles from '../../styles/Professional.module.css';
 import checklistsData from '../../data/checklists.json';
+
 
 export default function ChecklistPage() {
   const router = useRouter();
@@ -10,9 +12,10 @@ export default function ChecklistPage() {
   const [checklist, setChecklist] = useState(null);
   const [loading, setLoading] = useState(true);
   const [completedItems, setCompletedItems] = useState([]);
+  const [photos, setPhotos] = useState({}); // Estado para armazenar fotos
 
   useEffect(() => {
-    if (!id) return; // Espera o id carregar da URL
+    if (!id) return;
 
     const foundChecklist = checklistsData.find(cl => cl.id === id);
 
@@ -22,6 +25,7 @@ export default function ChecklistPage() {
     } else {
       setChecklist(foundChecklist);
       setCompletedItems(foundChecklist.items?.map(() => false) || []);
+      setPhotos({});
       setLoading(false);
     }
   }, [id, router]);
@@ -32,13 +36,32 @@ export default function ChecklistPage() {
     setCompletedItems(updated);
   };
 
+  const handlePhotoChange = (index, file) => {
+    const updatedPhotos = { ...photos };
+    if (file) {
+      updatedPhotos[index] = URL.createObjectURL(file); // Cria URL temporária da imagem
+    } else {
+      delete updatedPhotos[index];
+    }
+    setPhotos(updatedPhotos);
+  };
+
   const handleSubmit = () => {
     const total = checklist.items.length;
     const done = completedItems.filter(item => item).length;
 
+    const missingPhotos = checklist.items.some((item, index) =>
+      item.requirePhoto && !photos[index]
+    );
+
+    if (missingPhotos) {
+      alert('⚠️ Você precisa adicionar todas as fotos obrigatórias antes de enviar!');
+      return;
+    }
+
     alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
 
-    // 🔥 Aqui você pode adicionar lógica para salvar os dados, enviar para API ou backend futuramente
+    // Aqui você pode futuramente enviar os dados para um backend ou API
 
     router.push('/professional');
   };
@@ -79,6 +102,33 @@ export default function ChecklistPage() {
                       </span>
                     )}
                   </label>
+
+                  {item.requirePhoto && (
+                    <div className={styles.photoUpload}>
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById(`photo-input-${index}`).click()}
+                        className={styles.photoButton}
+                      >
+                        {photos[index] ? 'Trocar Foto' : 'Tirar/Escolher Foto'}
+                      </button>
+                      <input
+                        id={`photo-input-${index}`}
+                        type="file"
+                        accept="image/*"
+                        capture="environment"
+                        style={{ display: 'none' }}
+                        onChange={(e) =>
+                          handlePhotoChange(index, e.target.files[0])
+                        }
+                      />
+                      {photos[index] && (
+                        <div className={styles.photoPreview}>
+                          <Image src={photos[index]} alt="Foto do item" />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
