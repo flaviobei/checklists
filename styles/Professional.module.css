@@ -255,3 +255,23 @@
   background-color: #388e3c;
 }
 
+/* Upload de foto */
+.photoUpload {
+  margin-top: 0.5rem;
+}
+
+.photoUpload input[type="file"] {
+  margin-top: 0.25rem;
+}
+
+.photoPreview {
+  margin-top: 0.5rem;
+}
+
+.photoPreview img {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid #298ca6;
+}
