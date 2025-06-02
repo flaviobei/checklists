@@ -275,3 +275,19 @@
   object-fit: cover;
   border: 2px solid #298ca6;
 }
+
+.photoButton {
+  font-family: 'Helvetica Neue LT Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Você pode adicionar outros estilos que quiser, ex: */
+  padding: 8px 16px;
+  background-color: #042433;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.photoButton:hover {
+  background-color: #005bb5;
+}
+
