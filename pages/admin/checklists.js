@@ -62,14 +62,13 @@ export default function ChecklistManagement() {
 const handlePrintQRCode = (checklist) => {
   // Verifica se a string SVG do QR Code está disponível
   if (checklist.qrCodePath) { 
-    // ... (resto do código que gera a janela de impressão com o SVG)
+    // se estiver gera a janela de impressão
+
     const printWindow = window.open('', '_blank', 'width=300, height=500, toolbar=no,scrollbars=no,resizable=no');
-    printWindow.document.write(`
-      <html>
+    printWindow.document.write(`<html>
         <head>
-          <title>QR Code - ${checklist.title}</title>
+          <title>Impressão de QR Code</title>
           <style>
-            /* ... estilos ... */
             .qr-code-svg-container svg {
               max-width: 300px; 
               width: 100%; 
@@ -553,20 +552,19 @@ const handlePrintQRCode = (checklist) => {
   };
   
   // Função para obter o nome do local pelo ID
-  const getLocationName = (locationId) => {
-    
-    console.log('Buscando ID:', locationId);
-    console.log('Locations:', locations);
-    console.log('Filtered Locations:', filteredLocations);
-
-    const id = String(locationId); // forçando string para garantir a comparação
-    const location = locations.find(location => String(location.id) === id) || 
-    filteredLocations.find(location => String(location.id) === id);
-    return location ? location.name : 'Local não encontrado';
-  };
-
-
   
+const getLocationName = (locationId) => {
+  const id = String(locationId); 
+  // Primeiro, tente encontrar na lista filtrada (se houver um cliente selecionado no formulário)
+  const location = filteredLocations.find(location => String(location.id) === id);
+  
+  // Se não encontrar na filtrada, procure na lista completa de locais
+  if (!location) {
+    return locations.find(loc => String(loc.id) === id)?.name || 'Local não encontrado';
+  }
+  return location.name;
+};
+
   // Função para obter o nome do tipo de checklist pelo ID
   const getChecklistTypeName = (typeId) => {
     const type = checklistTypes.find(type => type.id === typeId);
@@ -589,6 +587,11 @@ const handlePrintQRCode = (checklist) => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+
+       <div className={styles.logoContainer}>
+          <img src='../grupotb_logo.png' alt='Logo GrupoTB'></img>
+      </div>
+      
         <h1>Gerenciamento de Checklists</h1>
         <div className={styles.headerButtons}>
           <button onClick={() => router.push('/admin')} className={styles.backButton}>
@@ -799,6 +802,8 @@ const handlePrintQRCode = (checklist) => {
                   </div>
                 </div>
               ))}
+
+
               <button
                 type="button"
                 onClick={handleAddItem}
