@@ -98,7 +98,7 @@ export default function ChecklistPage() {
                     {item.description}
                     {item.requirePhoto && (
                       <span className={styles.photoRequired}>
-                        {' '}📷 (Foto obrigatória)
+                        {' '} 📷 ( Foto obrigatória )
                       </span>
                     )}
                   </label>
@@ -124,8 +124,13 @@ export default function ChecklistPage() {
                       />
                       {photos[index] && (
                         <div className={styles.photoPreview}>
-                          <Image src={photos[index]} alt="Foto do item" />
-                        </div>
+                      <Image
+                        src={photos[index]}
+                        alt="Foto do item"
+                        fill // Adicionado a propriedade fill para preencher a div e não causar erro 
+                        style={{ objectFit: 'cover' }} // Controla como a imagem preenche (opcional, mas recomendado)
+                      />
+                    </div>
                       )}
                     </div>
                   )}

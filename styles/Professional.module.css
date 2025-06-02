@@ -273,8 +273,13 @@
 }
 
 .photoPreview {
-  margin-top: 0.5rem;
+  position: relative; /* Necessário para a propriedade 'fill' */
+  width: 150px; /* Defina a largura desejada */
+  height: 150px; /* Defina a altura desejada */
+  margin-top: 10px;
+  overflow: hidden; /* Para conter a imagem */
 }
+
 
 .photoPreview img {
   max-width: 120px;
