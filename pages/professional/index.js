@@ -40,11 +40,7 @@ export default function ProfessionalDashboard() {
     if (showScanner) {
       // Configurações do scanner
       const config = {
-<<<<<<< HEAD
         fps: 16, // Frames por segundo para escanear
-=======
-        fps: 24, // Frames por segundo para escanear
->>>>>>> 04cdd779077f7593acc60d8dee5b7d71c8365fd2
         qrbox: { width: 250, height: 250 }, // Tamanho da caixa de escaneamento (opcional)
         rememberLastUsedCamera: true, // Lembrar a última câmera usada
         supportedScanTypes: [0] // 0 para QR_CODE_SCAN_TYPE_CAMERA (Html5QrcodeScanType.SCAN_TYPE_CAMERA)
@@ -53,23 +49,14 @@ export default function ProfessionalDashboard() {
       // Callback de sucesso
       const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         console.log(`QR Code lido: ${decodedText}`, decodedResult);
-        // Aqui você processa o valor do QR Code (decodedText)
-        // Por exemplo, se o QR Code contiver o ID de um checklist:
-        // router.push(`/professional/${decodedText}`);
 
-        // Exemplo: Supondo que o QR Code contenha o ID do checklist
         const checklistId = decodedText;
         
         //const foundChecklist = checklistsData.find(cl => cl.id === checklistId && cl.active === true && (cl.assignedTo === user?.id || cl.assignedTo === null));
 
-<<<<<<< HEAD
         if (checklistId) {
           router.push(`${checklistId}`);
           //alert(`Redirecionando para o checklist com ID: ${checklistId}`);
-=======
-        if (foundChecklist) {
-          router.push(`/professional/${checklistId}`);
->>>>>>> 04cdd779077f7593acc60d8dee5b7d71c8365fd2
         } else {
           alert('Checklist não encontrado ou não acessível');
         }
@@ -144,7 +131,6 @@ export default function ProfessionalDashboard() {
       </header>
 
       <main className={styles.main}>
-<<<<<<< HEAD
 
 
         {/* Seção do Scanner */}
@@ -170,31 +156,6 @@ export default function ProfessionalDashboard() {
           </div>
         )}
 
-=======
-        {/* Seção do Scanner */}
-        {showScanner && (
-          <div className={styles.scannerContainer}>
-            <h2>Escaneando QR Code...</h2>
-            {/* Elemento onde o scanner será renderizado */}
-            <div id="qr-reader" style={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}></div>
-            <button
-              className={styles.closeScannerButton}
-              onClick={() => {
-                setShowScanner(false);
-                if (scannerRef.current) {
-                  scannerRef.current.clear().catch(error => {
-                    console.error("Falha ao limpar o Html5QrcodeScanner.", error);
-                  });
-                  scannerRef.current = null;
-                }
-              }}
-            >
-              Fechar Scanner
-            </button>
-          </div>
-        )}
-
->>>>>>> 04cdd779077f7593acc60d8dee5b7d71c8365fd2
         {/* Conteúdo principal, escondido se o scanner estiver ativo */}
         {!showScanner && (
           <>

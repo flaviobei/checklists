@@ -56,8 +56,6 @@ export default function ChecklistManagement() {
   // Dias do mês para periodicidade mensal ou personalizada
   const monthDays = Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: `Dia ${i + 1}` }));
   
-  //edição da função de imprimir qrcode
-  
 // Função para imprimir QR Code (Modificada para usar SVG)
 const handlePrintQRCode = (checklist) => {
   // Verifica se a string SVG do QR Code está disponível
