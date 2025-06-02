@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';  // <-- Import necessário para usar <Image />
 import styles from '../../styles/Professional.module.css';
 import checklistsData from '../../data/checklists.json';
+
 
 export default function ChecklistPage() {
   const router = useRouter();
@@ -122,7 +124,7 @@ export default function ChecklistPage() {
                       />
                       {photos[index] && (
                         <div className={styles.photoPreview}>
-                          <img src={photos[index]} alt="Foto do item" />
+                          <Image src={photos[index]} alt="Foto do item" />
                         </div>
                       )}
                     </div>
