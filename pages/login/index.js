@@ -65,12 +65,17 @@ export default function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
+
+      <div className={styles.logoContainer}>
+          <img src='grupotb_logo.png' alt='Logo GrupoTB'></img>
+        </div>
+        
         <h1 className={styles.title}>Sistema de Checklist</h1>
         <p className={styles.subtitle}>Manutenção Predial</p>
         
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="username">Usuário.</label>
+            <label htmlFor="username">Usuário</label>
             <input
               type="text"
               id="username"
@@ -81,7 +86,7 @@ export default function Login() {
           </div>
           
           <div className={styles.formGroup}>
-            <label htmlFor="password">Senha.</label>
+            <label htmlFor="password">Senha</label>
             <input
               type="password"
               id="password"

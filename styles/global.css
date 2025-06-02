@@ -16,8 +16,3 @@ a {
   box-sizing: border-box;
 }
 
-.logoContainer {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}

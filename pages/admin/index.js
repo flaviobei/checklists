@@ -44,6 +44,11 @@ export default function AdminDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+      
+      <div className={styles.logoContainer}>
+          <img src='grupotb_logo.png' alt='Logo GrupoTB'></img>
+      </div>
+
         <h1>Painel de Administração</h1>
         <div className={styles.userInfo}>
           <span>Olá, {user?.name}</span>

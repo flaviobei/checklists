@@ -322,3 +322,17 @@
 .filterContainer label {
   font-weight: 500;
 }
+
+/* add div para o logo */
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.logoContainer img {
+  width: 100px;
+  height: auto;
+}

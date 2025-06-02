@@ -182,6 +182,11 @@ export default function ChecklistTypeManagement() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+
+ <div className={styles.logoContainer}>
+          <img src='../grupotb_logo.png' alt='Logo GrupoTB'></img>
+      </div>
+
         <h1>Gerenciamento de Tipos de Checklist</h1>
         <div className={styles.headerButtons}>
           <button onClick={() => router.push('/admin')} className={styles.backButton}>
