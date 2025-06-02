@@ -70,7 +70,7 @@ export default function Login() {
         
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="username">Usuário</label>
+            <label htmlFor="username">Usuário.</label>
             <input
               type="text"
               id="username"
@@ -81,7 +81,7 @@ export default function Login() {
           </div>
           
           <div className={styles.formGroup}>
-            <label htmlFor="password">Senha</label>
+            <label htmlFor="password">Senha.</label>
             <input
               type="password"
               id="password"
