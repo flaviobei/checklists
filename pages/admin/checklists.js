@@ -33,6 +33,7 @@ export default function ChecklistManagement() {
 
   // Opções de periodicidade (mantido)
   const periodicityOptions = [
+    { value: 'loose', label: 'Avulso/Emergência' },
     { value: 'daily', label: 'Diária' },
     { value: 'weekly', label: 'Semanal' },
     { value: 'monthly', label: 'Mensal' },
@@ -46,6 +47,11 @@ export default function ChecklistManagement() {
   const weekDays = [
     { value: 0, label: 'Domingo' },
     { value: 1, label: 'Segunda-feira' },
+    { value: 1, label: 'Terça-feira' },
+    { value: 1, label: 'Quarta-feira' },
+    { value: 1, label: 'Quinta-feira' },
+    { value: 1, label: 'Sexta-feira' },
+    { value: 1, label: 'Sábado' },
     // ... resto dos dias
   ];
 

@@ -100,5 +100,61 @@
     "qrCodePath": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 35 35\" shape-rendering=\"crispEdges\"><path fill=\"#ffffff\" d=\"M0 0h35v35H0z\"/><path stroke=\"#000000\" d=\"M1 1.5h7m1 0h2m1 0h2m1 0h4m2 0h1m2 0h2m1 0h7M1 2.5h1m5 0h1m2 0h2m1 0h1m4 0h1m1 0h2m1 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m6 0h1m1 0h1m4 0h5m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h7m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h6m2 0h1m2 0h1m1 0h2m3 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h4m3 0h1m2 0h1M1 9.5h1m3 0h1m1 0h4m2 0h1m1 0h1m1 0h7m1 0h6m2 0h1M3 10.5h3m3 0h2m1 0h1m1 0h1m1 0h1m2 0h1m4 0h1m3 0h1m2 0h1M2 11.5h2m1 0h5m1 0h1m4 0h1m1 0h1m3 0h1m1 0h3m3 0h1M3 12.5h1m2 0h1m3 0h1m1 0h2m1 0h2m1 0h3m1 0h3m3 0h2m2 0h1M4 13.5h4m4 0h1m1 0h3m2 0h5m2 0h2m1 0h2M2 14.5h2m1 0h1m3 0h2m3 0h1m2 0h2m1 0h1m3 0h2m2 0h1M3 15.5h1m1 0h1m1 0h1m1 0h2m2 0h1m3 0h4m1 0h1m1 0h1m4 0h1m2 0h1M3 16.5h2m1 0h1m5 0h1m1 0h2m2 0h5m1 0h4m2 0h1m1 0h2M1 17.5h2m1 0h1m2 0h4m1 0h1m3 0h1m1 0h1m2 0h3m1 0h1m1 0h4M1 18.5h5m4 0h1m1 0h5m1 0h2m4 0h1m1 0h1m1 0h1m2 0h2M1 19.5h7m1 0h1m3 0h1m2 0h1m2 0h1m3 0h2m1 0h1m2 0h3M4 20.5h1m1 0h1m3 0h5m2 0h1m2 0h4m1 0h1m3 0h1M3 21.5h1m2 0h2m4 0h4m1 0h1m2 0h8m1 0h1m2 0h2M1 22.5h1m1 0h2m1 0h1m1 0h1m4 0h1m5 0h3m2 0h1m6 0h2M4 23.5h2m1 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h5m1 0h2m1 0h2M6 24.5h1m4 0h2m3 0h3m2 0h2m1 0h3m2 0h1m3 0h1M1 25.5h2m2 0h5m1 0h1m1 0h1m4 0h1m1 0h1m1 0h1m2 0h5m2 0h2M9 26.5h1m3 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m3 0h2M1 27.5h7m1 0h3m1 0h2m1 0h1m1 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h1M1 28.5h1m5 0h1m5 0h1m2 0h1m1 0h2m2 0h1m2 0h1m3 0h1m3 0h1M1 29.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m4 0h1m2 0h1m2 0h5m3 0h1M1 30.5h1m1 0h3m1 0h1m2 0h1m1 0h4m1 0h1m3 0h1m1 0h2m2 0h1m1 0h1m1 0h1M1 31.5h1m1 0h3m1 0h1m2 0h4m1 0h1m1 0h1m7 0h1m1 0h1m1 0h1m1 0h1M1 32.5h1m5 0h1m3 0h1m1 0h3m2 0h8m1 0h2M1 33.5h7m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2m4 0h1\"/></svg>\n",
     "createdAt": "2025-06-04T19:19:36.072Z",
     "updatedAt": "2025-06-04T19:19:36.087Z"
+  },
+  {
+    "id": "77c1859c-b6da-4e36-b33a-dc5e36904b11",
+    "title": "limpeza salas",
+    "description": "limpeza recepção",
+    "clientId": "2",
+    "locationId": "3",
+    "typeId": "a368829f-6778-48ed-ac23-92993f02a68f",
+    "assignedTo": "9a870de9-685b-44ea-bbfb-758db84eb816",
+    "periodicity": "daily",
+    "customDays": [],
+    "requirePhotos": true,
+    "items": [
+      {
+        "id": "3d68448b-75da-41f1-9978-fac162ac83f4",
+        "description": "limpeza balcão",
+        "requirePhoto": true
+      },
+      {
+        "id": "7dde7097-9dbe-4ce4-908e-6d6af61fa39f",
+        "description": "limpeza chão",
+        "requirePhoto": true
+      },
+      {
+        "id": "b3d26cda-f587-48b1-bd05-d5efc8227c35",
+        "description": "limpeza obras de arte",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "qrCodePath": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 35 35\" shape-rendering=\"crispEdges\"><path fill=\"#ffffff\" d=\"M0 0h35v35H0z\"/><path stroke=\"#000000\" d=\"M1 1.5h7m2 0h2m2 0h1m2 0h5m2 0h2m1 0h7M1 2.5h1m5 0h1m3 0h6m1 0h1m2 0h2m2 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h1m1 0h4m2 0h2m3 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h3m2 0h2m2 0h1m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m3 0h3m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m2 0h1m2 0h5m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h1m3 0h2m5 0h3M1 9.5h1m1 0h5m3 0h2m1 0h1m1 0h4m1 0h1m3 0h1m1 0h5M1 10.5h4m1 0h1m2 0h3m3 0h1m3 0h2m1 0h3m1 0h2m3 0h1m1 0h1M1 11.5h2m3 0h2m4 0h2m2 0h2m1 0h1m1 0h2m3 0h1m2 0h1m1 0h2M1 12.5h1m1 0h3m2 0h1m6 0h3m3 0h2m2 0h1m2 0h1m1 0h3M3 13.5h1m1 0h1m1 0h1m1 0h2m1 0h1m6 0h1m6 0h1m1 0h3m1 0h2M1 14.5h5m5 0h2m1 0h5m2 0h5m1 0h1m3 0h3M1 15.5h3m1 0h4m2 0h4m5 0h1m2 0h1m8 0h1M5 16.5h1m2 0h3m1 0h1m1 0h1m2 0h1m2 0h8m1 0h1m1 0h3M1 17.5h2m1 0h2m1 0h2m2 0h2m5 0h1m1 0h2m3 0h2m2 0h2m1 0h2M2 18.5h1m1 0h2m2 0h3m2 0h3m2 0h3m1 0h3m2 0h1m3 0h1m1 0h1M1 19.5h1m3 0h3m1 0h5m1 0h4m3 0h2m1 0h1M3 20.5h2m3 0h2m2 0h1m1 0h1m1 0h1m1 0h2m2 0h1m1 0h1m1 0h2m2 0h2m1 0h1M3 21.5h2m1 0h4m1 0h2m1 0h4m2 0h1m2 0h2m3 0h2m2 0h1M1 22.5h2m2 0h2m3 0h1m2 0h2m1 0h1m2 0h1m2 0h1m1 0h5m2 0h1m1 0h1M1 23.5h1m1 0h1m1 0h5m3 0h7m1 0h1m1 0h1m3 0h1m2 0h1M1 24.5h1m1 0h2m1 0h1m3 0h4m2 0h1m2 0h1m2 0h2m2 0h1m1 0h1m2 0h1m1 0h1M1 25.5h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h6M9 26.5h1m1 0h2m1 0h2m1 0h1m2 0h1m1 0h1m2 0h1m3 0h2m1 0h2M1 27.5h7m4 0h5m2 0h1m1 0h1m2 0h2m1 0h1m1 0h2M1 28.5h1m5 0h1m1 0h3m4 0h2m4 0h1m1 0h2m3 0h5M1 29.5h1m1 0h3m1 0h1m1 0h1m1 0h4m1 0h1m2 0h1m1 0h1m3 0h5M1 30.5h1m1 0h3m1 0h1m1 0h1m1 0h1m4 0h2m2 0h1m1 0h3m1 0h1m1 0h2m1 0h3M1 31.5h1m1 0h3m1 0h1m1 0h2m1 0h3m3 0h1m2 0h1m2 0h1m2 0h1m2 0h1M1 32.5h1m5 0h1m3 0h1m2 0h2m1 0h1m1 0h1m2 0h2m2 0h1m1 0h4M1 33.5h7m1 0h1m2 0h2m4 0h1m2 0h1m2 0h3m5 0h1\"/></svg>\n",
+    "createdAt": "2025-06-04T19:22:41.096Z",
+    "updatedAt": "2025-06-04T19:22:41.104Z"
+  },
+  {
+    "id": "52867aab-354c-491a-beb7-be2de1543c9d",
+    "title": "teste 333",
+    "description": "teste 333",
+    "clientId": "1",
+    "locationId": "2",
+    "typeId": "af46489b-574b-4337-ba1f-1157d7e2101a",
+    "assignedTo": null,
+    "periodicity": "loose",
+    "customDays": [],
+    "requirePhotos": false,
+    "items": [
+      {
+        "id": "5500bfae-71a4-44a1-aa80-e5b9d01e19ef",
+        "description": "manutenção bomba",
+        "requirePhoto": true
+      }
+    ],
+    "active": true,
+    "qrCodePath": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 35 35\" shape-rendering=\"crispEdges\"><path fill=\"#ffffff\" d=\"M0 0h35v35H0z\"/><path stroke=\"#000000\" d=\"M1 1.5h7m1 0h5m2 0h1m1 0h2m4 0h2m1 0h7M1 2.5h1m5 0h1m4 0h2m4 0h1m1 0h1m2 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m2 0h1m2 0h2m1 0h1m5 0h1m1 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h3m3 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m3 0h7m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m1 0h1m1 0h2m1 0h4m1 0h2m3 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m1 0h1m1 0h1m1 0h4m3 0h1m1 0h1M1 9.5h1m3 0h1m1 0h3m1 0h1m3 0h1m1 0h6m2 0h6m2 0h1M6 10.5h1m3 0h1m3 0h1m1 0h1m2 0h1m3 0h2m3 0h1m2 0h2M2 11.5h2m3 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h2m4 0h1m1 0h1M1 12.5h1m3 0h1m5 0h1m3 0h2m1 0h2m2 0h3m2 0h3m2 0h1M1 13.5h1m2 0h2m1 0h1m1 0h2m2 0h4m2 0h4m4 0h1m1 0h2M4 14.5h1m5 0h1m2 0h1m3 0h2m1 0h1m2 0h4m1 0h1m2 0h1M1 15.5h1m4 0h3m1 0h2m2 0h1m2 0h4m1 0h1m1 0h2m3 0h4M1 16.5h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h2m2 0h5m1 0h4m4 0h2M4 17.5h2m1 0h1m2 0h1m3 0h3m1 0h2m1 0h2m2 0h1m1 0h3M2 18.5h2m7 0h2m1 0h1m1 0h1m1 0h1m4 0h2m1 0h1m1 0h1m2 0h2M7 19.5h2m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m2 0h3M1 20.5h3m2 0h1m1 0h7m2 0h1m2 0h3m2 0h2m2 0h1m2 0h1M1 21.5h1m1 0h1m1 0h3m1 0h2m2 0h3m1 0h1m2 0h8m1 0h1m2 0h2M1 22.5h2m2 0h1m4 0h1m4 0h1m3 0h3m2 0h1m5 0h3M3 23.5h2m1 0h3m2 0h2m2 0h2m6 0h2m2 0h1M4 24.5h1m1 0h1m2 0h4m3 0h4m1 0h6m2 0h1m3 0h1M1 25.5h3m2 0h3m2 0h2m2 0h1m2 0h3m1 0h1m2 0h5m2 0h2M9 26.5h1m1 0h2m2 0h3m3 0h1m1 0h1m1 0h1m3 0h2m1 0h1M1 27.5h7m1 0h1m3 0h2m1 0h3m4 0h1m1 0h1m1 0h1m1 0h1m1 0h2M1 28.5h1m5 0h1m5 0h4m1 0h5m2 0h1m3 0h1m2 0h1M1 29.5h1m1 0h3m1 0h1m1 0h1m3 0h1m5 0h4m2 0h5m2 0h2M1 30.5h1m1 0h3m1 0h1m2 0h1m2 0h1m3 0h1m4 0h3m2 0h1m1 0h1m1 0h1M1 31.5h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h2m1 0h3m1 0h3m1 0h1m1 0h1m1 0h3M1 32.5h1m5 0h1m2 0h4m1 0h1m2 0h2m2 0h4m2 0h1m1 0h1M1 33.5h7m1 0h1m2 0h3m1 0h4m2 0h1m1 0h3m1 0h1m1 0h1m2 0h1\"/></svg>\n",
+    "createdAt": "2025-06-04T19:29:11.893Z",
+    "updatedAt": "2025-06-04T19:29:11.899Z"
   }
 ]
