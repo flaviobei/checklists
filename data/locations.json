@@ -1,21 +1,21 @@
 [
   {
     "id": "1",
-    "name": "Hall de Entrada 2",
+    "name": "Hall de Entrada",
     "address": "Térreo",
     "clientId": "1",
     "description": "Hall de entrada principal do condomínio",
     "createdAt": "2025-05-20T00:00:00.000Z",
-    "updatedAt": "2025-05-26T19:11:16.561Z"
+    "updatedAt": "2025-06-04T19:31:07.240Z"
   },
   {
     "id": "2",
-    "name": "Área da Piscina 2",
+    "name": "Área da Piscina",
     "address": "Área externa - Piso 1",
     "clientId": "1",
     "description": "Área de lazer com piscina e deck",
     "createdAt": "2025-05-20T00:00:00.000Z",
-    "updatedAt": "2025-05-26T19:11:24.002Z"
+    "updatedAt": "2025-06-04T19:31:00.802Z"
   },
   {
     "id": "3",
