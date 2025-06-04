@@ -336,3 +336,75 @@
   width: 100px;
   height: auto;
 }
+
+/* Estilos para a página de QR Codes */
+.controls {
+  margin: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filterSelect {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  min-width: 250px;
+}
+
+.qrCodeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste o tamanho mínimo/máximo */
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.qrCodeCard {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qrCodeCard h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.qrCodeCard p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.2rem 0;
+}
+
+.qrCodeImage {
+  margin-top: 1rem;
+  width: 200px; /* Tamanho de exibição na tela */
+  height: 200px;
+}
+
+.qrCodeImage svg {
+  width: 100%;
+  height: 100%;
+}
+
+.noQrCode {
+  margin-top: 1rem;
+  color: #dc3545;
+  font-style: italic;
+}
+
+.printButton {
+  background-color: #17a2b8;
+}
+
+/* Classe para esconder elementos na impressão */
+.no-print {
+  /* Estilos normais aqui, se necessário */
+}
