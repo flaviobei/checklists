@@ -67,6 +67,9 @@ export default function ActiveChecklistQRCodes() {
   return (
     <div className={styles.container}>
       <header className={`${styles.header} no-print`}> {/* Adicionar no-print ao header */}
+        <div className={styles.logoContainer}>
+          <img src='../grupotb_logo.png' alt='Logo GrupoTB'></img>
+      </div>
         <h1>QR Codes de Checklists Ativos</h1>
         <div className={styles.headerButtons}>
           <button onClick={handlePrint} className={`${styles.actionButton} ${styles.printButton} no-print`}>

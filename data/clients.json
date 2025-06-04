@@ -28,5 +28,15 @@
     "address": "rua 15 de novembro, 123",
     "createdAt": "2025-05-27T19:30:29.378Z",
     "updatedAt": "2025-05-27T19:30:29.378Z"
+  },
+  {
+    "id": "52adb88b-912e-46cb-9256-557bc381a443",
+    "name": "Escola XVII",
+    "contactPerson": "Carlos Eduardo",
+    "phone": "11 99999 8888",
+    "email": "carlos.eduardo@escolaxvii.com.br",
+    "address": "Rua Bento, 123",
+    "createdAt": "2025-06-04T20:12:12.923Z",
+    "updatedAt": "2025-06-04T20:12:12.923Z"
   }
 ]

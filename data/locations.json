@@ -52,5 +52,50 @@
     "description": "emergencia 1",
     "createdAt": "2025-05-27T19:31:31.274Z",
     "updatedAt": "2025-05-27T19:31:31.274Z"
+  },
+  {
+    "id": "57dbaba8-077a-4e46-b429-71dfe2be4fd7",
+    "name": "Sala de Aula 1",
+    "address": "Térreo",
+    "clientId": "52adb88b-912e-46cb-9256-557bc381a443",
+    "description": "Sala de aula 1",
+    "createdAt": "2025-06-04T20:12:36.546Z",
+    "updatedAt": "2025-06-04T20:12:36.546Z"
+  },
+  {
+    "id": "af684d36-5889-451a-8c4a-80ec69ff8475",
+    "name": "Sala de Aula 2",
+    "address": "Térreo",
+    "clientId": "52adb88b-912e-46cb-9256-557bc381a443",
+    "description": "Sala de Aula 2",
+    "createdAt": "2025-06-04T20:12:59.729Z",
+    "updatedAt": "2025-06-04T20:12:59.729Z"
+  },
+  {
+    "id": "a4e20353-e710-49c2-a5d2-9a7c98b8331d",
+    "name": "Sala Professores",
+    "address": "Térreo",
+    "clientId": "52adb88b-912e-46cb-9256-557bc381a443",
+    "description": "Sala dos Professores",
+    "createdAt": "2025-06-04T20:13:13.464Z",
+    "updatedAt": "2025-06-04T20:13:13.464Z"
+  },
+  {
+    "id": "bb1e4f6a-9877-478c-827c-3133ad6f4a6d",
+    "name": "Sala da Diretoria",
+    "address": "Térreo",
+    "clientId": "52adb88b-912e-46cb-9256-557bc381a443",
+    "description": "Sala da Diretoria",
+    "createdAt": "2025-06-04T20:13:27.009Z",
+    "updatedAt": "2025-06-04T20:13:27.009Z"
+  },
+  {
+    "id": "69ada700-2391-4124-a24f-32aa80739394",
+    "name": "Secretaria",
+    "address": "Térreo",
+    "clientId": "52adb88b-912e-46cb-9256-557bc381a443",
+    "description": "Sala secretaria",
+    "createdAt": "2025-06-04T20:13:45.441Z",
+    "updatedAt": "2025-06-04T20:13:45.441Z"
   }
 ]
