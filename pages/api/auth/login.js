@@ -52,3 +52,4 @@ export default async function handler(req, res) {
     console.error('Erro no login:', error);
     return res.status(500).json({ message: 'Erro interno do servidor' });
   }
+} // 👈 Aqui estava faltando essa chave
