@@ -1,45 +1,103 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';  // <-- Import necessário para usar <Image />
-import styles from '../../styles/Professional.module.css';
-import checklistsData from '../../data/checklists.json';
-
+import Image from 'next/image';
+import styles from '../../styles/Professional.module.css'; // Corrigido
+import checklistsData from '../../data/checklists.json'; // Corrigido
 
 export default function ChecklistPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id: checklistId } = router.query; // Renomear para clareza
 
   const [checklist, setChecklist] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(''); // Estado para mensagens de erro/acesso negado
+  const [isAuthorized, setIsAuthorized] = useState(false); // Estado para controlar autorização
+  const [user, setUser] = useState(null); // Estado para guardar dados do usuário
+
+  // Estados para os itens (como no seu código)
   const [completedItems, setCompletedItems] = useState([]);
-  const [photos, setPhotos] = useState({}); // Estado para armazenar fotos
+  const [photos, setPhotos] = useState({});
 
   useEffect(() => {
-    if (!id) return;
+    // Não fazer nada até que o ID esteja disponível na URL
+    if (!checklistId) {
+      setLoading(false); // Parar o loading se não houver ID
+      return;
+    }
 
-    const foundChecklist = checklistsData.find(cl => cl.id === id);
+    setLoading(true);
+    setError('');
+    setIsAuthorized(false); // Resetar autorização
+
+    // 1. Obter dados do usuário logado
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      setError('Usuário não encontrado. Faça login novamente.');
+      setLoading(false);
+      // Opcional: redirecionar para login após um tempo
+      setTimeout(() => router.push('/login'), 2000);
+      return;
+    }
+
+    let currentUser;
+    try {
+      currentUser = JSON.parse(storedUser);
+      setUser(currentUser); // Guardar dados do usuário
+      console.log('Usuário logado:', currentUser);
+    } catch (e) {
+      console.error("Erro ao parsear usuário do localStorage", e);
+      setError('Erro ao carregar dados do usuário. Faça login novamente.');
+      setLoading(false);
+      setTimeout(() => router.push('/login'), 2000);
+      return;
+    }
+
+    // 2. Encontrar o checklist nos dados importados
+    console.log(`Procurando checklist com ID: ${checklistId}`);
+    const foundChecklist = checklistsData.find(cl => cl.id === checklistId);
+    console.log('Checklist encontrado:', foundChecklist);
 
     if (!foundChecklist) {
-      alert('Checklist não encontrado!');
-      router.push('/professional');
-    } else {
-      setChecklist(foundChecklist);
-      setCompletedItems(foundChecklist.items?.map(() => false) || []);
-      setPhotos({});
+      setError('Checklist não encontrado!');
       setLoading(false);
-    }
-  }, [id, router]);
+      // Opcional: redirecionar
+      setTimeout(() => router.push('/professional'), 2000);
+    } else {
+      // 3. Verificar Autorização
+      const assignedTo = foundChecklist.assignedTo;
+      const isAvulso = assignedTo === null || assignedTo === '' || !assignedTo;
+      console.log(`Checklist atribuído a: ${assignedTo}, É avulso: ${isAvulso}, ID usuário atual: ${currentUser.id}`);
 
+      if (assignedTo === currentUser.id || isAvulso) {
+        console.log('Autorização concedida.');
+        setChecklist(foundChecklist);
+        // Inicializar estados dos itens (como no seu código)
+        setCompletedItems(foundChecklist.items?.map(() => false) || []);
+        setPhotos({});
+        setIsAuthorized(true); // Marcar como autorizado
+      } else {
+        console.log('Autorização negada.');
+        setError('Você não tem permissão para executar este checklist.');
+        setIsAuthorized(false); // Marcar como não autorizado
+        setChecklist(null); // Limpar checklist para não exibir dados
+      }
+      setLoading(false); // Finalizar carregamento
+    }
+  }, [checklistId, router]); // Depender apenas do checklistId e router
+
+  // Funções handleToggleItem, handlePhotoChange, handleSubmit (como no seu código)
   const handleToggleItem = (index) => {
+    if (!isAuthorized) return; // Não permitir interação se não autorizado
     const updated = [...completedItems];
     updated[index] = !updated[index];
     setCompletedItems(updated);
   };
 
   const handlePhotoChange = (index, file) => {
+    if (!isAuthorized) return;
     const updatedPhotos = { ...photos };
     if (file) {
-      updatedPhotos[index] = URL.createObjectURL(file); // Cria URL temporária da imagem
+      updatedPhotos[index] = URL.createObjectURL(file);
     } else {
       delete updatedPhotos[index];
     }
@@ -47,6 +105,8 @@ export default function ChecklistPage() {
   };
 
   const handleSubmit = () => {
+    if (!isAuthorized || !checklist) return;
+
     const total = checklist.items.length;
     const done = completedItems.filter(item => item).length;
 
@@ -60,20 +120,58 @@ export default function ChecklistPage() {
     }
 
     alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
-
     // Aqui você pode futuramente enviar os dados para um backend ou API
+    // Exemplo: criar um registro de execução em executions.json
 
-    router.push('/professional');
+    router.push('/professional/'); // Redirecionar para a lista após envio
   };
 
-  if (loading) return <div className={styles.loading}>Carregando...</div>;
+  // Renderização Condicional
+  if (loading) {
+    return <div className={styles.loading}>Carregando...</div>;
+  }
 
+  // Se houver erro (incluindo acesso negado)
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.aviso}>
+          <div className={styles.logoContainer}>
+          <img src='../aviso.png' alt='ERRO'></img>
+          </div>
+          <h2>{isAuthorized ? 'Erro' : 'Acesso Negado'}</h2>
+          <p>Verifique se o checklist foi atribuído ao seu usuário</p>
+          <p>Também é possível que esse checklist já tenha sido executado por outro usuário</p>
+          <button onClick={() => router.push('/professional')} className={styles.backButton}>
+            Voltar para Meus Checklists...
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Se não estiver autorizado ou checklist for nulo (caso extra de segurança)
+  if (!isAuthorized || !checklist) {
+     return (
+        <div className={styles.container}>
+          <div className={styles.aviso}>
+            <h2>Acesso Negado</h2>
+            <p>Você não tem permissão para acessar este checklist.</p>
+            <button onClick={() => router.push('/professional')} className={styles.backButton}>
+              Voltar para Meus Checklists
+            </button>
+          </div>
+        </div>
+      );
+  }
+
+  // Renderizar a interface de execução APENAS se autorizado
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h1>{checklist.title}</h1>
         <button
-          className={styles.logoutButton}
+          className={styles.logoutButton} // Usando a classe existente para o botão voltar
           onClick={() => router.push('/professional')}
         >
           Voltar
@@ -124,13 +222,15 @@ export default function ChecklistPage() {
                       />
                       {photos[index] && (
                         <div className={styles.photoPreview}>
-                      <Image
-                        src={photos[index]}
-                        alt="Foto do item"
-                        fill // Adicionado a propriedade fill para preencher a div e não causar erro 
-                        style={{ objectFit: 'cover' }} // Controla como a imagem preenche (opcional, mas recomendado)
-                      />
-                    </div>
+                          <Image
+                            src={photos[index]}
+                            alt="Foto do item"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            onLoadingComplete={() => URL.revokeObjectURL(photos[index])} // Limpar URL temporária
+                            onError={() => console.error(`Erro ao carregar imagem ${index}`)}
+                          />
+                        </div>
                       )}
                     </div>
                   )}
