@@ -3,8 +3,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Helvetica Neue LT Std', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Added fallbacks */
-
+  font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial,
+    sans-serif; /* Added fallbacks */
 }
 
 a {
@@ -15,4 +15,3 @@ a {
 * {
   box-sizing: border-box;
 }
-

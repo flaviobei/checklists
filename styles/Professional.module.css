@@ -67,7 +67,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-left: 50px;
   margin-right: 50px;
-  margin-top: 15px; 
+  margin-top: 15px;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -307,7 +307,6 @@
   overflow: hidden; /* Para conter a imagem */
 }
 
-
 .photoPreview img {
   max-width: 120px;
   max-height: 120px;
@@ -317,7 +316,8 @@
 }
 
 .photoButton {
-  font-family: 'Helvetica Neue LT Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
   /* Você pode adicionar outros estilos que quiser, ex: */
   padding: 8px 16px;
   background-color: #042433;
