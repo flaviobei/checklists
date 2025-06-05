@@ -240,7 +240,7 @@ export default function LocationManagement() {
     <div className={styles.container}>
       <header className={styles.header}>
        <div className={styles.logoContainer}>
-          <img src='../grupotb_logo.png' alt='Logo GrupoTB'></img>
+          <a href='#' onClick={() => router.push('/admin')}><img src='../grupotb_logo.png' alt='Logo GrupoTB'></img></a>
       </div>
         <h1>Gerenciamento de Locais</h1>
         <div className={styles.headerButtons}>
