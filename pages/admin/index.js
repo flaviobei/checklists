@@ -46,7 +46,7 @@ export default function AdminDashboard() {
       <header className={styles.header}>
       
       <div className={styles.logoContainer}>
-          <a href='#' onClick={() => router.push('/admin')}><img src='grupotb_logo.png' alt='Logo GrupoTB'></img></a>
+          <a href='#' onClick={() => router.push('/admin')}><img src='grupotb_logo.png' alt="Logo Grupo TB" title="Voltar para a Home"></img></a>
       </div>
 
         <h1>Painel de Administração</h1>

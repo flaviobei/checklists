@@ -68,7 +68,7 @@ export default function ActiveChecklistQRCodes() {
     <div className={styles.container}>
       <header className={`${styles.header} no-print`}> {/* Adicionar no-print ao header */}
         <div className={styles.logoContainer}>
-          <a href='#' onClick={() => router.push('/admin')}><img src='../grupotb_logo.png' alt='Logo GrupoTB'></img></a>
+          <a href='#' onClick={() => router.push('/admin')}><img src='../grupotb_logo.png' alt="Logo Grupo TB" title="Voltar para a Home"></img></a>
       </div>
         <h1>QR Codes de Checklists Ativos</h1>
         <div className={styles.headerButtons}>
