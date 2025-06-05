@@ -19,6 +19,7 @@
     "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.2",
     "next": "13.5.1",
+    "nss": "^0.0.1",
     "postcss": "8.4.30",
     "qrcode": "^1.5.4",
     "react": "18.2.0",
