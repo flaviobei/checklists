@@ -1,17 +1,15 @@
 /* /styles/globals.css */
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial,
-    sans-serif; /* Added fallbacks */
+ html, body {
+     padding: 0;
+     margin: 0;
+     font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* Added fallbacks */
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+ a {
+     color: inherit;
+     text-decoration: none;
 }
-
-* {
-  box-sizing: border-box;
+ * {
+     box-sizing: border-box;
 }
+ 

@@ -1,92 +1,78 @@
 /* /styles/Login.module.css */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+ .container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+     background-color: #f5f5f5;
 }
-
-.loginBox {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 100%;
-  max-width: 400px;
+ .loginBox {
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+     padding: 30px;
+     width: 100%;
+     max-width: 400px;
 }
-
-.title {
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: 24px;
-  color: #042433;
+ .title {
+     text-align: center;
+     margin-bottom: 5px;
+     font-size: 24px;
+     color: #042433;
 }
-
-.subtitle {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #042433;
+ .subtitle {
+     text-align: center;
+     margin-bottom: 20px;
+     color: #042433;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
+ .form {
+     display: flex;
+     flex-direction: column;
 }
-
-.formGroup {
-  margin-bottom: 15px;
+ .formGroup {
+     margin-bottom: 15px;
 }
-
-.formGroup label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: 500;
+ .formGroup label {
+     display: block;
+     margin-bottom: 5px;
+     font-weight: 500;
 }
-
-.formGroup input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+ .formGroup input {
+     width: 100%;
+     padding: 10px;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     font-size: 16px;
 }
-
-.button {
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
+ .button {
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 12px;
+     font-size: 16px;
+     cursor: pointer;
+     margin-top: 10px;
 }
-
-.button:hover {
-  background-color: #298ca6;
+ .button:hover {
+     background-color: #298ca6;
 }
-
-.button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+ .button:disabled {
+     background-color: #cccccc;
+     cursor: not-allowed;
 }
-
-.error {
-  color: #e74c3c;
-  margin-bottom: 10px;
+ .error {
+     color: #e74c3c;
+     margin-bottom: 10px;
 }
-
 /* add div para o logo */
-
-.logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+ .logoContainer {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 10px;
 }
-
-.logoContainer img {
-  width: 100px;
-  height: auto;
+ .logoContainer img {
+     width: 100px;
+     height: auto;
 }

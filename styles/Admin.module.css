@@ -1,412 +1,349 @@
 /* /styles/Admin.module.css */
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
+ .container {
+     min-height: 100vh;
+     padding: 0;
+     background-color: #f5f5f5;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 2rem;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #042433;
+ .header h1 {
+     margin: 0;
+     font-size: 1.5rem;
+     color: #042433;
 }
-
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+ .userInfo {
+     display: flex;
+     align-items: center;
+     gap: 1rem;
 }
-
-.logoutButton {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .logoutButton {
+     background-color: #f44336;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.main {
-  padding: 2rem;
+ .main {
+     padding: 2rem;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+ .grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 1.5rem;
 }
-
-.card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+ .card {
+     background-color: white;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease;
 }
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
+ .card:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
 }
-
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+ .card h2 {
+     margin-top: 0;
+     margin-bottom: 0.5rem;
+     font-size: 1.2rem;
 }
-
-.card p {
-  margin-bottom: 1rem;
-  color: #666;
+ .card p {
+     margin-bottom: 1rem;
+     color: #666;
 }
-
-.card button {
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .card button {
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.card button:hover {
-  background-color: #298ca6;
+ .card button:hover {
+     background-color: #298ca6;
 }
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666;
+ .loading {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+     font-size: 1.2rem;
+     color: #666;
 }
-
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
+ .container {
+     min-height: 100vh;
+     padding: 0;
+     background-color: #f5f5f5;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 2rem;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+ .header h1 {
+     margin: 0;
+     font-size: 1.5rem;
+     color: #333;
 }
-
-.headerButtons {
-  display: flex;
-  gap: 1rem;
+ .headerButtons {
+     display: flex;
+     gap: 1rem;
 }
-
-.backButton {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .backButton {
+     background-color: #6c757d;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.createButton {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .createButton {
+     background-color: #28a745;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.tableContainer {
-  padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
-  margin: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .tableContainer {
+     padding: 2rem;
+     background-color: white;
+     border-radius: 8px;
+     margin: 2rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.tableContainer h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+ .tableContainer h2 {
+     margin-top: 0;
+     margin-bottom: 1rem;
+     font-size: 1.2rem;
 }
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
+ .table {
+     width: 100%;
+     border-collapse: collapse;
 }
-
-.table th,
-.table td {
-  padding: 0.75rem;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-  font-size: 0.75em;
+ .table th, .table td {
+     padding: 0.75rem;
+     text-align: left;
+     border-bottom: 1px solid #dee2e6;
+     font-size: 0.75em;
 }
-
-.table th {
-  background-color: #f8f9fa;
-  font-weight: 600;
+ .table th {
+     background-color: #f8f9fa;
+     font-weight: 600;
 }
-
-.actions {
-  display: flex;
-  gap: 0.5rem;
+ .actions {
+     display: flex;
+     gap: 0.5rem;
 }
-
-.editButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem 0.5rem;
-  cursor: pointer;
+ .editButton {
+     background-color: #007bff;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.25rem 0.5rem;
+     cursor: pointer;
 }
-
-.deleteButton {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem 0.5rem;
-  cursor: pointer;
+ .deleteButton {
+     background-color: #dc3545;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.25rem 0.5rem;
+     cursor: pointer;
 }
-
-.activateButton {
-  background-color: rgb(10, 117, 17);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .activateButton {
+     background-color: rgb(10, 117, 17);
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.deactivateButton {
-  background-color: #b53642;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .deactivateButton {
+     background-color: #b53642;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.qrButton {
-  background-color: #000000;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .qrButton {
+     background-color: #000000;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.noData {
-  text-align: center;
-  color: #6c757d;
-  padding: 1rem;
+ .noData {
+     text-align: center;
+     color: #6c757d;
+     padding: 1rem;
 }
-
-.loading {
-  text-align: center;
-  padding: 1rem;
-  color: #6c757d;
+ .loading {
+     text-align: center;
+     padding: 1rem;
+     color: #6c757d;
 }
-
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  margin: 1rem 2rem;
-  border-radius: 4px;
+ .error {
+     background-color: #f8d7da;
+     color: #721c24;
+     padding: 0.75rem;
+     margin: 1rem 2rem;
+     border-radius: 4px;
 }
-
-.formContainer {
-  padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
-  margin: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .formContainer {
+     padding: 2rem;
+     background-color: white;
+     border-radius: 8px;
+     margin: 2rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.formContainer h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+ .formContainer h2 {
+     margin-top: 0;
+     margin-bottom: 1rem;
+     font-size: 1.2rem;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+ .form {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
 }
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+ .formGroup {
+     display: flex;
+     flex-direction: column;
+     gap: 0.5rem;
 }
-
-.formGroup label {
-  font-weight: 500;
+ .formGroup label {
+     font-weight: 500;
 }
-
-.formGroup input[type="text"],
-.formGroup input[type="password"] {
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+ .formGroup input[type="text"], .formGroup input[type="password"] {
+     padding: 0.5rem;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
 }
-
-.checkboxLabel {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+ .checkboxLabel {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
 }
-
-.formButtons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+ .formButtons {
+     display: flex;
+     gap: 1rem;
+     margin-top: 1rem;
 }
-
-.saveButton {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .saveButton {
+     background-color: #28a745;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.cancelButton {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .cancelButton {
+     background-color: #6c757d;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.filterContainer {
-  margin: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+ .filterContainer {
+     margin: 1rem 2rem;
+     display: flex;
+     align-items: center;
+     gap: 1rem;
 }
-
-.filterSelect {
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  min-width: 250px;
+ .filterSelect {
+     padding: 0.5rem;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+     min-width: 250px;
 }
-
-.filterContainer label {
-  font-weight: 500;
+ .filterContainer label {
+     font-weight: 500;
 }
-
 /* add div para o logo */
-
-.logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+ .logoContainer {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 10px;
 }
-
-.logoContainer img {
-  width: 100px;
-  height: auto;
+ .logoContainer img {
+     width: 100px;
+     height: auto;
 }
-
 /* Estilos para a página de QR Codes */
-.controls {
-  margin: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+ .controls {
+     margin: 1rem 2rem;
+     display: flex;
+     align-items: center;
+     gap: 1rem;
 }
-
-.filterSelect {
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  min-width: 250px;
+ .filterSelect {
+     padding: 0.5rem;
+     border: 1px solid #ced4da;
+     border-radius: 4px;
+     min-width: 250px;
 }
-
-.qrCodeGrid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(250px, 1fr)
-  ); /* Ajuste o tamanho mínimo/máximo */
-  gap: 1.5rem;
-  padding: 2rem;
+ .qrCodeGrid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Ajuste o tamanho mínimo/máximo */
+     gap: 1.5rem;
+     padding: 2rem;
 }
-
-.qrCodeCard {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+ .qrCodeCard {
+     border: 1px solid #e0e0e0;
+     border-radius: 8px;
+     padding: 1.5rem;
+     background-color: white;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+     text-align: center;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
 }
-
-.qrCodeCard h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+ .qrCodeCard h3 {
+     margin-top: 0;
+     margin-bottom: 0.5rem;
+     font-size: 1.1rem;
 }
-
-.qrCodeCard p {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.2rem 0;
+ .qrCodeCard p {
+     font-size: 0.9rem;
+     color: #666;
+     margin: 0.2rem 0;
 }
-
-.qrCodeImage {
-  margin-top: 1rem;
-  width: 200px; /* Tamanho de exibição na tela */
-  height: 200px;
+ .qrCodeImage {
+     margin-top: 1rem;
+     width: 200px;
+    /* Tamanho de exibição na tela */
+     height: 200px;
 }
-
-.qrCodeImage svg {
-  width: 100%;
-  height: 100%;
+ .qrCodeImage svg {
+     width: 100%;
+     height: 100%;
 }
-
-.noQrCode {
-  margin-top: 1rem;
-  color: #dc3545;
-  font-style: italic;
+ .noQrCode {
+     margin-top: 1rem;
+     color: #dc3545;
+     font-style: italic;
 }
-
-.printButton {
-  background-color: #17a2b8;
+ .printButton {
+     background-color: #17a2b8;
 }
-
 /* Classe para esconder elementos na impressão */
-.no-print {
-  /* Estilos normais aqui, se necessário */
+ .no-print {
+    /* Estilos normais aqui, se necessário */
 }

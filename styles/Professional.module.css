@@ -1,356 +1,305 @@
 /* Layout geral */
-.container {
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 0;
+ .container {
+     min-height: 100vh;
+     background-color: #f5f5f5;
+     padding: 0;
 }
-
 /* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 2rem;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+ .header h1 {
+     margin: 0;
+     font-size: 1.5rem;
+     color: #333;
 }
-
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+ .userInfo {
+     display: flex;
+     align-items: center;
+     gap: 1rem;
 }
-
-.logoutButton {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .logoutButton {
+     background-color: #f44336;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.logoutButton:hover {
-  background-color: #d32f2f;
+ .logoutButton:hover {
+     background-color: #d32f2f;
 }
-
 /* Conteúdo principal */
-.main {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+ .main {
+     padding: 2rem;
+     display: flex;
+     flex-direction: column;
+     gap: 2rem;
 }
-
 /* Seções principais */
-.scanSection,
-.checklistsSection,
-.cardbarra,
-.card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+ .scanSection, .checklistsSection, .cardbarra, .card {
+     background-color: white;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease;
 }
-
-.aviso {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-left: 50px;
-  margin-right: 50px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  text-align: center;
+ .aviso {
+     background-color: white;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     margin-left: 50px;
+     margin-right: 50px;
+     margin-top: 15px;
+     margin-bottom: 20px;
+     text-align: center;
 }
-
-.aviso button {
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+ .aviso button {
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
+     font-weight: 500;
+     transition: background-color 0.3s ease;
 }
-
-.aviso button:hover {
-  background-color: #298ca6;
+ .aviso button:hover {
+     background-color: #298ca6;
 }
-
-.debug {
-  background-color: rgb(230, 124, 124);
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+ .debug {
+     background-color: rgb(230, 124, 124);
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease;
 }
-
-.card:hover,
-.checklistCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
+ .card:hover, .checklistCard:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
 }
-
 /* 🔍 Página de checklist detalhado */
-.checklistForm {
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
+ .checklistForm {
+     background-color: white;
+     padding: 1.5rem;
+     border-radius: 12px;
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+     max-width: 700px;
 }
-
-.checklistForm h2 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #042433;
+ .checklistForm h2 {
+     margin-top: 0;
+     font-size: 1.4rem;
+     margin-bottom: 1rem;
+     color: #042433;
 }
-
-.itemList {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 1.5rem;
+ .itemList {
+     list-style: none;
+     padding: 0;
+     margin-bottom: 1.5rem;
 }
-
-.item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
+ .item {
+     display: flex;
+     align-items: center;
+     margin-bottom: 0.75rem;
 }
-
-.item label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
+ .item label {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     cursor: pointer;
 }
-
-.item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+ .item input[type="checkbox"] {
+     width: 18px;
+     height: 18px;
 }
-
-.photoRequired {
-  font-size: 0.8rem;
-  color: #298ca6;
+ .photoRequired {
+     font-size: 0.8rem;
+     color: #298ca6;
 }
-
-.submitButton {
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+ .submitButton {
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
+     font-weight: 500;
+     transition: background-color 0.3s ease;
 }
-
-.submitButton:hover {
-  background-color: #298ca6;
+ .submitButton:hover {
+     background-color: #298ca6;
 }
-
-.checklistDescription {
-  color: #666;
-  margin-bottom: 1rem;
+ .checklistDescription {
+     color: #666;
+     margin-bottom: 1rem;
 }
-
 /* Loading */
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  font-size: 1.25rem;
-  color: #666;
+ .loading {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     min-height: 100vh;
+     font-size: 1.25rem;
+     color: #666;
 }
-
 /* 🔥 Cards checklists na página principal */
-.checklistGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+ .checklistGrid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 1.5rem;
+     margin-top: 1rem;
 }
-
-.checklistCard {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
+ .checklistCard {
+     background-color: white;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     display: flex;
+     flex-direction: column;
+     transition: transform 0.3s ease;
 }
-
-.checklistCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 8px rgba(41, 140, 166, 0.9);
+ .checklistCard:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 2px 8px rgba(41, 140, 166, 0.9);
 }
-
-.checklistCard h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.2rem;
-  color: #333;
+ .checklistCard h3 {
+     margin: 0 0 0.5rem;
+     font-size: 1.2rem;
+     color: #333;
 }
-
-.checklistDetails {
-  margin-bottom: 1rem;
+ .checklistDetails {
+     margin-bottom: 1rem;
 }
-
-.checklistDetails p {
-  margin: 0.25rem 0;
-  font-size: 0.9rem;
-  color: #555;
+ .checklistDetails p {
+     margin: 0.25rem 0;
+     font-size: 0.9rem;
+     color: #555;
 }
-
 /* Botões dentro dos cards */
-.checklistButton,
-.startButton {
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+ .checklistButton, .startButton {
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
+     font-weight: 500;
+     transition: background-color 0.3s ease;
 }
-
-.checklistButton:hover,
-.startButton:hover {
-  background-color: #298ca6;
+ .checklistButton:hover, .startButton:hover {
+     background-color: #298ca6;
 }
-
 /* Sem dados */
-.noData {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .noData {
+     text-align: center;
+     padding: 2rem;
+     color: #6c757d;
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 /* 🔥 Barra de progresso */
-.progressContainer {
-  width: 100%;
-  max-width: 40%;
-  margin: 10px 0;
+ .progressContainer {
+     width: 100%;
+     max-width: 40%;
+     margin: 10px 0;
 }
-
-.progressContainer h3 {
-  margin-bottom: 8px;
-  margin-top: 5px;
+ .progressContainer h3 {
+     margin-bottom: 8px;
+     margin-top: 5px;
 }
-
-.progressBar {
-  width: 100%;
-  height: 20px;
-  background-color: #a6a5a5;
-  border-radius: 20px;
-  overflow: hidden;
+ .progressBar {
+     width: 100%;
+     height: 20px;
+     background-color: #a6a5a5;
+     border-radius: 20px;
+     overflow: hidden;
 }
-
-.progressFill {
-  height: 100%;
-  background-color: #04254a;
-  color: white;
-  text-align: center;
-  line-height: 20px;
-  border-radius: 20px;
-  transition: width 0.5s ease;
-  font-weight: bold;
+ .progressFill {
+     height: 100%;
+     background-color: #04254a;
+     color: white;
+     text-align: center;
+     line-height: 20px;
+     border-radius: 20px;
+     transition: width 0.5s ease;
+     font-weight: bold;
 }
-
 /* 🔍 Botão escanear */
-.scanButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
+ .scanButton {
+     background-color: #4caf50;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.75rem 1.5rem;
+     font-size: 1rem;
+     cursor: pointer;
+     margin-top: 1rem;
 }
-
-.scanButton:hover {
-  background-color: #388e3c;
+ .scanButton:hover {
+     background-color: #388e3c;
 }
-
 /* Upload de foto */
-.photoUpload {
-  margin-top: 0.5rem;
+ .photoUpload {
+     margin-top: 0.5rem;
 }
-
-.photoUpload input[type="file"] {
-  margin-top: 0.25rem;
+ .photoUpload input[type="file"] {
+     margin-top: 0.25rem;
 }
-
-.photoPreview {
-  position: relative; /* Necessário para a propriedade 'fill' */
-  width: 150px; /* Defina a largura desejada */
-  height: 150px; /* Defina a altura desejada */
-  margin-top: 10px;
-  overflow: hidden; /* Para conter a imagem */
+ .photoPreview {
+     position: relative;
+    /* Necessário para a propriedade 'fill' */
+     width: 150px;
+    /* Defina a largura desejada */
+     height: 150px;
+    /* Defina a altura desejada */
+     margin-top: 10px;
+     overflow: hidden;
+    /* Para conter a imagem */
 }
-
-.photoPreview img {
-  max-width: 120px;
-  max-height: 120px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 2px solid #298ca6;
+ .photoPreview img {
+     max-width: 120px;
+     max-height: 120px;
+     border-radius: 8px;
+     object-fit: cover;
+     border: 2px solid #298ca6;
 }
-
-.photoButton {
-  font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  /* Você pode adicionar outros estilos que quiser, ex: */
-  padding: 8px 16px;
-  background-color: #042433;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+ .photoButton {
+     font-family: "Helvetica Neue LT Std", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* Você pode adicionar outros estilos que quiser, ex: */
+     padding: 8px 16px;
+     background-color: #042433;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
 }
-
-.photoButton:hover {
-  background-color: #005bb5;
+ .photoButton:hover {
+     background-color: #005bb5;
 }
-
 /* Mensagem quando não há dados */
-.noData {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .noData {
+     text-align: center;
+     padding: 2rem;
+     color: #6c757d;
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 /* add div para o logo */
-
-.logoContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+ .logoContainer {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     padding: 10px;
 }
-
-.logoContainer img {
-  width: 100px;
-  height: auto;
+ .logoContainer img {
+     width: 100px;
+     height: auto;
 }

@@ -1,221 +1,190 @@
 /* /styles/Professional.module.css */
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
+ .container {
+     min-height: 100vh;
+     padding: 0;
+     background-color: #f5f5f5;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 2rem;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+ .header h1 {
+     margin: 0;
+     font-size: 1.5rem;
+     color: #333;
 }
-
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+ .userInfo {
+     display: flex;
+     align-items: center;
+     gap: 1rem;
 }
-
-.logoutButton {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .logoutButton {
+     background-color: #f44336;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.main {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+ .main {
+     padding: 2rem;
+     display: flex;
+     flex-direction: column;
+     gap: 2rem;
 }
-
-.scanSection,
-.checklistsSection {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .scanSection, .checklistsSection {
+     background-color: white;
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.scanButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
+ .scanButton {
+     background-color: #4caf50;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.75rem 1.5rem;
+     font-size: 1rem;
+     cursor: pointer;
+     margin-top: 1rem;
 }
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.2rem;
-  color: #666;
+ .loading {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100vh;
+     font-size: 1.2rem;
+     color: #666;
 }
-
-.container {
-  min-height: 100vh;
-  padding: 0;
-  background-color: #f5f5f5;
+ .container {
+     min-height: 100vh;
+     padding: 0;
+     background-color: #f5f5f5;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 2rem;
+     background-color: #fff;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
+ .header h1 {
+     margin: 0;
+     font-size: 1.5rem;
+     color: #333;
 }
-
-.headerButtons {
-  display: flex;
-  gap: 1rem;
+ .headerButtons {
+     display: flex;
+     gap: 1rem;
 }
-
-.backButton {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+ .backButton {
+     background-color: #6c757d;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.5rem 1rem;
+     cursor: pointer;
 }
-
-.content {
-  padding: 2rem;
+ .content {
+     padding: 2rem;
 }
-
-.loading {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
+ .loading {
+     text-align: center;
+     padding: 2rem;
+     color: #6c757d;
 }
-
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 0.75rem;
-  margin: 1rem 2rem;
-  border-radius: 4px;
+ .error {
+     background-color: #f8d7da;
+     color: #721c24;
+     padding: 0.75rem;
+     margin: 1rem 2rem;
+     border-radius: 4px;
 }
-
-.noData {
-  text-align: center;
-  padding: 2rem;
-  color: #6c757d;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ .noData {
+     text-align: center;
+     padding: 2rem;
+     color: #6c757d;
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-.checklistGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+ .checklistGrid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+     gap: 1.5rem;
 }
-
-.checklistCard {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
+ .checklistCard {
+     background-color: white;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     padding: 1.5rem;
+     display: flex;
+     flex-direction: column;
 }
-
-.checklistCard h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-size: 1.2rem;
-  color: #333;
+ .checklistCard h2 {
+     margin-top: 0;
+     margin-bottom: 0.5rem;
+     font-size: 1.2rem;
+     color: #333;
 }
-
-.checklistDescription {
-  color: #6c757d;
-  margin-bottom: 1rem;
-  flex-grow: 1;
+ .checklistDescription {
+     color: #6c757d;
+     margin-bottom: 1rem;
+     flex-grow: 1;
 }
-
-.checklistDetails {
-  margin-bottom: 1rem;
+ .checklistDetails {
+     margin-bottom: 1rem;
 }
-
-.checklistDetails p {
-  margin: 0.25rem 0;
-  font-size: 0.9rem;
+ .checklistDetails p {
+     margin: 0.25rem 0;
+     font-size: 0.9rem;
 }
-
-.startButton {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  margin-top: auto;
+ .startButton {
+     background-color: #007bff;
+     color: white;
+     border: none;
+     border-radius: 4px;
+     padding: 0.75rem 1rem;
+     cursor: pointer;
+     font-weight: 500;
+     margin-top: auto;
 }
-
-.startButton:hover {
-  background-color: #0069d9;
+ .startButton:hover {
+     background-color: #0069d9;
 }
-
 /* 🔥 Container da barra */
-.progressContainer {
-  width: 40%;
-  min-width: 250px;
-  margin: 20px 0;
+ .progressContainer {
+     width: 40%;
+     min-width: 250px;
+     margin: 20px 0;
 }
-
 /* Título do progresso */
-.progressContainer h3 {
-  margin-bottom: 8px;
-  margin-top: 5px;
-  margin-left: 5px;
+ .progressContainer h3 {
+     margin-bottom: 8px;
+     margin-top: 5px;
+     margin-left: 5px;
 }
-
 /* 🔵 Barra de fundo */
-.progressBar {
-  width: 100%;
-  height: 25px;
-  background-color: #a6a5a5;
-  border-radius: 20px;
-  overflow: hidden;
+ .progressBar {
+     width: 100%;
+     height: 25px;
+     background-color: #a6a5a5;
+     border-radius: 20px;
+     overflow: hidden;
 }
-
 /* 🔵 Barra preenchida */
-.progressFill {
-  height: 100%;
-  background-color: #04254a;
-  color: white;
-  text-align: center;
-  line-height: 20px;
-  border-radius: 20px;
-  transition: width 0.5s ease;
-
-  font-weight: bold;
+ .progressFill {
+     height: 100%;
+     background-color: #04254a;
+     color: white;
+     text-align: center;
+     line-height: 20px;
+     border-radius: 20px;
+     transition: width 0.5s ease;
+     font-weight: bold;
 }
