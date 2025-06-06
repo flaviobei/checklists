@@ -14,7 +14,7 @@ export default function ChecklistPage() {
   const [isAuthorized, setIsAuthorized] = useState(false); // Estado para controlar autorização
   const [user, setUser] = useState(null); // Estado para guardar dados do usuário
 
-  // Estados para os itens (como no seu código)
+  // Estados para os itens 
   const [completedItems, setCompletedItems] = useState([]);
   const [photos, setPhotos] = useState({});
 
@@ -71,7 +71,7 @@ export default function ChecklistPage() {
       if (assignedTo === currentUser.id || isAvulso) {
         console.log('Autorização concedida.');
         setChecklist(foundChecklist);
-        // Inicializar estados dos itens (como no seu código)
+        // Inicializar estados dos itens 
         setCompletedItems(foundChecklist.items?.map(() => false) || []);
         setPhotos({});
         setIsAuthorized(true); // Marcar como autorizado
@@ -85,7 +85,7 @@ export default function ChecklistPage() {
     }
   }, [checklistId, router]); // Depender apenas do checklistId e router
 
-  // Funções handleToggleItem, handlePhotoChange, handleSubmit (como no seu código)
+  // Funções handleToggleItem, handlePhotoChange, handleSubmit
   const handleToggleItem = (index) => {
     if (!isAuthorized) return; // Não permitir interação se não autorizado
     const updated = [...completedItems];
@@ -120,9 +120,9 @@ export default function ChecklistPage() {
     }
 
     alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
-    // Aqui você pode futuramente enviar os dados para um backend ou API
-    // Exemplo: criar um registro de execução em executions.json
-
+    // a partir daqui será enviado pra API pra gravar a execução
+    /* a ser executado */
+  
     router.push('/professional/'); // Redirecionar para a lista após envio
   };
 
