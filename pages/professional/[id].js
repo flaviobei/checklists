@@ -169,6 +169,9 @@ export default function ChecklistPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
+          <div className={styles.logoContainer}>
+          <a href='#' onClick={() => router.push('/professional')}><img src='../grupotb_logo.png' alt='Logo GrupoTB' title="Voltar para meus Checklists"></img></a>
+      </div>
         <h1>{checklist.title}</h1>
         <button
           className={styles.logoutButton} // Usando a classe existente para o botão voltar
