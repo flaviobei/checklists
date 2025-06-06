@@ -342,7 +342,16 @@
 }
  .printButton {
      background-color: #17a2b8;
+     color: white;
+     font-weight: bold;
 }
+
+.printButton:hover {
+     background-color: #138d9f;
+     cursor: pointer;color: white;
+     font-weight: bold;
+}
+
 /* Classe para esconder elementos na impressão */
  .no-print {
     /* Estilos normais aqui, se necessário */
