@@ -327,9 +327,9 @@
 }
  .qrCodeImage {
      margin-top: 1rem;
-     width: 200px;
+     width: 250px;
     /* Tamanho de exibição na tela */
-     height: 200px;
+     height: 250px;
 }
  .qrCodeImage svg {
      width: 100%;
