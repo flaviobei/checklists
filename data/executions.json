@@ -62,5 +62,16 @@
       true,
       true
     ]
+  },
+  {
+    "checklistId": "6b951088-da3d-408b-bf35-2482d55f36f8",
+    "userId": "9a870de9-685b-44ea-bbfb-758db84eb816",
+    "completedAt": "2025-06-09T19:59:41.105Z",
+    "photos": {
+      "16588a4a-7510-4df9-8604-e19de316cfa6": "/uploads/checklist-photos/6b951088-da3d-408b-bf35-2482d55f36f8_16588a4a-7510-4df9-8604-e19de316cfa6_1749499181039.png"
+    },
+    "completedItems": [
+      true
+    ]
   }
 ]
