@@ -45,5 +45,22 @@
       true,
       true
     ]
+  },
+  {
+    "checklistId": "a8e0eccb-cc37-406c-b377-096d5e1cfb2c",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:56:17.395Z",
+    "photos": {
+      "3702e2f6-1506-424a-b1cd-97aae54617e2": "/uploads/checklist-photos/a8e0eccb-cc37-406c-b377-096d5e1cfb2c_3702e2f6-1506-424a-b1cd-97aae54617e2_1749498977325.png",
+      "2d820394-ceca-4263-896f-4e75121b2b85": "/uploads/checklist-photos/a8e0eccb-cc37-406c-b377-096d5e1cfb2c_2d820394-ceca-4263-896f-4e75121b2b85_1749498977330.png",
+      "a5fe4624-94c2-49c6-9c6f-3e9a8fbdb3ba": "/uploads/checklist-photos/a8e0eccb-cc37-406c-b377-096d5e1cfb2c_a5fe4624-94c2-49c6-9c6f-3e9a8fbdb3ba_1749498977336.png",
+      "e02a2c0a-0956-4da9-82ea-cb9dc2e90958": "/uploads/checklist-photos/a8e0eccb-cc37-406c-b377-096d5e1cfb2c_e02a2c0a-0956-4da9-82ea-cb9dc2e90958_1749498977345.png"
+    },
+    "completedItems": [
+      true,
+      true,
+      true,
+      true
+    ]
   }
 ]
