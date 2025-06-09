@@ -1,3 +1,8 @@
+/* pages/api/checklisttypes/[id].js */
+// Rota para gerenciar tipos de checklist por ID
+// Permite buscar, atualizar e excluir tipos de checklist.
+// Apenas administradores podem gerenciar tipos de checklist.
+
 import { 
   findChecklistTypeById, 
   updateChecklistType, 

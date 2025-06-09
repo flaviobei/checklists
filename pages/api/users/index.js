@@ -1,3 +1,9 @@
+/* pages/api/users/index.js */
+// Rota para gerenciar usuários
+// Permite listar todos os usuários e criar novos usuários.
+// Apenas administradores podem gerenciar usuários.
+
+
 import { getAllUsers, createUser } from '../../../lib/users';
 import { verifyToken } from '../../../lib/auth';
 

@@ -1,3 +1,9 @@
+/* pages/api/checklisttypes/index.js */
+// Rota para gerenciar tipos de checklist
+// Permite listar todos os tipos de checklist e criar novos tipos.
+// Apenas administradores podem criar tipos de checklist.
+
+
 import { getAllChecklistTypes, createChecklistType } from '../../../lib/checklistTypes';
 
 export default function handler(req, res) {

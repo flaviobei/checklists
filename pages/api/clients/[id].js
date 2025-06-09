@@ -1,3 +1,11 @@
+/* pages/api/clients/[id].js
+  * Rota para gerenciar clientes por ID
+  * Permite buscar, atualizar e excluir clientes.
+  * Apenas administradores podem gerenciar clientes.
+  * Usuários comuns podem apenas buscar clientes.
+  */
+ 
+
 import { findClientById, updateClient, deleteClient } from '../../../lib/clients';
 import { verifyToken } from '../../../lib/auth';
 

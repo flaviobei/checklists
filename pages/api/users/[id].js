@@ -1,3 +1,11 @@
+/* pages/api/users/[id].js
+ * Rota para gerenciar usuários por ID
+  * Permite buscar, atualizar e excluir usuários.
+  * Apenas administradores podem gerenciar usuários.
+  * Usuários comuns podem apenas buscar seus próprios dados.
+  * Usuários comuns não podem atualizar ou excluir outros usuários.
+  */
+
 import { findUserById, updateUser, deleteUser } from '../../../lib/users';
 import { verifyToken } from '../../../lib/auth';
 

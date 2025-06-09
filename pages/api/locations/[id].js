@@ -1,3 +1,9 @@
+/* pages/api/locations/[id].js */
+// Rota para gerenciar locais por ID
+// Permite buscar, atualizar e excluir locais.
+// Apenas administradores podem gerenciar locais.
+
+
 import { findLocationById, updateLocation, deleteLocation } from '../../../lib/locations';
 import { verifyToken } from '../../../lib/auth';
 

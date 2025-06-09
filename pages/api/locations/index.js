@@ -1,3 +1,9 @@
+/* pages/api/locations/index.js */
+// Rota para gerenciar locais
+// Permite listar todos os locais e criar novos locais.
+// Apenas administradores podem criar locais.
+
+
 import { getAllLocations, createLocation, findLocationsByClientId } from '../../../lib/locations';
 import { verifyToken } from '../../../lib/auth';
 

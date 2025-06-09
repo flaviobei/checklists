@@ -1,3 +1,12 @@
+/* pages/api/clients/index.js
+ * Rota para gerenciar clientes
+  * Permite listar todos os clientes e criar novos clientes.
+  * Apenas administradores podem criar clientes.
+  * Usuários comuns podem apenas listar clientes.
+  *  
+  * Esta rota não permite operações de atualização ou exclusão de clientes.
+  */
+
 import { getAllClients, createClient } from '../../../lib/clients';
 import { verifyToken } from '../../../lib/auth';
 
