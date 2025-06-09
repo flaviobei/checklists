@@ -1,3 +1,11 @@
+/* pages/api/checklists/index.js 
+  * Rota para gerenciar checklists
+  * Permite listar, criar e filtrar checklists por cliente, local ou usuário.
+  * Usuários comuns podem ver apenas checklists atribuídos a eles ou avulsos.
+  * Administradores podem gerenciar todos os checklists.
+*/
+
+
 import { getAllChecklists, createChecklist, findChecklistsByClientId, findChecklistsByLocationId, findChecklistsByUserId, generateQRCodeSVG, updateChecklist } from '../../../lib/checklists';
 import { verifyToken } from '../../../lib/auth';
 

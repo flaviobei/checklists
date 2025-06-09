@@ -1,3 +1,8 @@
+/* pages/api/categories/index.js
+ * Rota para gerenciar categorias
+  * Permite listar todas as categorias e criar novas categorias.
+  */  
+
 import { getAllCategories, createCategory } from '../../../lib/categories';
 import { verifyToken } from '../../../lib/auth';
 

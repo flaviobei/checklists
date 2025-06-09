@@ -1,3 +1,10 @@
+/* pages/api/checklists/activeqrcodes.js 
+* Rota para listar QR Codes de checklists ativos
+* Permite filtrar por cliente e retorna detalhes dos checklists.
+*/
+
+
+
 import { getAllChecklists, findChecklistsByClientId } from '../../../lib/checklists';
 import { getAllClients } from '../../../lib/clients';
 import { getAllLocations } from '../../../lib/locations';

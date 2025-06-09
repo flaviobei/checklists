@@ -1,3 +1,9 @@
+/* pages/api/checklists/[id]/toggle.js
+ * Rota para ativar/desativar checklists
+  * Permite que administradores ativem ou desativem checklists.
+  */
+ 
+
 import { toggleChecklistStatus } from '../../../../lib/checklists';
 import { verifyToken } from '../../../../lib/auth';
 

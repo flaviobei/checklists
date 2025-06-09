@@ -1,4 +1,9 @@
-// /pages/api/auth/login.js
+/* pages/api/auth/login.js
+* Rota de autenticação para login de usuários
+* Recebe username e password, valida as credenciais e retorna um token JWT.
+*/
+
+
 import jwt from 'jsonwebtoken';
 import { findUserByUsername, comparePassword } from '../../../lib/db/users';
 

@@ -1,3 +1,10 @@
+/* pages/api/checklists/[id].js
+ * Rota para gerenciar checklists por ID
+  * Permite buscar, atualizar e excluir checklists.
+  * Também permite que administradores ativem/desativem checklists.
+  * Usuários comuns podem apenas buscar checklists atribuídos a eles.
+  */
+
 import { findChecklistById, updateChecklist, deleteChecklist, toggleChecklistStatus } from '../../../lib/checklists';
 import { verifyToken } from '../../../lib/auth';
 

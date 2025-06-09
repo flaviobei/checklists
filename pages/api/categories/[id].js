@@ -1,3 +1,8 @@
+/* pages/api/categories/[id].js
+ * Rota para gerenciar categorias por ID
+ * Permite buscar, atualizar e excluir categorias.
+ */ 
+
 import { findCategoryById, updateCategory, deleteCategory } from '../../../lib/categories';
 import { verifyToken } from '../../../lib/auth';
 
