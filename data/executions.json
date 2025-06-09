@@ -28,5 +28,22 @@
     "checklistId": "6b951088-da3d-408b-bf35-2482d55f36f8",
     "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
     "completedAt": "2025-06-09T19:34:26.251Z"
+  },
+  {
+    "checklistId": "732226df-5bef-4ad4-b6c6-3ddd1b3a325e",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:54:04.693Z",
+    "photos": {
+      "3ff62a7f-8de3-4657-a72e-5d537dad6e61": "/uploads/checklist-photos/732226df-5bef-4ad4-b6c6-3ddd1b3a325e_3ff62a7f-8de3-4657-a72e-5d537dad6e61_1749498844556.png",
+      "fdd08669-631f-4967-8311-db4217bb1cf6": "/uploads/checklist-photos/732226df-5bef-4ad4-b6c6-3ddd1b3a325e_fdd08669-631f-4967-8311-db4217bb1cf6_1749498844561.png",
+      "22b19f74-c123-4595-8714-df9dc42282dd": "/uploads/checklist-photos/732226df-5bef-4ad4-b6c6-3ddd1b3a325e_22b19f74-c123-4595-8714-df9dc42282dd_1749498844563.png",
+      "1d4ef73f-0bfb-4c31-ba72-8fe940fd9886": "/uploads/checklist-photos/732226df-5bef-4ad4-b6c6-3ddd1b3a325e_1d4ef73f-0bfb-4c31-ba72-8fe940fd9886_1749498844562.png"
+    },
+    "completedItems": [
+      true,
+      true,
+      true,
+      true
+    ]
   }
 ]

@@ -16,7 +16,7 @@
     "bcryptjs": "^3.0.2",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.1",
-    "formidable": "^3.5.4",
+    "formidable": "^2.1.1",
     "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.2",
     "next": "13.5.1",
