@@ -1,3 +1,11 @@
+/* pages/professional/[id].js
+ * Página para executar checklists profissionais
+  * Permite que usuários vejam e executem checklists atribuídos a eles.
+  * Exibe itens do checklist com opção de marcar como concluído e adicionar fotos.
+  * Exibe mensagens de erro se o checklist não for encontrado ou se o usuário não tiver permissão.
+  * Utiliza estado local para gerenciar checklist, itens concluídos, fotos e autorização.
+  */
+
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';

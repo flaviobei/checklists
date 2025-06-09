@@ -1,4 +1,11 @@
-// /pages/login/index.js
+/* pages/login/index.js
+ * Página de login do sistema de checklist
+  * Permite que usuários façam login com nome de usuário e senha.
+  * Redireciona usuários para a página apropriada após o login.
+  * Exibe mensagens de erro em caso de falha no login.
+  * Utiliza estado local para gerenciar campos de entrada, carregamento e erros.
+*/
+
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Login.module.css';
