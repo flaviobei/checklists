@@ -1,8 +1,32 @@
 [
-    {
-      "checklistId": "77c1859c-b6da-4e36-b33a-dc5e36904b11",
-      "userId": "9a870de9-685b-44ea-bbfb-758db84eb816",
-      "completedAt": "2025-06-05T14:00:00Z"
-    }
-  ]
-  
+  {
+    "checklistId": "77c1859c-b6da-4e36-b33a-dc5e36904b11",
+    "userId": "9a870de9-685b-44ea-bbfb-758db84eb816",
+    "completedAt": "2025-06-05T14:00:00Z"
+  },
+  {
+    "checklistId": "9d1cbca8-6837-4d32-b3a4-a9e6dca77cd9",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:27:43.526Z"
+  },
+  {
+    "checklistId": "37c6dc98-1f45-4110-add5-190050dae75a",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:28:51.474Z"
+  },
+  {
+    "checklistId": "ea686bd4-fcec-4e60-92cf-d49ed744be65",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:29:18.007Z"
+  },
+  {
+    "checklistId": "52867aab-354c-491a-beb7-be2de1543c9d",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:30:16.381Z"
+  },
+  {
+    "checklistId": "6b951088-da3d-408b-bf35-2482d55f36f8",
+    "userId": "ba4f08b5-cdd6-4592-8a51-dc3642e333b6",
+    "completedAt": "2025-06-09T19:34:26.251Z"
+  }
+]

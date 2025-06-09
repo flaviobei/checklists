@@ -8,19 +8,20 @@
   * - Exibir informações do usuário logado.
 */
 
-
-
-
 import { useEffect, useState, useRef } from 'react'; // Adicione useRef
 import { useRouter } from 'next/router';
 import styles from '../../styles/Professional.module.css';
 import checklistsData from '../../data/checklists.json';
+import executionsData from '../../data/executions.json'; // Importar execuções
 import { Html5QrcodeScanner } from 'html5-qrcode'; // Importe a biblioteca
 
 export default function ProfessionalDashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showScanner, setShowScanner] = useState(false); // Estado para controlar a visibilidade do scanner
+  const [pendingChecklists, setPendingChecklists] = useState([]); // Estado para checklists pendentes
+  const [totalChecklists, setTotalChecklists] = useState(0); // Total de checklists atribuídos
+  const [completedChecklists, setCompletedChecklists] = useState(0); // Checklists concluídos
   const router = useRouter();
 
   // Referência para o elemento do scanner (opcional, mas pode ser útil)
@@ -38,6 +39,9 @@ export default function ProfessionalDashboard() {
     try {
       const userData = JSON.parse(storedUser);
       setUser(userData);
+      
+      // Filtrar checklists pendentes (não executados pelo usuário atual)
+      filterPendingChecklists(userData.id);
     } catch (error) {
       console.error('Erro ao processar dados do usuário:', error);
       router.push('/login');
@@ -45,6 +49,38 @@ export default function ProfessionalDashboard() {
       setLoading(false);
     }
   }, [router]);
+
+  // Função para filtrar checklists pendentes
+  const filterPendingChecklists = (userId) => {
+    // Obter todos os checklists atribuídos ao usuário ou avulsos
+    const userChecklists = checklistsData.filter(
+      (checklist) =>
+      (checklist.assignedTo === userId || checklist.assignedTo === null) &&
+      checklist.active === true
+    );
+    
+    // Contar o total de checklists atribuídos ao usuário
+    const totalAssigned = userChecklists.length;
+    
+    // Filtrar os que já foram executados pelo usuário
+    const pending = userChecklists.filter(checklist => {
+      // Verificar se este checklist já foi executado por este usuário
+      const alreadyExecuted = executionsData.some(
+        exec => exec.checklistId === checklist.id && exec.userId === userId
+      );
+      
+      // Retornar apenas os não executados
+      return !alreadyExecuted;
+    });
+    
+    // Calcular quantos foram executados
+    const executed = totalAssigned - pending.length;
+    
+    // Atualizar estados
+    setPendingChecklists(pending);
+    setCompletedChecklists(executed);
+    setTotalChecklists(totalAssigned);
+  };
 
   // Efeito para inicializar e limpar o scanner
   useEffect(() => {
@@ -66,7 +102,7 @@ export default function ProfessionalDashboard() {
         //const foundChecklist = checklistsData.find(cl => cl.id === checklistId && cl.active === true && (cl.assignedTo === user?.id || cl.assignedTo === null));
 
         if (checklistId) {
-          router.push(`${checklistId}`);
+          router.push(`/professional/${checklistId}`);
           //alert(`Redirecionando para o checklist com ID: ${checklistId}`);
         } else {
           alert('Checklist não encontrado ou não acessível');
@@ -107,16 +143,9 @@ export default function ProfessionalDashboard() {
     return <div className={styles.loading}>Carregando...</div>;
   }
 
-  const userChecklists = checklistsData.filter(
-    (checklist) =>
-    (checklist.assignedTo === user?.id || checklist.assignedTo === null) &&
-    checklist.active === true
-  );
-
-  const totalChecklists = userChecklists.length;
-  const completedChecklists = userChecklists.filter(cl => cl.completed).length;
-  const percentage = totalChecklists === 0
-    ? 0
+  // Calcular a porcentagem de progresso
+  const percentage = totalChecklists === 0 
+    ? 0 
     : Math.round((completedChecklists / totalChecklists) * 100);
 
   return (
@@ -142,8 +171,6 @@ export default function ProfessionalDashboard() {
       </header>
 
       <main className={styles.main}>
-
-
         {/* Seção do Scanner */}
         {showScanner && (
           <div className={styles.scannerContainer}>
@@ -188,7 +215,7 @@ export default function ProfessionalDashboard() {
                 <div className={styles.progressBar}>
                   <div
                     className={styles.progressFill}
-                    style={{ width: `${totalChecklists === 0 ? 100 : percentage}%`, backgroundColor: totalChecklists === 0 ? 'gray' : '#4caf50' }}
+                    style={{ width: `${percentage}%`, backgroundColor: totalChecklists === 0 ? 'gray' : '#4caf50' }}
                   >
                     {totalChecklists === 0 ? "Nenhum checklist" : `${percentage}%`}
                   </div>
@@ -200,22 +227,23 @@ export default function ProfessionalDashboard() {
                 )}
               </div>
 
-              {userChecklists.length === 0 ? (
+              <h3>Checklists Pendentes</h3>
+              {pendingChecklists.length === 0 ? (
                 <div className={styles.noData}>
-                  <p>.</p>
+                  <p>Não há checklists pendentes no momento.</p>
                 </div>
               ) : (
                 <div className={styles.checklistGrid}>
-                  {userChecklists.map((checklist) => (
+                  {pendingChecklists.map((checklist) => (
                     <div key={checklist.id} className={styles.checklistCard}>
                       <h3>{checklist.title}</h3>
                       <p className={styles.checklistDescription}>
                         {checklist.description || "Sem descrição disponível."}
                       </p>
                       <div className={styles.checklistDetails}>
-                        <p>Status: {checklist.completed ? "Concluído ✅" : "Pendente ⏳"}</p>
+                        <p>Status: Pendente ⏳</p>
                         <p>Itens no Checklist: {checklist.items ? checklist.items.length : 0}</p>
-                        <p>Responsável: {checklist.assignedTo}</p>
+                        <p>Responsável: {checklist.assignedTo ? checklist.assignedTo : "Avulso"}</p>
                       </div>
                       <button
                         className={styles.startButton}
@@ -234,9 +262,9 @@ export default function ProfessionalDashboard() {
             <div className={styles.debug}>
               <h2>DEBUG</h2>
               <p>Total de Checklists atribuídos: {totalChecklists}</p>
-              <p>Total de Checklists completos: {completedChecklists}</p>
+              <p>Total de Checklists concluídos: {completedChecklists}</p>
               <p>% Concluídos: {percentage}%</p>
-              <p>User ID: {user?.id}</p> {/* Adicionado optional chaining aqui */}
+              <p>User ID: {user?.id}</p>
             </div>
           </>
         )}

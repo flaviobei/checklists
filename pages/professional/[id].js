@@ -21,10 +21,12 @@ export default function ChecklistPage() {
   const [error, setError] = useState(''); // Estado para mensagens de erro/acesso negado
   const [isAuthorized, setIsAuthorized] = useState(false); // Estado para controlar autorização
   const [user, setUser] = useState(null); // Estado para guardar dados do usuário
+  const [submitting, setSubmitting] = useState(false); // Estado para controlar envio do formulário
 
   // Estados para os itens 
   const [completedItems, setCompletedItems] = useState([]);
-  const [photos, setPhotos] = useState({});
+  const [photos, setPhotos] = useState({}); // URLs temporárias para exibição
+  const [photoFiles, setPhotoFiles] = useState({}); // Arquivos de foto para envio
 
   useEffect(() => {
     // Não fazer nada até que o ID esteja disponível na URL
@@ -82,6 +84,7 @@ export default function ChecklistPage() {
         // Inicializar estados dos itens 
         setCompletedItems(foundChecklist.items?.map(() => false) || []);
         setPhotos({});
+        setPhotoFiles({});
         setIsAuthorized(true); // Marcar como autorizado
       } else {
         console.log('Autorização negada.');
@@ -103,16 +106,47 @@ export default function ChecklistPage() {
 
   const handlePhotoChange = (index, file) => {
     if (!isAuthorized) return;
+    
+    // Guardar URL temporária para exibição
     const updatedPhotos = { ...photos };
+    // Guardar arquivo para envio
+    const updatedPhotoFiles = { ...photoFiles };
+    
     if (file) {
       updatedPhotos[index] = URL.createObjectURL(file);
+      updatedPhotoFiles[index] = file;
     } else {
       delete updatedPhotos[index];
+      delete updatedPhotoFiles[index];
     }
+    
     setPhotos(updatedPhotos);
+    setPhotoFiles(updatedPhotoFiles);
   };
 
-  const handleSubmit = () => {
+  // Função para enviar uma foto para o servidor
+  const uploadPhoto = async (itemId, file) => {
+    const formData = new FormData();
+    formData.append('photo', file);
+    formData.append('checklistId', checklist.id);
+    formData.append('itemId', itemId);
+    
+    const response = await fetch('/api/uploads/photos', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Erro ao enviar foto');
+    }
+    
+    const data = await response.json();
+    return data.filePath; // Retorna o caminho da foto salva
+  };
+
+  // Função handleSubmit modificada para enviar as fotos
+  const handleSubmit = async () => {
     if (!isAuthorized || !checklist) return;
 
     const total = checklist.items.length;
@@ -127,11 +161,63 @@ export default function ChecklistPage() {
       return;
     }
 
-    alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
-    // a partir daqui será enviado pra API pra gravar a execução
-    /* a ser executado */
-  
-    router.push('/professional/'); // Redirecionar para a lista após envio
+    try {
+      setSubmitting(true); // Iniciar processo de envio
+      
+      // 1. Enviar as fotos para o servidor
+      const photoUploads = [];
+      const photoResults = {};
+      
+      // Para cada item com foto, criar uma promessa de upload
+      for (let index = 0; index < checklist.items.length; index++) {
+        const item = checklist.items[index];
+        const file = photoFiles[index];
+        
+        if (item.requirePhoto && file) {
+          // Adicionar promessa de upload à lista
+          photoUploads.push(
+            uploadPhoto(item.id, file)
+              .then(filePath => {
+                // Guardar o caminho da foto no resultado
+                photoResults[item.id] = filePath;
+              })
+          );
+        }
+      }
+      
+      // Aguardar todos os uploads de fotos
+      await Promise.all(photoUploads);
+      
+      // 2. Registrar execução via API com os caminhos das fotos
+      const response = await fetch('/api/executions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          checklistId: checklist.id,
+          userId: user.id,
+          photos: photoResults, // Incluir caminhos das fotos
+          completedItems: completedItems // Opcional: incluir status dos itens
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Erro ao registrar execução');
+      }
+
+      // Execução registrada com sucesso
+      alert(`✅ Checklist enviado! Você concluiu ${done} de ${total} itens.`);
+      
+      // Redirecionar para a lista após envio
+      router.push('/professional');
+    } catch (error) {
+      console.error('Erro ao enviar checklist:', error);
+      alert(`❌ Erro ao enviar checklist: ${error.message}`);
+    } finally {
+      setSubmitting(false); // Finalizar processo de envio
+    }
   };
 
   // Renderização Condicional
@@ -218,6 +304,7 @@ export default function ChecklistPage() {
                         type="button"
                         onClick={() => document.getElementById(`photo-input-${index}`).click()}
                         className={styles.photoButton}
+                        disabled={submitting}
                       >
                         {photos[index] ? 'Trocar Foto' : 'Tirar/Escolher Foto'}
                       </button>
@@ -230,6 +317,7 @@ export default function ChecklistPage() {
                         onChange={(e) =>
                           handlePhotoChange(index, e.target.files[0])
                         }
+                        disabled={submitting}
                       />
                       {photos[index] && (
                         <div className={styles.photoPreview}>
@@ -252,8 +340,9 @@ export default function ChecklistPage() {
             <button
               className={styles.submitButton}
               onClick={handleSubmit}
+              disabled={submitting}
             >
-              Enviar Checklist
+              {submitting ? 'Enviando...' : 'Enviar Checklist'}
             </button>
           </div>
         ) : (
