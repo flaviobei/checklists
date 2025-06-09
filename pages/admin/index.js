@@ -1,4 +1,10 @@
-// /pages/admin/index.js
+/* /pages/admin/index.js
+  * Painel de Administração
+  * Este módulo serve como ponto de entrada para o painel de administração,
+  * permitindo acesso a diferentes seções como usuários, categorias, clientes, etc.
+  * Utiliza autenticação via token JWT armazenado no localStorage.
+  */
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';

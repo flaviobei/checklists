@@ -1,3 +1,9 @@
+/* pages/admin/locations.js
+  * Gerenciamento de Locais
+  * Permite criar, editar e excluir locais associados a clientes
+  * Utiliza autenticação via token JWT armazenado no localStorage
+  */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';

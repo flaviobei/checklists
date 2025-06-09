@@ -1,3 +1,9 @@
+/* pages/admin/qrcodes.js 
+* Gerenciamento de QR Codes de Checklists Ativos
+* Este módulo permite visualizar QR Codes de checklists ativos filtrados por cliente.
+* Utiliza autenticação via token JWT armazenado no localStorage
+*/
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';

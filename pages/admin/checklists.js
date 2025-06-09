@@ -1,3 +1,11 @@
+/* pages/admin/checklists.js
+ * Gerenciamento de Checklists
+  * Permite criar, editar, excluir e ativar/desativar checklists
+  * Utiliza autenticação via token JWT armazenado no localStorage
+  * Inclui funcionalidades para imprimir QR Codes dos checklists
+  * Filtra checklists por cliente selecionado
+  */
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';

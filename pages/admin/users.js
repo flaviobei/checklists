@@ -1,3 +1,10 @@
+/* pages/admin/users.js
+ * Gerenciamento de Usuários
+  * Permite criar, editar e excluir usuários do sistema
+  * Utiliza autenticação via token JWT armazenado no localStorage
+ */
+
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';
