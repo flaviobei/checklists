@@ -1,7 +1,7 @@
 /* pages/admin/executados.js
  * Listagem de Checklists Executados
- * Permite visualizar checklists do dia com status de execução
- * Inclui filtros por data, cliente e técnico
+ * Permite visualizar checklists por período
+ * Inclui filtros por data (hoje ou intervalo), cliente e técnico
  * Diferencia visualmente checklists executados (cinza) e pendentes (verde)
  * Mantém funcionalidade de impressão de QR Codes
  */
@@ -20,13 +20,15 @@ export default function ExecutedChecklists() {
   const [error, setError] = useState('');
   
   // Filtros
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // Data atual
+  const [dateFilterMode, setDateFilterMode] = useState('today'); // 'today' ou 'range'
+  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedClientId, setSelectedClientId] = useState('');
   const [selectedTechnicianId, setSelectedTechnicianId] = useState('');
 
   const router = useRouter();
 
-  // Função para imprimir QR Code (mantida)
+  // Função para imprimir QR Code
   const handlePrintQRCode = (checklist) => {
     if (checklist.qrCodePath) {
         const printWindow = window.open('', '_blank', 'width=300, height=500, toolbar=no,scrollbars=no,resizable=no');
@@ -152,8 +154,24 @@ export default function ExecutedChecklists() {
         return;
       }
       
-      // Usar o endpoint existente, aplicando filtro de cliente se selecionado
-      const url = selectedClientId ? `/api/checklists?clientId=${selectedClientId}` : '/api/checklists';
+      // Construir URL com todos os filtros
+      let url = '/api/checklists?';
+      const params = new URLSearchParams();
+      
+      if (selectedClientId) params.append('clientId', selectedClientId);
+      if (selectedTechnicianId) params.append('userId', selectedTechnicianId);
+      
+      // Configurar filtro de data baseado no modo selecionado
+      if (dateFilterMode === 'today') {
+        params.append('startDate', startDate);
+        params.append('endDate', startDate);
+      } else {
+        params.append('startDate', startDate);
+        params.append('endDate', endDate);
+      }
+      
+      url += params.toString();
+      
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -161,66 +179,24 @@ export default function ExecutedChecklists() {
       if (!response.ok) {
         throw new Error('Erro ao buscar checklists');
       }
+      
       const data = await response.json();
       
-      // Aplicar filtros no frontend
-      let filteredData = data;
-      
-      // Filtro por data (comparando com a data agendada ou data atual para checklists do dia)
-      if (selectedDate) {
-        const filterDate = new Date(selectedDate);
-        filteredData = filteredData.filter(checklist => {
-          // Se o checklist tem uma data específica, usar ela
-          if (checklist.scheduledDate) {
-            const checklistDate = new Date(checklist.scheduledDate);
-            return checklistDate.toDateString() === filterDate.toDateString();
-          }
-          // Se não, verificar se é um checklist que deveria ser executado hoje baseado na periodicidade
-          return shouldExecuteToday(checklist, filterDate);
-        });
-      }
-      
-      // Filtro por técnico
-      if (selectedTechnicianId) {
-        filteredData = filteredData.filter(checklist => 
-          checklist.assignedTo === selectedTechnicianId
-        );
-      }
-      
-      // Adicionar status de execução simulado (você pode substituir por lógica real)
-      filteredData = filteredData.map(checklist => ({
+      // Processar dados recebidos
+      const processedData = Array.isArray(data) ? data.map(checklist => ({
         ...checklist,
-       executed: checklist.executed || false,
-       executedAt: checklist.executedAt || null,
-        scheduledDate: selectedDate || new Date().toISOString().split('T')[0]
-      }));
+        executed: checklist.status === 'completed',
+        executedAt: checklist.completedAt || null,
+        scheduledDate: checklist.scheduledDate || checklist.createdAt
+      })) : [];
       
-      setChecklists(filteredData);
+      setChecklists(processedData);
     } catch (error) {
       console.error('Erro fetchChecklists:', error);
       setError('Erro ao carregar checklists. Por favor, tente novamente.');
       setChecklists([]);
     } finally {
       setLoading(false);
-    }
-  };
-
-  // Função auxiliar para determinar se um checklist deveria ser executado em uma data específica
-  const shouldExecuteToday = (checklist, targetDate) => {
-    const today = new Date();
-    const target = new Date(targetDate);
-    
-    switch (checklist.periodicity) {
-      case 'daily':
-        return true;
-      case 'weekly':
-        return target.getDay() === today.getDay();
-      case 'monthly':
-        return target.getDate() === today.getDate();
-      case 'loose':
-        return false; // Checklists avulsos não têm data específica
-      default:
-        return true;
     }
   };
 
@@ -236,10 +212,10 @@ export default function ExecutedChecklists() {
           fetchUsers(),
           fetchLocations()
         ]);
-        await fetchExecutedChecklists();
+        await fetchChecklists();
       } catch (err) {
         console.error("Erro no carregamento de dados iniciais:", err);
-        setError('Falha ao carregar todos os dados iniciais. Verifique o console para detalhes.');
+        setError(`Falha ao carregar dados: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -249,10 +225,8 @@ export default function ExecutedChecklists() {
 
   // Atualizar checklists quando os filtros mudarem
   useEffect(() => {
-    if (!loading) {
-      fetchExecutedChecklists();
-    }
-  }, [selectedDate, selectedClientId, selectedTechnicianId]);
+    fetchChecklists();
+  }, [dateFilterMode, startDate, endDate, selectedClientId, selectedTechnicianId]);
 
   // Função para determinar a classe CSS baseada no status
   const getRowClassName = (checklist) => {
@@ -301,24 +275,51 @@ export default function ExecutedChecklists() {
       {/* Filtros */}
       <div className={styles.controls}>
         <div className={styles.filterGroup}>
-          <label htmlFor="dateFilter">Data Inicial:</label>
-          <input
-            type="date"
-            id="dateFilter"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className={styles.input}
-          />
-
-           <label htmlFor="dateFilterFinal">Data Final:</label>
-          <input
-            type="date"
-            id="dateFilter"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className={styles.input}
-          />
+          <label htmlFor="dateMode">Período:</label>
+          <select
+            id="dateMode"
+            value={dateFilterMode}
+            onChange={(e) => {
+              setDateFilterMode(e.target.value);
+              if (e.target.value === 'today') {
+                const today = new Date().toISOString().split('T')[0];
+                setStartDate(today);
+                setEndDate(today);
+              }
+            }}
+            className={styles.select}
+          >
+            <option value="today">Hoje</option>
+            <option value="range">Intervalo Personalizado</option>
+          </select>
         </div>
+
+        {dateFilterMode === 'range' && (
+          <>
+            <div className={styles.filterGroup}>
+              <label htmlFor="startDate">Data Inicial:</label>
+              <input
+                type="date"
+                id="startDate"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className={styles.input}
+              />
+            </div>
+
+            <div className={styles.filterGroup}>
+              <label htmlFor="endDate">Data Final:</label>
+              <input
+                type="date"
+                id="endDate"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                min={startDate}
+                className={styles.input}
+              />
+            </div>
+          </>
+        )}
 
         <div className={styles.filterGroup}>
           <label htmlFor="clientFilter">Cliente:</label>
