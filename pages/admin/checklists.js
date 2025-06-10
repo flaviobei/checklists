@@ -31,7 +31,9 @@ export default function ChecklistManagement() {
     customDays: [],
     requirePhotos: false,
     items: [{ description: '', requirePhoto: false }],
-    active: true
+    active: true,
+    validity: '', // Adicionado o campo validity
+    time: '' // Adicionado o campo time
   });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState(''); // Para o filtro da TABELA
@@ -335,7 +337,9 @@ export default function ChecklistManagement() {
     setFormData({
       id: '', title: '', description: '', clientId: '', locationId: '',
       typeId: '', assignedTo: '', periodicity: 'daily', customDays: [],
-      requirePhotos: false, items: [{ description: '', requirePhoto: false }], active: true
+      requirePhotos: false, items: [{ description: '', requirePhoto: false }], active: true,
+      validity: '', // Resetar validity ao criar novo
+      time: '' // Resetar time ao criar novo
     });
     setIsEditing(false);
     setShowForm(true);
@@ -356,7 +360,9 @@ export default function ChecklistManagement() {
       customDays: checklist.customDays || [],
       requirePhotos: checklist.requirePhotos || false,
       items: checklist.items && checklist.items.length > 0 ? checklist.items : [{ description: '', requirePhoto: false }],
-      active: checklist.active
+      active: checklist.active,
+      validity: checklist.validity ? checklist.validity.split('T')[0] : '', // Preencher validity, formatando para input type="date"
+      time: checklist.time || '' // Preencher time
     });
     setIsEditing(true);
     setShowForm(true);
@@ -379,6 +385,16 @@ export default function ChecklistManagement() {
         setError('Selecione pelo menos um dia para a periodicidade personalizada');
         return;
     }
+    // Validação para o campo validity
+    if (formData.periodicity !== 'loose' && !formData.validity) {
+      setError('A data de validade é obrigatória para checklists periódicos.');
+      return;
+    }
+    // Validação para o campo time
+    if (formData.periodicity !== 'loose' && !formData.time) {
+      setError('O horário é obrigatório para checklists periódicos.');
+      return;
+    }
 
     setLoading(true);
     setError('');
@@ -389,10 +405,16 @@ export default function ChecklistManagement() {
       const url = isEditing ? `/api/checklists/${formData.id}` : '/api/checklists';
       const method = isEditing ? 'PUT' : 'POST';
 
+      // Ajustar o formato da data de validade para ISO string se for preenchida
+      const dataToSend = { ...formData };
+      if (dataToSend.validity) {
+        dataToSend.validity = new Date(dataToSend.validity).toISOString();
+      }
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(dataToSend)
       });
 
       if (!response.ok) {
@@ -402,7 +424,7 @@ export default function ChecklistManagement() {
       await fetchChecklists(); // Re-busca checklists para atualizar a lista
       setShowForm(false);
     } catch (error) {
-      console.error('Erro handleSubmit:', error);
+      console.error('Erro ao salvar checklist:', error);
       setError(error.message || 'Erro ao salvar checklist.');
     } finally {
       setLoading(false);
@@ -410,189 +432,220 @@ export default function ChecklistManagement() {
   };
 
   const handleDelete = async (id) => {
-    if (!confirm('Tem certeza que deseja excluir este checklist?')) return;
+    if (!window.confirm('Tem certeza que deseja excluir este checklist?')) return;
+
     setLoading(true);
     setError('');
     try {
       const token = localStorage.getItem('token');
       if (!token) { router.push('/login'); return; }
+
       const response = await fetch(`/api/checklists/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (!response.ok) throw new Error('Erro ao excluir checklist');
-      await fetchChecklists(); // Re-busca checklists
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Erro ao excluir checklist' }));
+        throw new Error(errorData.message || 'Erro ao excluir checklist');
+      }
+      await fetchChecklists(); // Re-busca checklists para atualizar a lista
     } catch (error) {
-      console.error('Erro handleDelete:', error);
-      setError('Erro ao excluir checklist.');
+      console.error('Erro ao excluir checklist:', error);
+      setError(error.message || 'Erro ao excluir checklist.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleToggleStatus = async (id) => {
+  const handleToggleStatus = async (id, currentStatus) => {
     setLoading(true);
     setError('');
     try {
       const token = localStorage.getItem('token');
       if (!token) { router.push('/login'); return; }
+
       const response = await fetch(`/api/checklists/${id}/toggle`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       });
-      if (!response.ok) throw new Error('Erro ao ativar/desativar checklist');
-      await fetchChecklists(); // Re-busca checklists
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Erro ao alterar status' }));
+        throw new Error(errorData.message || 'Erro ao alterar status');
+      }
+      await fetchChecklists(); // Re-busca checklists para atualizar a lista
     } catch (error) {
-      console.error('Erro handleToggleStatus:', error);
-      setError('Erro ao ativar/desativar checklist.');
+      console.error('Erro ao alterar status:', error);
+      setError(error.message || 'Erro ao alterar status.');
     } finally {
       setLoading(false);
     }
   };
 
-  // --- Funções get...Name ---
-  // (getClientName, getChecklistTypeName, getUserName, getPeriodicityText mantidas)
+  if (loading) {
+    return <div className={styles.container}><p>Carregando...</p></div>;
+  }
 
-  const getClientName = (clientId) => {
-    const client = clients.find(client => String(client.id) === String(clientId));
-    return client ? client.name : 'Cliente não encontrado';
-  };
-
-  // Função para obter o nome do local pelo ID (MODIFICADA para usar 'locations')
-  const getLocationName = (locationId) => {
-    if (!locationId) return 'Local não especificado';
-    // Busca na lista 'locations' que deve conter todos os locais
-    const location = locations.find(loc => String(loc.id) === String(locationId));
-    return location ? location.name : 'Local não encontrado';
-  };
-
-  const getChecklistTypeName = (typeId) => {
-    const type = checklistTypes.find(type => String(type.id) === String(typeId));
-    return type ? type.name : 'Tipo não encontrado';
-  };
-
-  const getUserName = (userId) => {
-    if (!userId) return 'Avulso (Qualquer profissional)';
-    const user = users.find(user => String(user.id) === String(userId));
-    return user ? user.name : 'Usuário não encontrado';
-  };
-
-  const getPeriodicityText = (periodicity) => {
-    const option = periodicityOptions.find(opt => opt.value === periodicity);
-    return option ? option.label : periodicity;
-  };
-
-  // --- JSX de Renderização ---
-  // (O JSX permanece o mesmo, pois as mudanças são na lógica de dados)
   return (
-    <div className={styles.container}>
+<div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.logoContainer}>
-          <a href='#' onClick={() => router.push('/admin')}><img src='../grupotb_logo.png' alt="Logo Grupo TB" title="Voltar para a Home"></img></a>
-        </div>
+         <div className={styles.logoContainer}>
+           <a href='#' onClick={() => router.push('/admin')}><img src='../grupotb_logo.png' alt="Logo Grupo TB" title="Voltar para a Home"></img></a>
+      </div>
+
         <h1>Gerenciamento de Checklists</h1>
         <div className={styles.headerButtons}>
-          <button onClick={() => router.push('/admin')} className={styles.backButton}>Voltar</button>
-          <button onClick={handleCreate} className={styles.createButton}>Novo Checklist</button>
+          <button onClick={() => router.push('/admin')} className={styles.backButton}>
+            Voltar
+          </button>
+          <button onClick={handleCreate} className={styles.createButton}>
+            Novo Checklist
+          </button>
         </div>
       </header>
 
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <p className={styles.error}>{error}</p>}
 
-      <div className={styles.filterContainer}>
-        <label htmlFor="clientFilter">Filtrar por Cliente:</label>
-        <select
-          id="clientFilter"
-          value={selectedClientId}
-          onChange={handleClientFilterChange}
-          className={styles.filterSelect}
-        >
-          <option value="">Todos os Clientes</option>
-          {clients.map(client => (
-            <option key={client.id} value={client.id}>
-              {client.name}
-            </option>
-          ))}
-        </select>
+      <div className={styles.controls}>
+        
+        <div className={styles.filterGroup}>
+          <label htmlFor="clientFilter">Filtrar por Cliente:</label>
+          <select
+            id="clientFilter"
+            value={selectedClientId}
+            onChange={handleClientFilterChange}
+            className={styles.select}
+          >
+            <option value="">Todos os Clientes</option>
+            {clients.map(client => (
+              <option key={client.id} value={client.id}>{client.name}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {showForm && (
         <div className={styles.formContainer}>
           <h2>{isEditing ? 'Editar Checklist' : 'Novo Checklist'}</h2>
           <form onSubmit={handleSubmit} className={styles.form}>
-            {/* Título */}
             <div className={styles.formGroup}>
               <label htmlFor="title">Título:</label>
-              <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                className={styles.input}
+              />
             </div>
-            {/* Descrição */}
+
             <div className={styles.formGroup}>
               <label htmlFor="description">Descrição:</label>
-              <textarea id="description" name="description" value={formData.description} onChange={handleChange} rows="3" />
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                className={styles.textarea}
+              />
             </div>
-            {/* Cliente */}
+
             <div className={styles.formGroup}>
               <label htmlFor="clientId">Cliente:</label>
-              <select id="clientId" name="clientId" value={formData.clientId} onChange={handleChange} required>
+              <select
+                id="clientId"
+                name="clientId"
+                value={formData.clientId}
+                onChange={handleChange}
+                required
+                className={styles.select}
+              >
                 <option value="">Selecione um Cliente</option>
                 {clients.map(client => (
                   <option key={client.id} value={client.id}>{client.name}</option>
                 ))}
               </select>
             </div>
-            {/* Local */}
+
             <div className={styles.formGroup}>
               <label htmlFor="locationId">Local:</label>
               <select
-                id="locationId" name="locationId" value={formData.locationId} onChange={handleChange}
-                required disabled={!formData.clientId || filteredLocations.length === 0}
+                id="locationId"
+                name="locationId"
+                value={formData.locationId}
+                onChange={handleChange}
+                required
+                className={styles.select}
+                disabled={!formData.clientId} // Desabilita se nenhum cliente for selecionado
               >
-                <option value="">{formData.clientId ? (filteredLocations.length > 0 ? 'Selecione um Local' : 'Nenhum local para este cliente') : 'Selecione um cliente primeiro'}</option>
+                <option value="">Selecione um Local</option>
                 {filteredLocations.map(location => (
                   <option key={location.id} value={location.id}>{location.name}</option>
                 ))}
               </select>
-              {!formData.clientId && <p className={styles.helperText}>Selecione um cliente para ver os locais.</p>}
-              {formData.clientId && filteredLocations.length === 0 && <p className={styles.helperText}>Nenhum local cadastrado para este cliente.</p>}
             </div>
-            {/* Tipo de Checklist */}
+
             <div className={styles.formGroup}>
               <label htmlFor="typeId">Tipo de Checklist:</label>
-              <select id="typeId" name="typeId" value={formData.typeId} onChange={handleChange} required>
+              <select
+                id="typeId"
+                name="typeId"
+                value={formData.typeId}
+                onChange={handleChange}
+                required
+                className={styles.select}
+              >
                 <option value="">Selecione um Tipo</option>
                 {checklistTypes.map(type => (
                   <option key={type.id} value={type.id}>{type.name}</option>
                 ))}
               </select>
             </div>
-            {/* Atribuir a */}
+
             <div className={styles.formGroup}>
-              <label htmlFor="assignedTo">Atribuir a:</label>
-              <select id="assignedTo" name="assignedTo" value={formData.assignedTo} onChange={handleChange}>
-                <option value="">Avulso (Qualquer profissional)</option>
-                {users.filter(user => !user.isAdmin).map(user => ( // Exemplo: não atribuir a admins
+              <label htmlFor="assignedTo">Atribuído a (Opcional):</label>
+              <select
+                id="assignedTo"
+                name="assignedTo"
+                value={formData.assignedTo}
+                onChange={handleChange}
+                className={styles.select}
+              >
+                <option value="">Nenhum (Avulso)</option>
+                {users.map(user => (
                   <option key={user.id} value={user.id}>{user.name}</option>
                 ))}
               </select>
             </div>
-            {/* Periodicidade */}
+
             <div className={styles.formGroup}>
               <label htmlFor="periodicity">Periodicidade:</label>
-              <select id="periodicity" name="periodicity" value={formData.periodicity} onChange={handleChange} required>
+              <select
+                id="periodicity"
+                name="periodicity"
+                value={formData.periodicity}
+                onChange={handleChange}
+                required
+                className={styles.select}
+              >
                 {periodicityOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </div>
-            {/* Dias Personalizados (se periodicidade for 'custom') */}
+
             {formData.periodicity === 'custom' && (
               <div className={styles.formGroup}>
-                <label>Dias Específicos (para periodicidade personalizada):</label>
+                <label>Dias Personalizados:</label>
                 <div className={styles.checkboxGroup}>
                   {weekDays.map(day => (
                     <label key={day.value} className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
+                        value={day.value}
                         checked={formData.customDays.includes(day.value)}
                         onChange={(e) => handleCustomDayChange(day.value, e.target.checked)}
                       />
@@ -600,110 +653,142 @@ export default function ChecklistManagement() {
                     </label>
                   ))}
                 </div>
-                 {/* Adicionar aqui monthDays se necessário para 'custom' */}
               </div>
             )}
-            {/* Exigir Fotos */}
+
+            {/* Novo campo de Validade */}
+            {formData.periodicity !== 'loose' && (
+              <div className={styles.formGroup}>
+                <label htmlFor="validity">Data de Validade:</label>
+                <input
+                  type="date"
+                  id="validity"
+                  name="validity"
+                  value={formData.validity}
+                  onChange={handleChange}
+                  required={formData.periodicity !== 'loose'} // Obrigatório apenas para periódicos
+                  disabled={formData.periodicity === 'loose'} // Desabilitado para avulsos
+                  className={styles.input}
+                />
+              </div>
+            )}
+
+            {/* Novo campo de Horário */}
+            {formData.periodicity !== 'loose' && (
+              <div className={styles.formGroup}>
+                <label htmlFor="time">Horário:</label>
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  required={formData.periodicity !== 'loose'} // Obrigatório apenas para periódicos
+                  disabled={formData.periodicity === 'loose'} // Desabilitado para avulsos
+                  className={styles.input}
+                />
+              </div>
+            )}
+
             <div className={styles.formGroup}>
-              <label className={styles.checkboxLabel}>
-                <input type="checkbox" name="requirePhotos" checked={formData.requirePhotos} onChange={handleChange} />
-                Exigir fotos para todos os itens (padrão)
+              <label htmlFor="requirePhotos" className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  id="requirePhotos"
+                  name="requirePhotos"
+                  checked={formData.requirePhotos}
+                  onChange={handleChange}
+                />
+                Exigir Fotos
               </label>
             </div>
-            {/* Itens do Checklist */}
-            <div className={styles.formGroup}>
-              <label>Itens do Checklist:</label>
-              {formData.items.map((item, index) => (
-                <div key={index} className={styles.itemContainer}>
-                  <div className={styles.itemRow}>
-                    <input
-                      type="text"
-                      value={item.description}
-                      onChange={(e) => handleItemChange(index, 'description', e.target.value)}
-                      placeholder={`Descrição do item ${index + 1}`}
-                      className={styles.itemInput}
-                      required
-                    />
-                    <label className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={item.requirePhoto}
-                        onChange={(e) => handleItemChange(index, 'requirePhoto', e.target.checked)}
-                      />
-                      Exigir foto
-                    </label>
-                    <button type="button" onClick={() => handleRemoveItem(index)} className={styles.removeItemButton}>Remover</button>
-                  </div>
+
+            <h3>Itens do Checklist</h3>
+            {formData.items.map((item, index) => (
+              <div key={index} className={styles.itemGroup}>
+                <div className={styles.formGroup}>
+                  <label htmlFor={`item-description-${index}`}>Descrição do Item:</label>
+                  <input
+                    type="text"
+                    id={`item-description-${index}`}
+                    value={item.description}
+                    onChange={(e) => handleItemChange(index, 'description', e.target.value)}
+                    required
+                    className={styles.input}
+                  />
                 </div>
-              ))}
-              <button type="button" onClick={handleAddItem} className={styles.addItemButton}>Adicionar Item</button>
-            </div>
-            {/* Ativo (apenas na edição) */}
-            {isEditing && (
-              <div className={styles.formGroup}>
-                <label className={styles.checkboxLabel}>
-                  <input type="checkbox" name="active" checked={formData.active} onChange={handleChange} />
-                  Ativo
-                </label>
+                <div className={styles.formGroup}>
+                  <label htmlFor={`item-requirePhoto-${index}`} className={styles.checkboxLabel}>
+                    <input
+                      type="checkbox"
+                      id={`item-requirePhoto-${index}`}
+                      checked={item.requirePhoto}
+                      onChange={(e) => handleItemChange(index, 'requirePhoto', e.target.checked)}
+                    />
+                    Exigir Foto para este Item
+                  </label>
+                </div>
+                <button type="button" onClick={() => handleRemoveItem(index)} className={styles.removeButton}>Remover Item</button>
               </div>
-            )}
-            {/* Botões do Formulário */}
-            <div className={styles.formButtons}>
-              <button type="submit" className={styles.saveButton} disabled={loading}>
-                {loading ? 'Salvando...' : 'Salvar'}
-              </button>
-              <button type="button" onClick={() => setShowForm(false)} className={styles.cancelButton} disabled={loading}>
-                Cancelar
-              </button>
+            ))}
+            <button type="button" onClick={handleAddItem} className={styles.button}>Adicionar Item</button>
+
+            <div className={styles.formActions}>
+              <button type="submit" className={styles.button}>Salvar Checklist</button>
+              <button type="button" onClick={() => setShowForm(false)} className={styles.buttonSecondary}>Cancelar</button>
             </div>
           </form>
         </div>
       )}
 
-      <div className={styles.tableContainer}>
-        <h2>Lista de Checklists</h2>
-        {loading && !showForm ? ( // Mostra loading da tabela apenas se o formulário não estiver aberto e estiver carregando
-          <div className={styles.loading}>Carregando checklists...</div>
-        ) : checklists.length === 0 && !loading ? ( // Se não estiver carregando e não houver checklists
-          <div className={styles.noData}>Nenhum checklist encontrado {selectedClientId ? `para o cliente selecionado` : ''}.</div>
-        ) : (
-          <table className={styles.table}>
-            <thead>
+      {!showForm && (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Cliente</th>
+              <th>Local</th>
+              <th>Tipo</th>
+              <th>Atribuído a</th>
+              <th>Periodicidade</th>
+              <th>Validade</th> {/* Nova coluna para Validade */}
+              <th>Horário</th> {/* Nova coluna para Horário */}
+              <th>Ativo</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {checklists.length === 0 ? (
               <tr>
-                <th>Título</th>
-                <th>Cliente</th>
-                <th>Local</th>
-                <th>Tipo</th>
-                <th>Atribuído a</th>
-                <th>Periodicidade</th>
-                <th>Status</th>
-                <th>Ações</th>
+                <td colSpan="10">Nenhum checklist encontrado.</td>
               </tr>
-            </thead>
-            <tbody>
-              {checklists.map(checklist => (
-                <tr key={checklist.id} className={!checklist.active ? styles.inactiveRow : ''}>
+            ) : (
+              checklists.map(checklist => (
+                <tr key={checklist.id}>
                   <td>{checklist.title}</td>
-                  <td>{getClientName(checklist.clientId)}</td>
-                  <td>{getLocationName(checklist.locationId)}</td>
-                  <td>{getChecklistTypeName(checklist.typeId)}</td>
-                  <td>{getUserName(checklist.assignedTo)}</td>
-                  <td>{getPeriodicityText(checklist.periodicity)}</td>
-                  <td>{checklist.active ? 'Ativo' : 'Inativo'}</td>
-                  <td className={styles.actions}>
-                    <button onClick={() => handleEdit(checklist)} className={styles.editButton}>Editar</button>
-                    <button onClick={() => handleToggleStatus(checklist.id)} className={checklist.active ? styles.deactivateButton : styles.activateButton}>
+                  <td>{clients.find(c => c.id === checklist.clientId)?.name || 'N/A'}</td>
+                  <td>{locations.find(l => l.id === checklist.locationId)?.name || 'N/A'}</td>
+                  <td>{checklistTypes.find(t => t.id === checklist.typeId)?.name || 'N/A'}</td>
+                  <td>{users.find(u => u.id === checklist.assignedTo)?.name || 'Avulso'}</td>
+                  <td>{periodicityOptions.find(p => p.value === checklist.periodicity)?.label || checklist.periodicity}</td>
+                  <td>{checklist.validity ? new Date(checklist.validity).toLocaleDateString() : 'N/A'}</td> {/* Exibir validade */}
+                  <td>{checklist.time || 'N/A'}</td> {/* Exibir horário */}
+                  <td>{checklist.active ? 'Sim' : 'Não'}</td>
+                  <td>
+                    <button onClick={() => handleEdit(checklist)} className={styles.actionButton}>Editar</button>
+                    <button onClick={() => handleDelete(checklist.id)} className={styles.actionButtonDanger}>Excluir</button>
+                    <button onClick={() => handleToggleStatus(checklist.id, checklist.active)} className={styles.actionButton}>
                       {checklist.active ? 'Desativar' : 'Ativar'}
                     </button>
-                    <button onClick={() => handlePrintQRCode(checklist)} className={styles.qrButton} disabled={!checklist.qrCodePath}>QR Code</button>
-                    <button onClick={() => handleDelete(checklist.id)} className={styles.deleteButton}>Excluir</button>
+                    <button onClick={() => handlePrintQRCode(checklist)} className={styles.printButton}>Imprimir QR</button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+              ))
+            )}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
+

@@ -32,24 +32,56 @@ const isChecklistDue = (checklist, userId, allExecutions) => {
   const lastCompletedAt = new Date(lastExecution.completedAt);
   const now = new Date();
 
+  // Lógica de periodicidade com horário
   switch (checklist.periodicity) {
-    case 'once':
+    case 'loose':
       return false; // Já foi executado, não é devido novamente
     case 'daily':
-      // Devido se a última execução foi antes de hoje
-      return lastCompletedAt.toDateString() !== now.toDateString();
+      // Se a última execução foi hoje, verificar o horário
+      if (lastCompletedAt.toDateString() === now.toDateString()) {
+        if (checklist.time) {
+          const [hours, minutes] = checklist.time.split(':').map(Number);
+          const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+          return now > dueTime && lastCompletedAt < dueTime; // Se já passou do horário e não foi executado depois do horário
+        } else {
+          return false; // Já executado hoje, sem horário definido, não devido
+        }
+      } else {
+        return true; // Última execução foi antes de hoje, devido
+      }
     case 'weekly':
       // Devido se a última execução foi antes desta semana
       const startOfWeekLastExecution = new Date(lastCompletedAt);
       startOfWeekLastExecution.setDate(lastCompletedAt.getDate() - lastCompletedAt.getDay());
       const startOfWeekNow = new Date(now);
       startOfWeekNow.setDate(now.getDate() - now.getDay());
-      return startOfWeekLastExecution.toDateString() !== startOfWeekNow.toDateString();
+      
+      if (startOfWeekLastExecution.toDateString() === startOfWeekNow.toDateString()) {
+        if (checklist.time) {
+          const [hours, minutes] = checklist.time.split(':').map(Number);
+          const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+          return now > dueTime && lastCompletedAt < dueTime; // Se já passou do horário e não foi executado depois do horário
+        } else {
+          return false; // Já executado esta semana, sem horário definido, não devido
+        }
+      } else {
+        return true; // Última execução foi antes desta semana, devido
+      }
     case 'monthly':
       // Devido se a última execução foi antes deste mês
-      return lastCompletedAt.getMonth() !== now.getMonth() || lastCompletedAt.getFullYear() !== now.getFullYear();
+      if (lastCompletedAt.getMonth() === now.getMonth() && lastCompletedAt.getFullYear() === now.getFullYear()) {
+        if (checklist.time) {
+          const [hours, minutes] = checklist.time.split(':').map(Number);
+          const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+          return now > dueTime && lastCompletedAt < dueTime; // Se já passou do horário e não foi executado depois do horário
+        } else {
+          return false; // Já executado este mês, sem horário definido, não devido
+        }
+      } else {
+        return true; // Última execução foi antes deste mês, devido
+      }
     default:
-      return true; // Periodicidade desconhecida, assume que está sempre devido
+      return true; // Periodicidade desconhecida ou não implementada, assume que está sempre devido
   }
 };
 
@@ -133,7 +165,8 @@ export default async function handler(req, res) {
         customDays, 
         requirePhotos, 
         items,
-        validity // Adicionado o campo validity
+        validity,
+        time // Adicionado o campo time
       } = req.body;
       
       // Validar campos obrigatórios
@@ -155,7 +188,8 @@ export default async function handler(req, res) {
         customDays,
         requirePhotos,
         items,
-        validity // Passando o campo validity para a função createChecklist
+        validity,
+        time // Passando o campo time para a função createChecklist
       });
       
       // Gerar QR Code
@@ -189,4 +223,5 @@ export default async function handler(req, res) {
   // Método não permitido
   return res.status(405).json({ message: 'Método não permitido' });
 }
+
 
