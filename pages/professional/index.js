@@ -157,7 +157,7 @@ export default function ProfessionalDashboard() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-       <div className={styles.logoContainer}>
+      <div className={styles.logoContainer}>
           <img src='/grupotb_logo.png' alt='Logo GrupoTB'></img> {/* Caminho corrigido */}
       </div>
         <h1>Área do Profissional</h1>
