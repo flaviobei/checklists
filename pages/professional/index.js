@@ -91,7 +91,7 @@ export default function ProfessionalDashboard() {
         console.log(`QR Code lido: ${decodedText}`, decodedResult);
         const checklistId = decodedText;
         if (checklistId) {
-          router.push(`/professional/${checklistId}`);
+          router.push(`/${checklistId}`);
         } else {
           alert('Checklist não encontrado ou não acessível');
         }
@@ -182,20 +182,20 @@ export default function ProfessionalDashboard() {
                 </div>
                 <p>{dailyProgress.completedDailyChecklistsToday} de {dailyProgress.totalDailyChecklists} checklists diários concluídos hoje</p>
               </div>
-
+              <hr />
               {/* Estatísticas Gerais */}
               <div className={styles.overallStatsContainer}>
                 <div className={styles.statBox}>
-                  <h4>Total Executado</h4>
+                  <h4>Total de Checklists Executados</h4>
                   <p>{overallStats.totalCompletedOverall}</p>
                 </div>
                 <div className={styles.statBox}>
-                  <h4>Total Agendado</h4>
+                  <h4>Total de Checklists Agendados</h4>
                   <p>{overallStats.totalScheduledOverall}</p>
                 </div>
               </div>
-
-              <h3>Checklists Pendentes ({allPendingChecklists.length})</h3>
+            <hr />
+              <h3>Checklists Pendentes ({allPendingChecklists.length})</h3><br />
               {allPendingChecklists.length === 0 ? (
                 <div className={styles.noData}>
                   <p>Não há checklists pendentes no momento.</p>
