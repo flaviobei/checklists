@@ -14,7 +14,7 @@ import path from 'path';
 // Caminho para o arquivo de execuções
 const executionsFilePath = path.join(process.cwd(), 'data', 'executions.json');
 
-// Função auxiliar para verificar se um checklist está devido
+// Função auxiliar para verificar se um checklist está devido para execução AGORA
 const isChecklistDue = (checklist, userId, allExecutions) => {
   // Adicionar verificação de validade
   if (checklist.validity && new Date(checklist.validity) < new Date()) {
@@ -86,7 +86,6 @@ const isChecklistDue = (checklist, userId, allExecutions) => {
 };
 
 export default async function handler(req, res) {
-  // Verificar autenticação
   const token = req.headers.authorization?.split(' ')[1];
   const user = verifyToken(token);
   
@@ -94,57 +93,101 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: 'Não autorizado' });
   }
   
-  // Verificar se é admin para operações de escrita
   if (req.method !== 'GET' && !user.isAdmin) {
-    return res.status(403).json({ message: 'Acesso negado. Apenas administradores podem gerenciar checklists' });
+    return res.status(403).json({ message: 'Acesso negado.' });
   }
   
-  // Listar todos os checklists ou filtrar (GET)
   if (req.method === 'GET') {
     try {
       const { clientId, locationId, userId } = req.query;
       
-      let checklists;
-      
-      // Filtrar por cliente
-      if (clientId) {
-        checklists = findChecklistsByClientId(clientId);
-      }
-      // Filtrar por local
-      else if (locationId) {
-        checklists = findChecklistsByLocationId(locationId);
-      }
-      // Filtrar por usuário
-      else if (userId) {
-        checklists = findChecklistsByUserId(userId);
-      }
-      // Listar todos
-      else {
-        checklists = getAllChecklists();
-      }
-      
-      // Se não for admin, filtrar apenas os checklists atribuídos ao usuário ou avulsos
-      if (!user.isAdmin) {
-        // Carregar todas as execuções para a lógica de periodicidade
+      if (userId) {
+        // Lógica específica para a dashboard do profissional
+        const allUserChecklists = findChecklistsByUserId(userId);
         let allExecutions = [];
         try {
           const data = fs.readFileSync(executionsFilePath, 'utf8');
           allExecutions = JSON.parse(data);
         } catch (error) {
-          console.error('Erro ao ler arquivo de execuções para filtragem de checklists:', error);
-          // Se o arquivo não existir ou estiver vazio, continua com array vazio
+          // Arquivo pode não existir ou estar vazio, não é um erro fatal
+          console.warn('Não foi possível ler o arquivo de execuções ou ele está vazio:', error.message);
         }
 
-        checklists = checklists.filter(checklist => {
-          const isAssignedOrLoose = checklist.assignedTo === user.id || checklist.assignedTo === null;
-          if (isAssignedOrLoose) {
-            return isChecklistDue(checklist, user.id, allExecutions);
+        const now = new Date();
+        const todayString = now.toDateString();
+
+        // --- Daily Progress Calculation ---
+        let pendingChecklistsToday = [];
+        let totalDailyChecklists = 0;
+        let completedDailyChecklistsToday = 0;
+
+        // Filter for daily checklists assigned to the user
+        const dailyChecklistsAssigned = allUserChecklists.filter(c => c.periodicity === 'daily');
+
+        dailyChecklistsAssigned.forEach(checklist => {
+          totalDailyChecklists++; // Count all daily checklists assigned
+
+          const userExecutionsForThisChecklist = allExecutions.filter(exec => exec.checklistId === checklist.id && exec.userId === userId);
+          userExecutionsForThisChecklist.sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+          const lastExecution = userExecutionsForThisChecklist.length > 0 ? userExecutionsForThisChecklist[0] : null;
+
+          let isCompletedToday = false;
+          if (lastExecution && new Date(lastExecution.completedAt).toDateString() === todayString) {
+            isCompletedToday = true;
           }
-          return false;
+
+          if (isCompletedToday) {
+            completedDailyChecklistsToday++;
+          } else {
+            // Check if it's due today based on time (if specified)
+            let isDueBasedOnTime = true; // Assume true if no time specified or time has passed
+            if (checklist.time) {
+              const [hours, minutes] = checklist.time.split(':').map(Number);
+              const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+              if (now < dueTime) { // If current time is before due time, it's not yet due for today
+                isDueBasedOnTime = false;
+              }
+            }
+
+            // If not completed today and due based on time, add to pending today
+            if (isDueBasedOnTime) {
+              pendingChecklistsToday.push(checklist);
+            }
+          }
         });
+
+        // --- Overall Stats Calculation ---
+        // Total de checklists únicos que o profissional já executou pelo menos uma vez
+        const totalCompletedOverall = new Set(allExecutions.filter(e => e.userId === userId).map(e => e.checklistId)).size;
+        
+        // Total de checklists periódicos (não avulsos) atribuídos ao usuário e válidos
+        const totalScheduledOverall = allUserChecklists.filter(c => 
+          c.periodicity !== 'loose' && 
+          (!c.validity || new Date(c.validity) >= now)
+        ).length;
+
+        return res.status(200).json({
+          dailyProgress: {
+            pendingChecklistsToday: pendingChecklistsToday,
+            totalDailyChecklists: totalDailyChecklists,
+            completedDailyChecklistsToday: completedDailyChecklistsToday
+          },
+          overallStats: {
+            totalCompletedOverall: totalCompletedOverall,
+            totalScheduledOverall: totalScheduledOverall
+          }
+        });
+
+      } else {
+        // Lógica para admin (listagem geral ou filtrada)
+        let checklists = getAllChecklists();
+        if (clientId) {
+          checklists = findChecklistsByClientId(clientId);
+        } else if (locationId) {
+          checklists = findChecklistsByLocationId(locationId);
+        }
+        return res.status(200).json(checklists);
       }
-      
-      return res.status(200).json(checklists);
     } catch (error) {
       console.error('Erro ao listar checklists:', error);
       return res.status(500).json({ message: 'Erro ao listar checklists' });
@@ -166,7 +209,7 @@ export default async function handler(req, res) {
         requirePhotos, 
         items,
         validity,
-        time // Adicionado o campo time
+        time 
       } = req.body;
       
       // Validar campos obrigatórios
@@ -189,7 +232,7 @@ export default async function handler(req, res) {
         requirePhotos,
         items,
         validity,
-        time // Passando o campo time para a função createChecklist
+        time 
       });
       
       // Gerar QR Code
