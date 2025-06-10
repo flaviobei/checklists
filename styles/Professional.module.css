@@ -241,6 +241,7 @@
 
 .statBox:hover {
   transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(41, 140, 166, 0.9);
 }
 
 .statBox h4 {
