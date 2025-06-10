@@ -423,3 +423,110 @@
      transition: transform 0.3s ease;
      display: none; /* Escondido por padrão */
 }
+
+/* Adicione estes estilos ao seu arquivo Admin.module.css */
+
+/* Filtros */
+.controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filterGroup label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Legenda de cores */
+.legend {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.legendColor {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+/* Estilos para linhas da tabela baseado no status */
+.tableRow {
+  transition: background-color 0.3s ease;
+}
+
+.executedRow {
+  background-color: #f8f9fa !important; /* Cinza claro para executados */
+}
+
+.executedRow:hover {
+  background-color: #e9ecef !important;
+}
+
+.pendingRow {
+  background-color: #d4edda !important; /* Verde claro para pendentes */
+}
+
+.pendingRow:hover {
+  background-color: #c3e6cb !important;
+}
+
+/* Status badges */
+.statusExecuted {
+  background-color: #6c757d;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.statusPending {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Botão QR Code */
+.qrButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.qrButton:hover {
+  background-color: #0056b3;
+}
+
