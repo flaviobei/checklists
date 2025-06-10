@@ -102,80 +102,95 @@ export default async function handler(req, res) {
       const { clientId, locationId, userId } = req.query;
       
       if (userId) {
-        // Lógica específica para a dashboard do profissional
         const allUserChecklists = findChecklistsByUserId(userId);
         let allExecutions = [];
         try {
           const data = fs.readFileSync(executionsFilePath, 'utf8');
           allExecutions = JSON.parse(data);
         } catch (error) {
-          // Arquivo pode não existir ou estar vazio, não é um erro fatal
           console.warn('Não foi possível ler o arquivo de execuções ou ele está vazio:', error.message);
         }
 
         const now = new Date();
         const todayString = now.toDateString();
 
-        // --- Daily Progress Calculation ---
-        let pendingChecklistsToday = [];
-        let totalDailyChecklists = 0;
-        let completedDailyChecklistsToday = 0;
-
-        // Filter for daily checklists assigned to the user
-        const dailyChecklistsAssigned = allUserChecklists.filter(c => c.periodicity === 'daily');
-
-        dailyChecklistsAssigned.forEach(checklist => {
-          totalDailyChecklists++; // Count all daily checklists assigned
-
-          const userExecutionsForThisChecklist = allExecutions.filter(exec => exec.checklistId === checklist.id && exec.userId === userId);
-          userExecutionsForThisChecklist.sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
-          const lastExecution = userExecutionsForThisChecklist.length > 0 ? userExecutionsForThisChecklist[0] : null;
-
-          let isCompletedToday = false;
-          if (lastExecution && new Date(lastExecution.completedAt).toDateString() === todayString) {
-            isCompletedToday = true;
+        // --- Calculate all currently pending checklists (for display list) ---
+        const allPendingChecklistsForDisplay = allUserChecklists.filter(checklist => {
+          // Check for validity first
+          if (checklist.validity && new Date(checklist.validity) < now) {
+            return false; // Skip expired checklists
           }
+          return isChecklistDue(checklist, userId, allExecutions);
+        });
 
-          if (isCompletedToday) {
-            completedDailyChecklistsToday++;
-          } else {
-            // Check if it's due today based on time (if specified)
-            let isDueBasedOnTime = true; // Assume true if no time specified or time has passed
-            if (checklist.time) {
-              const [hours, minutes] = checklist.time.split(':').map(Number);
-              const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
-              if (now < dueTime) { // If current time is before due time, it's not yet due for today
-                isDueBasedOnTime = false;
+        // --- Daily Progress Calculation (for the daily progress bar) ---
+        let totalDailyChecklistsAssigned = 0;
+        let completedDailyChecklistsToday = 0;
+        let pendingDailyChecklistsToday = []; // Checklists that are daily and due today
+
+        allUserChecklists.forEach(checklist => {
+          if (checklist.periodicity === 'daily') {
+            totalDailyChecklistsAssigned++;
+
+            const userExecutionsForThisChecklist = allExecutions.filter(exec => exec.checklistId === checklist.id && exec.userId === userId);
+            userExecutionsForThisChecklist.sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+            const lastExecution = userExecutionsForThisChecklist.length > 0 ? userExecutionsForThisChecklist[0] : null;
+
+            let isCompletedToday = false;
+            if (lastExecution && new Date(lastExecution.completedAt).toDateString() === todayString) {
+              // If it was completed today, check if it was after its scheduled time (if any)
+              if (checklist.time) {
+                const [hours, minutes] = checklist.time.split(':').map(Number);
+                const scheduledTimeToday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+                if (new Date(lastExecution.completedAt) >= scheduledTimeToday) {
+                  isCompletedToday = true;
+                }
+              } else {
+                isCompletedToday = true;
               }
             }
 
-            // If not completed today and due based on time, add to pending today
-            if (isDueBasedOnTime) {
-              pendingChecklistsToday.push(checklist);
+            if (isCompletedToday) {
+              completedDailyChecklistsToday++;
+            } else {
+              // If not completed today, check if it's due based on time (if specified)
+              let isDueBasedOnTime = true; // Assume true if no time specified or time has passed
+              if (checklist.time) {
+                const [hours, minutes] = checklist.time.split(':').map(Number);
+                const dueTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+                if (now < dueTime) { // If current time is before due time, it's not yet due for today
+                  isDueBasedOnTime = false;
+                }
+              }
+              // If it's not completed today and it's due based on time, and it hasn't been executed before today
+              if (isDueBasedOnTime && (!lastExecution || new Date(lastExecution.completedAt).toDateString() !== todayString)) {
+                 pendingDailyChecklistsToday.push(checklist);
+              }
             }
           }
         });
 
+
         // --- Overall Stats Calculation ---
-        // Total de checklists únicos que o profissional já executou pelo menos uma vez
         const totalCompletedOverall = new Set(allExecutions.filter(e => e.userId === userId).map(e => e.checklistId)).size;
         
-        // Total de checklists periódicos (não avulsos) atribuídos ao usuário e válidos
-        const totalScheduledOverall = allUserChecklists.filter(c => 
-          c.periodicity !== 'loose' && 
+        const totalScheduledOverall = allUserChecklists.filter(c =>
+          c.periodicity !== 'loose' &&
           (!c.validity || new Date(c.validity) >= now)
         ).length;
 
         return res.status(200).json({
           dailyProgress: {
-            pendingChecklistsToday: pendingChecklistsToday,
-            totalDailyChecklists: totalDailyChecklists,
-            completedDailyChecklistsToday: completedDailyChecklistsToday
+            pendingChecklistsToday: pendingDailyChecklistsToday, // This should be only daily checklists due today
+            totalDailyChecklists: totalDailyChecklistsAssigned, // Total daily checklists assigned
+            completedDailyChecklistsToday: completedDailyChecklistsToday // Daily checklists completed today
           },
           overallStats: {
             totalCompletedOverall: totalCompletedOverall,
-            totalScheduledOverall: totalScheduledOverall
-          }
+            totalScheduledOverall: totalScheduledOverall,
+          },
+          // This is the list for the main display, including loose if never executed
+          allPendingChecklistsForDisplay: allPendingChecklistsForDisplay
         });
 
       } else {
@@ -194,7 +209,6 @@ export default async function handler(req, res) {
     }
   }
   
-  // Criar novo checklist (POST)
   if (req.method === 'POST') {
     try {
       const { 
@@ -266,5 +280,3 @@ export default async function handler(req, res) {
   // Método não permitido
   return res.status(405).json({ message: 'Método não permitido' });
 }
-
-
