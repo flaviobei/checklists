@@ -59,7 +59,8 @@ export default async function handler(req, res) {
         customDays, 
         requirePhotos, 
         items,
-        active
+        active,
+        validity // Adicionado o campo validity
       } = req.body;
       
       // Atualizar checklist
@@ -74,7 +75,8 @@ export default async function handler(req, res) {
         customDays,
         requirePhotos,
         items,
-        active
+        active,
+        validity // Passando o campo validity para a função updateChecklist
       });
       
       if (!updatedChecklist) {
@@ -114,3 +116,4 @@ export default async function handler(req, res) {
   // Método não permitido
   return res.status(405).json({ message: 'Método não permitido' });
 }
+

@@ -35,15 +35,6 @@ export default async function handler(req, res) {
       console.error('Erro ao ler arquivo de execuções:', error);
     }
 
-    // Verificar se este checklist já foi executado por este usuário
-    const alreadyExecuted = executions.some(
-      exec => exec.checklistId === checklistId && exec.userId === userId
-    );
-
-    if (alreadyExecuted) {
-      return res.status(400).json({ message: 'Este checklist já foi executado por este usuário' });
-    }
-
     // Criar novo registro de execução
     const newExecution = {
       checklistId,
@@ -66,3 +57,5 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: 'Erro ao registrar execução' });
   }
 }
+
+

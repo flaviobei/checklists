@@ -8,6 +8,50 @@
 
 import { getAllChecklists, createChecklist, findChecklistsByClientId, findChecklistsByLocationId, findChecklistsByUserId, generateQRCodeSVG, updateChecklist } from '../../../lib/checklists';
 import { verifyToken } from '../../../lib/auth';
+import fs from 'fs';
+import path from 'path';
+
+// Caminho para o arquivo de execuções
+const executionsFilePath = path.join(process.cwd(), 'data', 'executions.json');
+
+// Função auxiliar para verificar se um checklist está devido
+const isChecklistDue = (checklist, userId, allExecutions) => {
+  // Adicionar verificação de validade
+  if (checklist.validity && new Date(checklist.validity) < new Date()) {
+    return false; // Checklist expirado
+  }
+
+  const userExecutions = allExecutions.filter(exec => exec.checklistId === checklist.id && exec.userId === userId);
+  userExecutions.sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
+  const lastExecution = userExecutions.length > 0 ? userExecutions[0] : null;
+
+  if (!lastExecution) {
+    return true; // Nunca foi executado, então está devido
+  }
+
+  const lastCompletedAt = new Date(lastExecution.completedAt);
+  const now = new Date();
+
+  switch (checklist.periodicity) {
+    case 'once':
+      return false; // Já foi executado, não é devido novamente
+    case 'daily':
+      // Devido se a última execução foi antes de hoje
+      return lastCompletedAt.toDateString() !== now.toDateString();
+    case 'weekly':
+      // Devido se a última execução foi antes desta semana
+      const startOfWeekLastExecution = new Date(lastCompletedAt);
+      startOfWeekLastExecution.setDate(lastCompletedAt.getDate() - lastCompletedAt.getDay());
+      const startOfWeekNow = new Date(now);
+      startOfWeekNow.setDate(now.getDate() - now.getDay());
+      return startOfWeekLastExecution.toDateString() !== startOfWeekNow.toDateString();
+    case 'monthly':
+      // Devido se a última execução foi antes deste mês
+      return lastCompletedAt.getMonth() !== now.getMonth() || lastCompletedAt.getFullYear() !== now.getFullYear();
+    default:
+      return true; // Periodicidade desconhecida, assume que está sempre devido
+  }
+};
 
 export default async function handler(req, res) {
   // Verificar autenticação
@@ -49,9 +93,23 @@ export default async function handler(req, res) {
       
       // Se não for admin, filtrar apenas os checklists atribuídos ao usuário ou avulsos
       if (!user.isAdmin) {
-        checklists = checklists.filter(checklist => 
-          checklist.assignedTo === user.id || checklist.assignedTo === null
-        );
+        // Carregar todas as execuções para a lógica de periodicidade
+        let allExecutions = [];
+        try {
+          const data = fs.readFileSync(executionsFilePath, 'utf8');
+          allExecutions = JSON.parse(data);
+        } catch (error) {
+          console.error('Erro ao ler arquivo de execuções para filtragem de checklists:', error);
+          // Se o arquivo não existir ou estiver vazio, continua com array vazio
+        }
+
+        checklists = checklists.filter(checklist => {
+          const isAssignedOrLoose = checklist.assignedTo === user.id || checklist.assignedTo === null;
+          if (isAssignedOrLoose) {
+            return isChecklistDue(checklist, user.id, allExecutions);
+          }
+          return false;
+        });
       }
       
       return res.status(200).json(checklists);
@@ -74,7 +132,8 @@ export default async function handler(req, res) {
         periodicity, 
         customDays, 
         requirePhotos, 
-        items 
+        items,
+        validity // Adicionado o campo validity
       } = req.body;
       
       // Validar campos obrigatórios
@@ -95,7 +154,8 @@ export default async function handler(req, res) {
         periodicity,
         customDays,
         requirePhotos,
-        items
+        items,
+        validity // Passando o campo validity para a função createChecklist
       });
       
       // Gerar QR Code
@@ -129,3 +189,4 @@ export default async function handler(req, res) {
   // Método não permitido
   return res.status(405).json({ message: 'Método não permitido' });
 }
+
