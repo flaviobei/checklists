@@ -186,7 +186,7 @@ export default function ProfessionalDashboard() {
               {/* Estatísticas Gerais */}
               <div className={styles.overallStatsContainer}>
                 <div className={styles.statBox}>
-                  <h4>Total de Checklists Executado</h4>
+                  <h4>Total de Checklists Executados</h4>
                   <p>{overallStats.totalCompletedOverall}</p>
                 </div>
                 <div className={styles.statBox}>
