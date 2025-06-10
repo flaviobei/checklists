@@ -81,8 +81,8 @@ export default function ProfessionalDashboard() {
   useEffect(() => {
     if (showScanner) {
       const config = {
-        fps: 16,
-        qrbox: { width: 250, height: 250 },
+        fps: 12,
+        qrbox: { width: 300, height: 300 },
         rememberLastUsedCamera: true,
         supportedScanTypes: [0]
       };
