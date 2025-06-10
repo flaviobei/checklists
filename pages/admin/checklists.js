@@ -775,12 +775,12 @@ export default function ChecklistManagement() {
                   <td>{checklist.time || 'N/A'}</td> {/* Exibir horário */}
                   <td>{checklist.active ? 'Sim' : 'Não'}</td>
                   <td>
-                    <button onClick={() => handleEdit(checklist)} className={styles.actionButton}>Editar</button>
-                    <button onClick={() => handleDelete(checklist.id)} className={styles.actionButtonDanger}>Excluir</button>
-                    <button onClick={() => handleToggleStatus(checklist.id, checklist.active)} className={styles.actionButton}>
+                    <button onClick={() => handleEdit(checklist)} className={styles.editButton}>Editar</button>
+                    <button onClick={() => handleDelete(checklist.id)} className={styles.deleteButton}>Excluir</button>
+                    <button onClick={() => handleToggleStatus(checklist.id, checklist.active)} className={styles.activateButton}>
                       {checklist.active ? 'Desativar' : 'Ativar'}
                     </button>
-                    <button onClick={() => handlePrintQRCode(checklist)} className={styles.printButton}>Imprimir QR</button>
+                    <button onClick={() => handlePrintQRCode(checklist)} className={styles.qrButton}>Imprimir QR</button>
                   </td>
                 </tr>
               ))

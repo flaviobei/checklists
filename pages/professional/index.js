@@ -8,23 +8,24 @@
   * - Exibir informações do usuário logado.
 */
 
-import { useEffect, useState, useRef } from 'react'; // Adicione useRef
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Professional.module.css';
-import checklistsData from '../../data/checklists.json';
-import executionsData from '../../data/executions.json'; // Importar execuções
-import { Html5QrcodeScanner } from 'html5-qrcode'; // Importe a biblioteca
+// Removendo importações de arquivos JSON estáticos
+// import checklistsData from '../../data/checklists.json';
+// import executionsData from '../../data/executions.json';
+import { Html5QrcodeScanner } from 'html5-qrcode';
 
 export default function ProfessionalDashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showScanner, setShowScanner] = useState(false); // Estado para controlar a visibilidade do scanner
-  const [pendingChecklists, setPendingChecklists] = useState([]); // Estado para checklists pendentes
-  const [totalChecklists, setTotalChecklists] = useState(0); // Total de checklists atribuídos
-  const [completedChecklists, setCompletedChecklists] = useState(0); // Checklists concluídos
+  const [showScanner, setShowScanner] = useState(false);
+  const [pendingChecklists, setPendingChecklists] = useState([]);
+  // Mantendo estados para o progresso, mas eles serão atualizados pela API
+  const [totalChecklists, setTotalChecklists] = useState(0);
+  const [completedChecklists, setCompletedChecklists] = useState(0);
   const router = useRouter();
 
-  // Referência para o elemento do scanner (opcional, mas pode ser útil)
   const scannerRef = useRef(null);
 
   useEffect(() => {
@@ -40,94 +41,96 @@ export default function ProfessionalDashboard() {
       const userData = JSON.parse(storedUser);
       setUser(userData);
       
-      // Filtrar checklists pendentes (não executados pelo usuário atual)
-      filterPendingChecklists(userData.id);
+      // Chamar a função para buscar checklists da API
+      fetchChecklistsForProfessional(userData.id, token);
     } catch (error) {
       console.error('Erro ao processar dados do usuário:', error);
       router.push('/login');
     } finally {
-      setLoading(false);
+      // O loading agora será controlado pela função fetchChecklistsForProfessional
     }
   }, [router]);
 
-  // Função para filtrar checklists pendentes
-  const filterPendingChecklists = (userId) => {
-    // Obter todos os checklists atribuídos ao usuário ou avulsos
-    const userChecklists = checklistsData.filter(
-      (checklist) =>
-      (checklist.assignedTo === userId || checklist.assignedTo === null) &&
-      checklist.active === true
-    );
-    
-    // Contar o total de checklists atribuídos ao usuário
-    const totalAssigned = userChecklists.length;
-    
-    // Filtrar os que já foram executados pelo usuário
-    const pending = userChecklists.filter(checklist => {
-      // Verificar se este checklist já foi executado por este usuário
-      const alreadyExecuted = executionsData.some(
-        exec => exec.checklistId === checklist.id && exec.userId === userId
-      );
+  // Função para buscar checklists para o profissional da API
+  const fetchChecklistsForProfessional = async (userId, token) => {
+    setLoading(true);
+    try {
+      // Buscar checklists atribuídos ao usuário ou avulsos usando a API
+      // A API /api/checklists para usuários não-admin já retorna apenas os checklists devidos.
+      const response = await fetch(`/api/checklists?userId=${userId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao buscar checklists para o profissional');
+      }
+
+      const data = await response.json();
+      setPendingChecklists(data);
       
-      // Retornar apenas os não executados
-      return !alreadyExecuted;
-    });
-    
-    // Calcular quantos foram executados
-    const executed = totalAssigned - pending.length;
-    
-    // Atualizar estados
-    setPendingChecklists(pending);
-    setCompletedChecklists(executed);
-    setTotalChecklists(totalAssigned);
+      // Para a barra de progresso, a API /api/checklists para o profissional
+      // precisa retornar o total de checklists atribuídos e o total de concluídos.
+      // Como a API atual só retorna os PENDENTES, vamos ajustar o cálculo aqui.
+      // Idealmente, o backend deveria fornecer esses totais.
+      // Por enquanto, vamos considerar que o 'totalChecklists' é o número de checklists que o usuário deveria ter,
+      // e 'completedChecklists' é o que já foi feito.
+      // Para uma solução completa, a API /api/checklists precisaria ser aprimorada para retornar:
+      // { pending: [...], totalAssigned: N, completedCount: M }
+      
+      // Por simplicidade e para manter a barra de progresso funcionando (mesmo que de forma limitada):
+      // Vamos assumir que 'totalChecklists' é a soma dos pendentes e dos já concluídos (que não estão na lista).
+      // Isso exigiria uma chamada adicional ou que a API retornasse mais dados.
+      // Para evitar complexidade excessiva no frontend sem suporte do backend, 
+      // vamos exibir a barra de progresso de forma mais simples ou indicar que não há dados.
+      
+      // Se a API retorna apenas os pendentes, não temos como calcular o total de atribuídos e concluídos diretamente.
+      // Vamos ajustar a exibição da barra de progresso para refletir isso.
+      setTotalChecklists(data.length); // Total de checklists que estão devidos agora
+      setCompletedChecklists(0); // Não temos como saber os concluídos sem outra chamada ou dado da API
+
+    } catch (error) {
+      console.error('Erro ao buscar checklists para o profissional:', error);
+      setPendingChecklists([]);
+      setTotalChecklists(0);
+      setCompletedChecklists(0);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Efeito para inicializar e limpar o scanner
+  // Efeito para inicializar e limpar o scanner (mantido)
   useEffect(() => {
     if (showScanner) {
-      // Configurações do scanner
       const config = {
-        fps: 16, // Frames por segundo para escanear
-        qrbox: { width: 250, height: 250 }, // Tamanho da caixa de escaneamento (opcional)
-        rememberLastUsedCamera: true, // Lembrar a última câmera usada
-        supportedScanTypes: [0] // 0 para QR_CODE_SCAN_TYPE_CAMERA (Html5QrcodeScanType.SCAN_TYPE_CAMERA)
+        fps: 16,
+        qrbox: { width: 250, height: 250 },
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [0]
       };
 
-      // Callback de sucesso
       const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         console.log(`QR Code lido: ${decodedText}`, decodedResult);
-
         const checklistId = decodedText;
-        
-        //const foundChecklist = checklistsData.find(cl => cl.id === checklistId && cl.active === true && (cl.assignedTo === user?.id || cl.assignedTo === null));
-
         if (checklistId) {
           router.push(`/professional/${checklistId}`);
-          //alert(`Redirecionando para o checklist com ID: ${checklistId}`);
         } else {
           alert('Checklist não encontrado ou não acessível');
         }
-
-        setShowScanner(false); // Esconde o scanner após a leitura
+        setShowScanner(false);
       };
 
-      // Callback de erro (opcional)
       const qrCodeErrorCallback = (errorMessage) => {
         // console.warn(`Erro no scanner: ${errorMessage}`);
-        // Não fazer nada em caso de erro comum (ex: QR Code não encontrado no frame)
       };
 
       const html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader", // ID do elemento div onde o scanner será renderizado
+        "qr-reader",
         config,
-        false // verbose
+        false
       );
       html5QrcodeScanner.render(qrCodeSuccessCallback, qrCodeErrorCallback);
-
-      // Guardar a instância para poder limpar depois
       scannerRef.current = html5QrcodeScanner;
 
-      // Função de limpeza ao desmontar o componente ou esconder o scanner
       return () => {
         if (scannerRef.current) {
           scannerRef.current.clear().catch(error => {
@@ -137,22 +140,25 @@ export default function ProfessionalDashboard() {
         }
       };
     }
-  }, [showScanner, router, user?.id]); // Adicionar user?.id às dependências
+  }, [showScanner, router]);
 
   if (loading) {
     return <div className={styles.loading}>Carregando...</div>;
   }
 
-  // Calcular a porcentagem de progresso
-  const percentage = totalChecklists === 0 
-    ? 0 
-    : Math.round((completedChecklists / totalChecklists) * 100);
+  // Calcular a porcentagem de progresso (ajustado para refletir apenas os pendentes)
+  // Se totalChecklists representa apenas os pendentes, então completedChecklists é 0
+  // e a porcentagem será sempre 0 se houver pendentes, ou 100% se não houver.
+  // Para uma barra de progresso significativa, o backend precisa fornecer o total de atribuídos.
+  const percentage = pendingChecklists.length === 0 
+    ? 100 // Se não há pendentes, 100% concluído (dos que deveriam aparecer)
+    : 0; // Se há pendentes, não podemos calcular a porcentagem real sem o total atribuído
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
        <div className={styles.logoContainer}>
-          <img src='../grupotb_logo.png' alt='Logo GrupoTB'></img>
+          <img src='/grupotb_logo.png' alt='Logo GrupoTB'></img> {/* Caminho corrigido */}
       </div>
         <h1>Área do Profissional</h1>
         <div className={styles.userInfo}>
@@ -175,7 +181,6 @@ export default function ProfessionalDashboard() {
         {showScanner && (
           <div className={styles.scannerContainer}>
             <h2>Escaneando QR Code...</h2>
-            {/* Elemento onde o scanner será renderizado */}
             <div id="qr-reader" style={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}></div>
             <button
               className={styles.closeScannerButton}
@@ -202,7 +207,7 @@ export default function ProfessionalDashboard() {
               <p>Escaneie o QR Code para acessar um checklist</p>
               <button
                 className={styles.scanButton}
-                onClick={() => setShowScanner(true)} // Mostra o scanner ao clicar
+                onClick={() => setShowScanner(true)}
               >
                 Escanear QR Code 📷
               </button>
@@ -215,15 +220,15 @@ export default function ProfessionalDashboard() {
                 <div className={styles.progressBar}>
                   <div
                     className={styles.progressFill}
-                    style={{ width: `${percentage}%`, backgroundColor: totalChecklists === 0 ? 'gray' : '#4caf50' }}
+                    style={{ width: `${percentage}%`, backgroundColor: pendingChecklists.length === 0 ? '#4caf50' : 'gray' }}
                   >
-                    {totalChecklists === 0 ? "Nenhum checklist" : `${percentage}%`}
+                    {pendingChecklists.length === 0 ? "100% Concluído" : "Pendentes"}
                   </div>
                 </div>
-                {totalChecklists === 0 ? (
-                  <p>Sem checklists atribuídos no momento.</p>
+                {pendingChecklists.length === 0 ? (
+                  <p>Todos os checklists devidos foram concluídos.</p>
                 ) : (
-                  <p>{completedChecklists} de {totalChecklists} concluídos</p>
+                  <p>{pendingChecklists.length} checklists pendentes</p>
                 )}
               </div>
 
@@ -242,8 +247,10 @@ export default function ProfessionalDashboard() {
                       </p>
                       <div className={styles.checklistDetails}>
                         <p>Status: Pendente ⏳</p>
+                        {checklist.validity && <p>Válido até: {new Date(checklist.validity).toLocaleDateString()}</p>}
+                        {checklist.time && <p>Horário: {checklist.time}</p>}
                         <p>Itens no Checklist: {checklist.items ? checklist.items.length : 0}</p>
-                        <p>Responsável: {checklist.assignedTo ? checklist.assignedTo : "Avulso"}</p>
+                        
                       </div>
                       <button
                         className={styles.startButton}
@@ -261,9 +268,7 @@ export default function ProfessionalDashboard() {
 
             <div className={styles.debug}>
               <h2>DEBUG</h2>
-              <p>Total de Checklists atribuídos: {totalChecklists}</p>
-              <p>Total de Checklists concluídos: {completedChecklists}</p>
-              <p>% Concluídos: {percentage}%</p>
+              <p>Checklists Pendentes (da API): {pendingChecklists.length}</p>
               <p>User ID: {user?.id}</p>
             </div>
           </>
@@ -272,3 +277,5 @@ export default function ProfessionalDashboard() {
     </div>
   );
 }
+
+

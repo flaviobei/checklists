@@ -152,6 +152,7 @@
      border-radius: 4px;
      padding: 0.25rem 0.5rem;
      cursor: pointer;
+     margin: 0 0.25rem;
 }
  .deleteButton {
      background-color: #dc3545;
@@ -159,15 +160,17 @@
      border: none;
      border-radius: 4px;
      padding: 0.25rem 0.5rem;
-     cursor: pointer;
+     cursor: crosshair;
+     margin: 0 0.25rem;
 }
  .activateButton {
      background-color: rgb(10, 117, 17);
      color: white;
      border: none;
      border-radius: 4px;
-     padding: 0.5rem 1rem;
-     cursor: pointer;
+     padding: 0.25rem 0.5rem;
+     cursor: crosshair;
+     margin: 0 0.25rem;
 }
  .deactivateButton {
      background-color: #b53642;
@@ -176,14 +179,16 @@
      border-radius: 4px;
      padding: 0.5rem 1rem;
      cursor: pointer;
+     margin: 0 0.25rem;
 }
  .qrButton {
      background-color: #000000;
      color: white;
      border: none;
      border-radius: 4px;
-     padding: 0.5rem 1rem;
-     cursor: pointer;
+     padding: 0.25rem 0.5rem;
+     cursor: crosshair;
+     margin: 0 0.25rem;
 }
  .noData {
      text-align: center;

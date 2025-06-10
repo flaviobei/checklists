@@ -73,13 +73,6 @@
  .aviso button:hover {
      background-color: #298ca6;
 }
- .debug {
-     background-color: rgb(230, 124, 124);
-     border-radius: 8px;
-     padding: 1.5rem;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-     transition: transform 0.3s ease;
-}
  .card:hover, .checklistCard:hover {
      transform: translateY(-5px);
      box-shadow: 0 2px 4px rgba(41, 140, 166, 1);
@@ -302,4 +295,16 @@
  .logoContainer img {
      width: 100px;
      height: auto;
+}
+
+
+/* debug */
+
+ .debug {
+     background-color: rgb(230, 124, 124);
+     border-radius: 8px;
+     padding: 1.5rem;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease;
+     display: none; /* Escondido por padrão */
 }
