@@ -109,6 +109,12 @@ export default function AdminDashboard() {
             <button onClick={() => router.push('/admin/checklists')}>Acessar</button>
           </div>
 
+          <div className={styles.card}>
+            <h2>Checklists Executados</h2>
+            <p>Relatórios e Executados</p>
+            <button onClick={() => router.push('/admin/executados')}>Acessar</button>
+          </div>
+
          <div className={styles.card}>
             <h2>QRCodes</h2>
             <p>Gerar QR Codes em Lote</p>
