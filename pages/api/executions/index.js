@@ -1,3 +1,9 @@
+/* pages/api/executions/index.js
+ * Endpoint para registrar a execução de um checklist
+ * Recebe dados do checklist executado e salva em um arquivo JSON
+ * Permite que usuários registrem execuções sem duplicação
+ */ 
+
 import fs from 'fs';
 import path from 'path';
 
