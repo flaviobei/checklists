@@ -24,11 +24,11 @@ export default function ExecutedChecklists() {
   const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [selectedClientId, setSelectedClientId] = useState('');
-  const [selectedTechnicianId, setSelectedTechnicianId] = useState('');
+  const [selectedUserId, setSelectedUserId] = useState(''); // Alterado de selectedTechnicianId para selectedUserId
 
   const router = useRouter();
 
-  // Função para imprimir QR Code
+  // Função para imprimir QR Code (mantida igual)
   const handlePrintQRCode = (checklist) => {
     if (checklist.qrCodePath) {
         const printWindow = window.open('', '_blank', 'width=300, height=500, toolbar=no,scrollbars=no,resizable=no');
@@ -76,7 +76,7 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Função para buscar clientes
+  // Funções para buscar dados (mantidas iguais)
   const fetchClients = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -91,7 +91,6 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Função para buscar todos os locais
   const fetchLocations = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -113,7 +112,6 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Função para buscar tipos de checklist
   const fetchChecklistTypes = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -128,7 +126,6 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Função para buscar usuários/técnicos
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -143,7 +140,7 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Função para buscar checklists com filtros
+  // Função para buscar checklists com filtros (modificada para usar userId)
   const fetchChecklists = async () => {
     setLoading(true);
     setError('');
@@ -159,9 +156,9 @@ export default function ExecutedChecklists() {
       const params = new URLSearchParams();
       
       if (selectedClientId) params.append('clientId', selectedClientId);
-      if (selectedTechnicianId) params.append('userId', selectedTechnicianId);
+      if (selectedUserId) params.append('userId', selectedUserId); // Alterado para userId
       
-      // Configurar filtro de data baseado no modo selecionado
+      // Configurar filtro de data
       if (dateFilterMode === 'today') {
         params.append('startDate', startDate);
         params.append('endDate', startDate);
@@ -200,7 +197,7 @@ export default function ExecutedChecklists() {
     }
   };
 
-  // Carregamento inicial
+  // Carregamento inicial (mantido igual)
   useEffect(() => {
     const loadInitialData = async () => {
       setLoading(true);
@@ -223,27 +220,25 @@ export default function ExecutedChecklists() {
     loadInitialData();
   }, []);
 
-  // Atualizar checklists quando os filtros mudarem
+  // Atualizar checklists quando os filtros mudarem (atualizado para selectedUserId)
   useEffect(() => {
     fetchChecklists();
-  }, [dateFilterMode, startDate, endDate, selectedClientId, selectedTechnicianId]);
+  }, [dateFilterMode, startDate, endDate, selectedClientId, selectedUserId]);
 
-  // Função para determinar a classe CSS baseada no status
+  // Funções auxiliares (mantidas iguais)
   const getRowClassName = (checklist) => {
     if (checklist.executed) {
-      return `${styles.tableRow} ${styles.executedRow}`; // Cinza para executados
+      return `${styles.tableRow} ${styles.executedRow}`;
     } else {
-      return `${styles.tableRow} ${styles.pendingRow}`; // Verde para pendentes
+      return `${styles.tableRow} ${styles.pendingRow}`;
     }
   };
 
-  // Função para formatar data
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('pt-BR');
   };
 
-  // Função para formatar horário
   const formatTime = (timeString) => {
     if (!timeString) return 'N/A';
     return timeString;
@@ -340,13 +335,15 @@ export default function ExecutedChecklists() {
           <label htmlFor="technicianFilter">Técnico:</label>
           <select
             id="technicianFilter"
-            value={selectedTechnicianId}
-            onChange={(e) => setSelectedTechnicianId(e.target.value)}
+            value={selectedUserId} // Alterado para selectedUserId
+            onChange={(e) => setSelectedUserId(e.target.value)} // Alterado para setSelectedUserId
             className={styles.select}
           >
             <option value="">Todos os Técnicos</option>
             {users.map(user => (
-              <option key={user.id} value={user.id}>{user.name}</option>
+              !user.isAdmin && (
+                <option key={user.id} value={user.id}>{user.name}</option>
+              ) 
             ))}
           </select>
         </div>
