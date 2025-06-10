@@ -532,7 +532,7 @@
 }
 
 .pendingRow:hover {
-  background-color: #c3e6cb !important;
+  background-color: #c8decd !important;
 }
 
 /* Status badges */
@@ -547,9 +547,9 @@
 }
 
 .statusPending {
-  background-color: #28a745;
+  background-color: #0ba72f;
   color: white;
-  padding: 4px 8px;
+  padding: 5px 5px 5px 5px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
@@ -558,7 +558,7 @@
 
 /* Botão QR Code */
 .qrButton {
-  background-color: #007bff;
+  background-color: #6f6f6f;
   color: white;
   border: none;
   padding: 6px 12px;
