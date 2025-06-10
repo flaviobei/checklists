@@ -28,6 +28,7 @@ export default function ProfessionalDashboard() {
     totalCompletedOverall: 0, 
     totalScheduledOverall: 0 
   });
+  const [allPendingChecklists, setAllPendingChecklists] = useState([]);
 
   const router = useRouter();
   const scannerRef = useRef(null);
@@ -65,11 +66,13 @@ export default function ProfessionalDashboard() {
       const data = await response.json();
       setDailyProgress(data.dailyProgress);
       setOverallStats(data.overallStats);
+      setAllPendingChecklists(data.allPendingChecklistsForDisplay);
 
     } catch (error) {
       console.error('Erro ao buscar dados para o profissional:', error);
       setDailyProgress({ pendingChecklistsToday: [], totalDailyChecklists: 0, completedDailyChecklistsToday: 0 });
       setOverallStats({ totalCompletedOverall: 0, totalScheduledOverall: 0 });
+      setAllPendingChecklists([]);
     } finally {
       setLoading(false);
     }
@@ -192,14 +195,14 @@ export default function ProfessionalDashboard() {
                 </div>
               </div>
 
-              <h3>Checklists Pendentes de Hoje ({dailyProgress.pendingChecklistsToday.length})</h3>
-              {dailyProgress.pendingChecklistsToday.length === 0 ? (
+              <h3>Checklists Pendentes ({allPendingChecklists.length})</h3>
+              {allPendingChecklists.length === 0 ? (
                 <div className={styles.noData}>
-                  <p>Não há checklists pendentes para hoje.</p>
+                  <p>Não há checklists pendentes no momento.</p>
                 </div>
               ) : (
                 <div className={styles.checklistGrid}>
-                  {dailyProgress.pendingChecklistsToday.map((checklist) => (
+                  {allPendingChecklists.map((checklist) => (
                     <div key={checklist.id} className={styles.checklistCard}>
                       <h3>{checklist.title}</h3>
                       <p className={styles.checklistDescription}>
@@ -247,5 +250,3 @@ export default function ProfessionalDashboard() {
     </div>
   );
 }
-
-
