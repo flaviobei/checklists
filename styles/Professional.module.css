@@ -530,19 +530,3 @@
   background-color: #0056b3;
 }
 
-/* Responsividade para controles */
-@media (max-width: 768px) {
-  .controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .filterGroup {
-    width: 100%;
-  }
-  
-  .legend {
-    flex-direction: column;
-    gap: 10px;
-  }
-}

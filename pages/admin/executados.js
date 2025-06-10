@@ -301,7 +301,16 @@ export default function ExecutedChecklists() {
       {/* Filtros */}
       <div className={styles.controls}>
         <div className={styles.filterGroup}>
-          <label htmlFor="dateFilter">Data:</label>
+          <label htmlFor="dateFilter">Data Inicial:</label>
+          <input
+            type="date"
+            id="dateFilter"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className={styles.input}
+          />
+
+           <label htmlFor="dateFilterFinal">Data Final:</label>
           <input
             type="date"
             id="dateFilter"
