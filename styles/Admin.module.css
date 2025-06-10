@@ -4,31 +4,91 @@
      padding: 0;
      background-color: #f5f5f5;
 }
- .header {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     padding: 1rem 2rem;
-     background-color: #fff;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5.2rem 2rem;
+  background: linear-gradient(to right, #f8fafc, #e2e8f0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  height: 120px;
 }
- .header h1 {
-     margin: 0;
-     font-size: 1.5rem;
-     color: #042433;
+
+.logoContainer {
+  display: flex;
+  align-items: center;
 }
- .userInfo {
-     display: flex;
-     align-items: center;
-     gap: 1rem;
+
+.logoContainer img {
+  height: 50px;
+  width: auto;
 }
- .logoutButton {
-     background-color: #f44336;
-     color: white;
-     border: none;
-     border-radius: 4px;
-     padding: 0.5rem 1rem;
-     cursor: pointer;
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c53030;
+}
+
+/* ⬇️ Centraliza visualmente o título */
+.header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  margin: 0;
+  color: #2d3748;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  white-space: nowrap;
+}
+
+
+/* RESPONSIVIDADE */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    height: auto;
+  }
+
+  .header h1 {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  .logoContainer,
+  .userInfo {
+    justify-content: center;
+    flex: unset;
+    margin-top: 0.5rem;
+  }
+
+  .logoutButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
 }
  .main {
      padding: 2rem;
@@ -115,54 +175,98 @@
      padding: 0.5rem 1rem;
      cursor: pointer;
 }
- .tableContainer {
-     padding: 2rem;
-     background-color: white;
-     border-radius: 8px;
-     margin: 2rem;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.tableContainer {
+  padding: 2rem;
+  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 95%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
 }
- .tableContainer h2 {
-     margin-top: 0;
-     margin-bottom: 1rem;
-     font-size: 1.2rem;
+
+.tableContainer h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #2d3748;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
- .table {
-     width: 100%;
-     border-collapse: collapse;
+
+/* TABELA */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  font-size: 0.9rem;
+  color: #2d3748;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
- .table th, .table td {
-     padding: 0.75rem;
-     text-align: left;
-     border-bottom: 1px solid #dee2e6;
-     font-size: 0.75em;
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
 }
- .table th {
-     background-color: #f8f9fa;
-     font-weight: 600;
+
+.table th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+  color: #1a202c;
+  font-size: 0.85rem;
 }
- .actions {
-     display: flex;
-     gap: 0.5rem;
+
+.table tr:nth-child(even) {
+  background-color: #f9fafb;
 }
- .editButton {
-     background-color: #007bff;
-     color: white;
-     border: none;
-     border-radius: 4px;
-     padding: 0.25rem 0.5rem;
-     cursor: pointer;
-     margin: 0 0.25rem;
+
+.table tr:hover {
+  background-color: #edf2f7;
 }
- .deleteButton {
-     background-color: #dc3545;
-     color: white;
-     border: none;
-     border-radius: 4px;
-     padding: 0.25rem 0.5rem;
-     cursor: crosshair;
-     margin: 0 0.25rem;
+
+/* AÇÕES */
+.actions {
+  display: flex;
+  gap: 0.5rem;
 }
+
+/* BOTÕES BONITOS */
+.editButton,
+.deleteButton {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editButton {
+  background-color: #3b82f6;
+}
+
+.editButton:hover {
+  background-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.deleteButton {
+  background-color: #ef4444;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
  .activateButton {
      background-color: rgb(10, 117, 17);
      color: white;
