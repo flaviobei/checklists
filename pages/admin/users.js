@@ -223,7 +223,7 @@ export default function UserManagement() {
           <h2>{isEditing ? 'Editar Usuário' : 'Novo Usuário'}</h2>
           <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formGroup}>
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="username">Nome de usuário:</label>
               <input
                 type="text"
                 id="username"
@@ -299,7 +299,7 @@ export default function UserManagement() {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Username</th>
+                <th>Nome de usuário</th>
                 <th>Nome</th>
                 <th>Tipo</th>
                 <th>Ações</th>
