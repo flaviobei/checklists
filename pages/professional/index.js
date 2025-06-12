@@ -2,11 +2,7 @@
   * Dashboard do Profissional
   * Permite que profissionais acessem seus checklists e escaneiem QR Codes.
   * 
-  * Requisitos:
-  * - Exibir progresso dos checklists atribuídos ao profissional.
-  * - Permitir escaneamento de QR Codes para acessar checklists específicos.
-  * - Exibir informações do usuário logado.
-*/
+  */
 
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
