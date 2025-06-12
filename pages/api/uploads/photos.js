@@ -1,3 +1,12 @@
+/* pages/api/uploads/photos.js
+ * Esta API permite o upload de fotos para um checklist.
+  * Os arquivos são salvos na pasta 'public/uploads/checklist-photos'.
+  * Os arquivos são renomeados para incluir o ID do checklist, o ID do item e um timestamp.
+  * O tamanho máximo do arquivo é de 10MB.
+  * O endpoint aceita apenas requisições POST.
+  * O endpoint retorna o caminho do arquivo salvo.
+  */
+
 import fs from 'fs';
 import path from 'path';
 import { IncomingForm } from 'formidable';
