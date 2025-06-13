@@ -61,7 +61,7 @@ export default async function handler(req, res) {
         items,
         active,
         validity,
-        time // Adicionado o campo time
+        time // Adicionado o campo time para validade do checklist
       } = req.body;
       
       // Atualizar checklist
@@ -118,5 +118,3 @@ export default async function handler(req, res) {
   // Método não permitido
   return res.status(405).json({ message: "Método não permitido" });
 }
-
-
