@@ -261,6 +261,8 @@ export default function ChecklistManagement() {
     // Não precisa de uma verificação para evitar a chamada no mount inicial,
     // pois fetchChecklists() já é chamado no useEffect de mount.
     // Este useEffect garantirá que fetchChecklists seja chamado sempre que selectedClientId mudar APÓS o mount.
+
+    
     if (!loading) { // Opcional: evitar re-fetch se já estiver carregando algo do mount inicial
         fetchChecklists();
     }
