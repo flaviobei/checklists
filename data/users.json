@@ -25,5 +25,14 @@
     "isAdmin": false,
     "createdAt": "2025-05-26T16:12:43.808Z",
     "updatedAt": "2025-05-26T16:12:43.808Z"
+  },
+  {
+    "id": "cc02583f-6aaf-480c-a1f2-443aad3b6082",
+    "username": "gustavo",
+    "password": "$2b$10$tgfu3h.r043hegRizlR5ue/w1tqTINBsT8tQdv5P1Z8JgMLAf6k9i",
+    "name": "gustavo",
+    "isAdmin": false,
+    "createdAt": "2025-06-17T12:59:01.055Z",
+    "updatedAt": "2025-06-17T12:59:01.055Z"
   }
 ]

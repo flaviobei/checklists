@@ -1,11 +1,3 @@
-/* pages/admin/checklists.js
- * Gerenciamento de Checklists
-  * Permite criar, editar, excluir e ativar/desativar checklists
-  * Utiliza autenticação via token JWT armazenado no localStorage
-  * Inclui funcionalidades para imprimir QR Codes dos checklists
-  * Filtra checklists por cliente selecionado
-  */
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../../styles/Admin.module.css';
@@ -13,7 +5,7 @@ import styles from '../../styles/Admin.module.css';
 export default function ChecklistManagement() {
   const [checklists, setChecklists] = useState([]);
   const [clients, setClients] = useState([]);
-  const [locations, setLocations] = useState([]); // Armazenará TODOS os locais
+  const [locations, setLocations] = useState([]);
   const [checklistTypes, setChecklistTypes] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,16 +24,14 @@ export default function ChecklistManagement() {
     requirePhotos: false,
     items: [{ description: '', requirePhoto: false }],
     active: true,
-    validity: '', // Adicionado o campo validity
-    time: '' // Adicionado o campo time
+    validity: '',
+    time: ''
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [selectedClientId, setSelectedClientId] = useState(''); // Para o filtro da TABELA
-  const [filteredLocations, setFilteredLocations] = useState([]); // Para o dropdown de locais no FORMULÁRIO
+  const [selectedClientId, setSelectedClientId] = useState('');
+  const [filteredLocations, setFilteredLocations] = useState([]);
 
   const router = useRouter();
-
-  // Opções de periodicidade (mantido)
   const periodicityOptions = [
     { value: 'loose', label: 'Avulso/Emergência' },
     { value: 'daily', label: 'Diária' },
@@ -52,8 +42,6 @@ export default function ChecklistManagement() {
     { value: 'annual', label: 'Anual' },
     { value: 'custom', label: 'Personalizada' }
   ];
-
-  // Dias da semana (mantido)
   const weekDays = [
     { value: 0, label: 'Domingo' },
     { value: 1, label: 'Segunda-feira' },
@@ -62,15 +50,10 @@ export default function ChecklistManagement() {
     { value: 1, label: 'Quinta-feira' },
     { value: 1, label: 'Sexta-feira' },
     { value: 1, label: 'Sábado' },
-    // ... resto dos dias
   ];
-
-  // Dias do mês (mantido)
   const monthDays = Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: `Dia ${i + 1}` }));
 
-  // Função para imprimir QR Code (mantida)
   const handlePrintQRCode = (checklist) => {
-    // ... (código existente)
     if (checklist.qrCodePath) {
         const printWindow = window.open('', '_blank', 'width=300, height=500, toolbar=no,scrollbars=no,resizable=no');
         printWindow.document.write(`<html>
@@ -116,8 +99,6 @@ export default function ChecklistManagement() {
         alert('QR Code SVG não disponível para este checklist');
     }
   };
-
-  // Função para buscar clientes
   const fetchClients = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -131,10 +112,6 @@ export default function ChecklistManagement() {
       setError('Erro ao carregar clientes.');
     }
   };
-
-  // Função para buscar locais (MODIFICADA)
-  // Se clientId for fornecido, busca locais para filteredLocations (formulário).
-  // Se clientId NÃO for fornecido, busca TODOS os locais para o estado 'locations'.
   const fetchLocations = async (clientId) => {
     try {
       const token = localStorage.getItem('token');
@@ -142,7 +119,7 @@ export default function ChecklistManagement() {
         router.push('/login');
         return;
       }
-      const url = clientId ? `/api/locations?clientId=${clientId}` : '/api/locations'; // API deve suportar /api/locations para todos
+      const url = clientId ? `/api/locations?clientId=${clientId}` : '/api/locations';
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -151,25 +128,20 @@ export default function ChecklistManagement() {
       }
       const data = await response.json();
       if (clientId) {
-        setFilteredLocations(data); // Para o dropdown do formulário
+        setFilteredLocations(data);
       } else {
-        setLocations(data); // Armazena todos os locais
+        setLocations(data);
       }
     } catch (error) {
       console.error('Erro fetchLocations:', error);
-      // Não defina erro global aqui se for chamada para filteredLocations,
-      // a menos que seja um erro crítico. A mensagem de erro no formulário pode ser mais específica.
       if (!clientId) { // Apenas define erro global se estava buscando todos os locais
           setError('Erro ao carregar locais.');
       } else {
-          // Para o formulário, talvez uma mensagem local ou console.error seja suficiente
           console.error(`Erro ao buscar locais para o cliente ${clientId}:`, error);
-          setFilteredLocations([]); // Limpa para evitar dados inconsistentes
+          setFilteredLocations([]);
       }
     }
   };
-
-  // Função para buscar tipos de checklist
   const fetchChecklistTypes = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -183,8 +155,6 @@ export default function ChecklistManagement() {
       setError('Erro ao carregar tipos de checklist.');
     }
   };
-
-  // Função para buscar usuários
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -198,18 +168,15 @@ export default function ChecklistManagement() {
       setError('Erro ao carregar usuários.');
     }
   };
-
-  // Função para buscar checklists (MODIFICADA para ser chamada também ao mudar selectedClientId)
   const fetchChecklists = async () => {
-    setLoading(true); // Sempre inicia o carregamento ao buscar checklists
+    setLoading(true);
     setError('');
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         router.push('/login');
-        return; // setLoading(false) será chamado no finally
+        return;
       }
-      // Usa selectedClientId do filtro da tabela. Se vazio, busca todos.
       const url = selectedClientId ? `/api/checklists?clientId=${selectedClientId}` : '/api/checklists';
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -222,31 +189,25 @@ export default function ChecklistManagement() {
     } catch (error) {
       console.error('Erro fetchChecklists:', error);
       setError('Erro ao carregar checklists. Por favor, tente novamente.');
-      setChecklists([]); // Limpa checklists em caso de erro para evitar dados obsoletos
+      setChecklists([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Buscar dados iniciais ao carregar a página (MODIFICADO)
   useEffect(() => {
     const loadInitialData = async () => {
       setLoading(true);
       setError('');
       try {
-        // Carrega clientes, tipos, usuários e TODOS os locais em paralelo
         await Promise.all([
           fetchClients(),
           fetchChecklistTypes(),
           fetchUsers(),
-          fetchLocations() // Busca TODOS os locais e armazena em 'locations'
+          fetchLocations()
         ]);
-        // Após os dados base estarem carregados, busca os checklists
-        await fetchChecklists(); // Busca inicial de checklists (todos, pois selectedClientId é "" inicialmente)
+        await fetchChecklists();
       } catch (err) {
-        // Promise.all rejeitará se qualquer uma das promessas internas rejeitar.
-        // As funções fetch individuais já logam seus erros.
-        // Aqui podemos definir um erro mais genérico se o carregamento geral falhar.
         console.error("Erro no carregamento de dados iniciais:", err);
         setError('Falha ao carregar todos os dados iniciais. Verifique o console para detalhes.');
       } finally {
@@ -254,32 +215,19 @@ export default function ChecklistManagement() {
       }
     };
     loadInitialData();
-  }, []); // Array de dependências vazio, executa apenas uma vez no mount
-
-  // Atualizar checklists QUANDO O FILTRO DE CLIENTE DA TABELA (selectedClientId) mudar (NOVO/MODIFICADO)
+  }, []);
   useEffect(() => {
-    // Não precisa de uma verificação para evitar a chamada no mount inicial,
-    // pois fetchChecklists() já é chamado no useEffect de mount.
-    // Este useEffect garantirá que fetchChecklists seja chamado sempre que selectedClientId mudar APÓS o mount.
-
-    
     if (!loading) { // Opcional: evitar re-fetch se já estiver carregando algo do mount inicial
         fetchChecklists();
     }
   }, [selectedClientId]);
-
-  // Atualizar locais filtrados (para o dropdown no FORMULÁRIO) quando o cliente NO FORMULÁRIO mudar (MANTIDO)
   useEffect(() => {
     if (formData.clientId) {
-      fetchLocations(formData.clientId); // Busca locais para 'filteredLocations' (dropdown do formulário)
+      fetchLocations(formData.clientId);
     } else {
-      setFilteredLocations([]); // Limpa se nenhum cliente estiver selecionado no formulário
+      setFilteredLocations([]);
     }
   }, [formData.clientId]);
-
-
-  // --- Funções handleChange, handleItemChange, handleAddItem, handleRemoveItem, handleCustomDayChange ---
-  // (Mantidas como estavam, parecem corretas)
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -292,7 +240,7 @@ export default function ChecklistManagement() {
     const updatedItems = [...formData.items];
     updatedItems[index] = {
       ...updatedItems[index],
-      [field]: value // 'requirePhoto' já é boolean, não precisa de ternário
+      [field]: value
     };
     setFormData(prev => ({ ...prev, items: updatedItems }));
   };
@@ -322,31 +270,24 @@ export default function ChecklistManagement() {
       } else {
         updatedDays = currentCustomDays.filter(d => d !== day);
       }
-      return { ...prev, customDays: updatedDays.sort((a, b) => a - b) }; // Opcional: manter ordenado
+      return { ...prev, customDays: updatedDays.sort((a, b) => a - b) };
     });
   };
-
-
-  // Função para lidar com mudanças no filtro de cliente DA TABELA (MANTIDO)
   const handleClientFilterChange = (e) => {
     setSelectedClientId(e.target.value);
-    // A chamada fetchChecklists() agora é tratada pelo useEffect de selectedClientId
   };
-
-  // --- Funções handleCreate, handleEdit, handleSubmit, handleDelete, handleToggleStatus ---
-  // (Mantidas como estavam, mas note que fetchChecklists() será chamado após operações bem-sucedidas)
   const handleCreate = () => {
     setFormData({
       id: '', title: '', description: '', clientId: '', locationId: '',
       typeId: '', assignedTo: '', periodicity: 'daily', customDays: [],
       requirePhotos: false, items: [{ description: '', requirePhoto: false }], active: true,
-      validity: '', // Resetar validity ao criar novo
-      time: '' // Resetar time ao criar novo
+      validity: '',
+      time: ''
     });
     setIsEditing(false);
     setShowForm(true);
-    setError(''); // Limpa erros ao abrir o formulário
-    setFilteredLocations([]); // Limpa locais do formulário ao criar novo
+    setError('');
+    setFilteredLocations([]);
   };
 
   const handleEdit = (checklist) => {
@@ -354,7 +295,7 @@ export default function ChecklistManagement() {
       id: checklist.id,
       title: checklist.title,
       description: checklist.description || '',
-      clientId: checklist.clientId, // Isso vai disparar o useEffect para carregar filteredLocations
+      clientId: checklist.clientId,
       locationId: checklist.locationId,
       typeId: checklist.typeId,
       assignedTo: checklist.assignedTo || '',
@@ -363,18 +304,16 @@ export default function ChecklistManagement() {
       requirePhotos: checklist.requirePhotos || false,
       items: checklist.items && checklist.items.length > 0 ? checklist.items : [{ description: '', requirePhoto: false }],
       active: checklist.active,
-      validity: checklist.validity ? checklist.validity.split('T')[0] : '', // Preencher validity, formatando para input type="date"
-      time: checklist.time || '' // Preencher time
+      validity: checklist.validity ? checklist.validity.split('T')[0] : '',
+      time: checklist.time || ''
     });
     setIsEditing(true);
     setShowForm(true);
-    setError(''); // Limpa erros ao abrir o formulário
-    // filteredLocations será atualizado pelo useEffect de formData.clientId
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // ... (validações existentes) ...
     if (!formData.title || !formData.clientId || !formData.locationId || !formData.typeId || !formData.periodicity) {
         setError('Preencha todos os campos obrigatórios (Título, Cliente, Local, Tipo, Periodicidade)');
         return;
@@ -387,12 +326,10 @@ export default function ChecklistManagement() {
         setError('Selecione pelo menos um dia para a periodicidade personalizada');
         return;
     }
-    // Validação para o campo validity
     if (formData.periodicity !== 'loose' && !formData.validity) {
       setError('A data de validade é obrigatória para checklists periódicos.');
       return;
     }
-    // Validação para o campo time
     if (formData.periodicity !== 'loose' && !formData.time) {
       setError('O horário é obrigatório para checklists periódicos.');
       return;
@@ -407,7 +344,6 @@ export default function ChecklistManagement() {
       const url = isEditing ? `/api/checklists/${formData.id}` : '/api/checklists';
       const method = isEditing ? 'PUT' : 'POST';
 
-      // Ajustar o formato da data de validade para ISO string se for preenchida
       const dataToSend = { ...formData };
       if (dataToSend.validity) {
         dataToSend.validity = new Date(dataToSend.validity).toISOString();
@@ -423,7 +359,7 @@ export default function ChecklistManagement() {
         const errorData = await response.json().catch(() => ({ message: 'Erro ao salvar checklist' }));
         throw new Error(errorData.message || 'Erro ao salvar checklist');
       }
-      await fetchChecklists(); // Re-busca checklists para atualizar a lista
+      await fetchChecklists();
       setShowForm(false);
     } catch (error) {
       console.error('Erro ao salvar checklist:', error);
@@ -451,7 +387,7 @@ export default function ChecklistManagement() {
         const errorData = await response.json().catch(() => ({ message: 'Erro ao excluir checklist' }));
         throw new Error(errorData.message || 'Erro ao excluir checklist');
       }
-      await fetchChecklists(); // Re-busca checklists para atualizar a lista
+      await fetchChecklists();
     } catch (error) {
       console.error('Erro ao excluir checklist:', error);
       setError(error.message || 'Erro ao excluir checklist.');
@@ -476,7 +412,7 @@ export default function ChecklistManagement() {
         const errorData = await response.json().catch(() => ({ message: 'Erro ao alterar status' }));
         throw new Error(errorData.message || 'Erro ao alterar status');
       }
-      await fetchChecklists(); // Re-busca checklists para atualizar a lista
+      await fetchChecklists();
     } catch (error) {
       console.error('Erro ao alterar status:', error);
       setError(error.message || 'Erro ao alterar status.');
@@ -581,7 +517,7 @@ export default function ChecklistManagement() {
                 onChange={handleChange}
                 required
                 className={styles.select}
-                disabled={!formData.clientId} // Desabilita se nenhum cliente for selecionado
+                disabled={!formData.clientId}
               >
                 <option value="">Selecione um Local</option>
                 {filteredLocations.map(location => (
@@ -668,8 +604,8 @@ export default function ChecklistManagement() {
                   name="validity"
                   value={formData.validity}
                   onChange={handleChange}
-                  required={formData.periodicity !== 'loose'} // Obrigatório apenas para periódicos
-                  disabled={formData.periodicity === 'loose'} // Desabilitado para avulsos
+                  required={formData.periodicity !== 'loose'}
+                  disabled={formData.periodicity === 'loose'}
                   className={styles.input}
                 />
               </div>
@@ -685,8 +621,8 @@ export default function ChecklistManagement() {
                   name="time"
                   value={formData.time}
                   onChange={handleChange}
-                  required={formData.periodicity !== 'loose'} // Obrigatório apenas para periódicos
-                  disabled={formData.periodicity === 'loose'} // Desabilitado para avulsos
+                  required={formData.periodicity !== 'loose'}
+                  disabled={formData.periodicity === 'loose'}
                   className={styles.input}
                 />
               </div>
@@ -776,14 +712,18 @@ export default function ChecklistManagement() {
                   <td>{checklist.validity ? new Date(checklist.validity).toLocaleDateString() : 'N/A'}</td> {/* Exibir validade */}
                   <td>{checklist.time || 'N/A'}</td> {/* Exibir horário */}
                   <td>{checklist.active ? 'Sim' : 'Não'}</td>
-                  <td>
-                    <button onClick={() => handleEdit(checklist)} className={styles.editButton}>Editar</button>
-                    <button onClick={() => handleDelete(checklist.id)} className={styles.deleteButton}>Excluir</button>
-                    <button onClick={() => handleToggleStatus(checklist.id, checklist.active)} className={styles.activateButton}>
-                      {checklist.active ? 'Desativar' : 'Ativar'}
-                    </button>
-                    <button onClick={() => handlePrintQRCode(checklist)} className={styles.qrButton}>Imprimir QR</button>
-                  </td>
+<td>
+  <div className={styles.actionsGrid4Buttons}>
+    <button onClick={() => handleEdit(checklist)} className={styles.editButton}>Editar</button>
+    <button onClick={() => handleDelete(checklist.id)} className={styles.deleteButton}>Excluir</button>
+    <button onClick={() => handleToggleStatus(checklist.id, checklist.active)} className={styles.activateButton}>
+      {checklist.active ? 'Desativar' : 'Ativar'}
+    </button>
+    <button onClick={() => handlePrintQRCode(checklist)} className={styles.qrButton}>Imprimir QR</button>
+  </div>
+</td>
+
+
                 </tr>
               ))
             )}

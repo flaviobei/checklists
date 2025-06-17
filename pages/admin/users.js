@@ -318,20 +318,30 @@ export default function UserManagement() {
                     <td>{user.username}</td>
                     <td>{user.name}</td>
                     <td>{user.isAdmin ? 'Administrador' : 'Operacional'}</td>
-                    <td className={styles.actions}>
-                      <button
-                        onClick={() => handleEdit(user)}
-                        className={styles.editButton}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        onClick={() => handleDelete(user.id)}
-                        className={styles.deleteButton}
-                      >
-                        Excluir
-                      </button>
-                    </td>
+                    <td>
+  <div className={styles.actionsGrid}>
+    <button className={styles.editButton} onClick={() => handleEdit(user)}>
+      Editar
+    </button>
+    <button className={styles.deleteButton} onClick={() => handleDelete(user.id)}>
+      Excluir
+    </button>
+    {user.active ? (
+      <button className={styles.deactivateButton}>
+        Desativar
+      </button>
+    ) : (
+      <button className={styles.activateButton}>
+        Ativar
+      </button>
+    )}
+    <button onClick={() => alert('Outro')} className={styles.editButton}>
+      Outro
+    </button>
+  </div>
+</td>
+
+
                   </tr>
                 ))
               )}
